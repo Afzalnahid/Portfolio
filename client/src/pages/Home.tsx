@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Mail, Linkedin, Facebook, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import NahidImage from "../Nahid.jpg";
+import HeroImage from "../Hero.jpeg";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -107,6 +108,13 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${HeroImage})` }}
+        />
+        <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[2px]" />
+        
         {/* Background gradient orb */}
         <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse" />
 
@@ -114,11 +122,11 @@ export default function Home() {
           {/* Left content */}
           <div className="space-y-8 animate-fade-in">
             <div className="space-y-4">
-              <p className="text-cyan-400 font-semibold text-lg">Welcome to my portfolio site</p>
-              <h1 className="text-5xl md:text-6xl font-bold font-poppins leading-tight">
-                Hi, I'm <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Noray</span>
+              <p className="text-cyan-400 font-semibold text-lg drop-shadow-lg">Welcome to my portfolio site</p>
+              <h1 className="text-5xl md:text-6xl font-bold font-poppins leading-tight drop-shadow-2xl">
+                Hi, I'm <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Afzal Nahid</span>
               </h1>
-              <h2 className="text-2xl md:text-3xl text-slate-300 font-outfit">AI Automation Expert</h2>
+              <h2 className="text-2xl md:text-3xl text-slate-100 font-outfit drop-shadow-lg">AI Automation Expert</h2>
             </div>
 
             <p className="text-lg text-slate-300 leading-relaxed max-w-lg">
@@ -182,7 +190,7 @@ export default function Home() {
             <div className="relative w-72 h-72 md:w-96 md:h-96 bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl border-2 border-cyan-500/50 flex items-center justify-center overflow-hidden shadow-2xl">
               <img
                 src={NahidImage}
-                alt="Noray Afzal Nahid"
+                alt="Afzal Nahid"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -313,7 +321,7 @@ export default function Home() {
                 <Linkedin className="w-8 h-8 text-blue-400 group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-sm text-slate-400">LinkedIn</p>
-                  <p className="text-lg font-semibold text-blue-400">Noray Afzal Nahid</p>
+                  <p className="text-lg font-semibold text-blue-400">Afzal Nahid</p>
                 </div>
               </div>
             </a>
@@ -329,7 +337,7 @@ export default function Home() {
                 <Facebook className="w-8 h-8 text-purple-400 group-hover:scale-110 transition-transform" />
                 <div>
                   <p className="text-sm text-slate-400">Facebook</p>
-                  <p className="text-lg font-semibold text-purple-400">Noray Afzal Nahid</p>
+                  <p className="text-lg font-semibold text-purple-400">Afzal Nahid</p>
                 </div>
               </div>
             </a>
@@ -340,7 +348,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-slate-950 border-t border-slate-800 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center text-slate-400">
-          <p>© 2026 Noray Afzal Nahid. All rights reserved. | AI Automation Expert</p>
+          <p>© 2026 Afzal Nahid. All rights reserved. | AI Automation Expert</p>
         </div>
       </footer>
     </div>

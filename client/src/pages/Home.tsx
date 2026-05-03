@@ -86,7 +86,7 @@ export default function Home() {
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-            Noray
+            Afzal Nahid
           </div>
           <div className="flex gap-6 text-sm font-medium">
             <a href="#about" className="hover:text-cyan-400 transition-colors">

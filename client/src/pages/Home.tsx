@@ -114,7 +114,7 @@ export default function Home() {
           {/* Left content */}
           <div className="space-y-8 animate-fade-in">
             <div className="space-y-4">
-              <p className="text-cyan-400 font-semibold text-lg">Welcome to my portfolio</p>
+              <p className="text-cyan-400 font-semibold text-lg">Welcome to my portfolio site</p>
               <h1 className="text-5xl md:text-6xl font-bold font-poppins leading-tight">
                 Hi, I'm <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Noray</span>
               </h1>

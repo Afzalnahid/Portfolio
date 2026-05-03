@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Mail, Linkedin, Facebook, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-import NahidImage from "../Nahid.jpg";
 import HeroImage from "../Hero.jpeg";
 
 export default function Home() {
@@ -107,92 +106,75 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        {/* Background Image with Overlay */}
+      <section className="relative min-h-screen flex items-center justify-start pt-20 overflow-hidden">
+        {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${HeroImage})` }}
         />
-        <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[2px]" />
-        
-        {/* Background gradient orb */}
-        <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse" />
+        {/* Gradient overlay to make text readable on the left */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/70 to-transparent" />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Left content */}
-          <div className="space-y-8 animate-fade-in">
-            <div className="space-y-4">
-              <p className="text-cyan-400 font-semibold text-lg drop-shadow-lg">Welcome to my portfolio site</p>
-              <h1 className="text-5xl md:text-6xl font-bold font-poppins leading-tight drop-shadow-2xl">
-                Hi, I'm <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Afzal Nahid</span>
+          <div className="max-w-3xl space-y-8 animate-fade-in">
+            <div className="space-y-6">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-poppins leading-tight text-white uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.1)] tracking-wide">
+                INTELLIGENT AUTOMATION <br /> & AI SOLUTIONS
               </h1>
-              <h2 className="text-2xl md:text-3xl text-slate-100 font-outfit drop-shadow-lg">AI Automation Expert</h2>
+              <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl font-inter">
+                Hi, I'm Afzal Nahid, a passionate <span className="font-semibold text-white">AI Automation Expert</span> specializing in building scalable n8n workflows and intuitive chatbots to drive growth.
+              </p>
             </div>
 
-            <p className="text-lg text-slate-300 leading-relaxed max-w-lg">
-              I transform complex business processes into intelligent, automated workflows. Specializing in n8n automation, AI chatbots, and innovative solutions that save time and drive growth.
-            </p>
-
-            <div className="flex flex-wrap gap-4 pt-4">
+            <div className="flex flex-wrap gap-6 pt-4">
               <Button
-                className="bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-semibold px-8 py-6 text-base rounded-lg shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-105"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-8 py-6 text-sm rounded-full shadow-[0_0_20px_rgba(59,130,246,0.6)] hover:shadow-[0_0_30px_rgba(59,130,246,0.8)] transition-all duration-300 uppercase tracking-wider"
+                onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+              >
+                View My Projects
+              </Button>
+              <Button
+                variant="outline"
+                className="border-2 border-white text-white hover:bg-white hover:text-slate-900 bg-transparent font-bold px-8 py-6 text-sm rounded-full transition-all duration-300 uppercase tracking-wider"
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
               >
                 Get In Touch
               </Button>
-              <Button
-                variant="outline"
-                className="border-2 border-purple-500 text-purple-400 hover:bg-purple-500/10 font-semibold px-8 py-6 text-base rounded-lg transition-all duration-300"
-                onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-              >
-                View My Work
-              </Button>
             </div>
-
+            
             {/* Social links */}
-            <div className="flex gap-4 pt-4">
+            <div className="flex gap-4 pt-8">
               <a
                 href="https://www.linkedin.com/in/norayafzalnahid"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-slate-800 hover:bg-cyan-500/20 rounded-full transition-all duration-300 hover:scale-110"
+                className="p-3 text-slate-300 hover:text-white transition-all duration-300 hover:scale-110"
               >
-                <Linkedin className="w-5 h-5 text-cyan-400" />
+                <Linkedin className="w-6 h-6" />
               </a>
               <a
                 href="https://www.facebook.com/share/1WyK1mVSVe/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-slate-800 hover:bg-purple-500/20 rounded-full transition-all duration-300 hover:scale-110"
+                className="p-3 text-slate-300 hover:text-white transition-all duration-300 hover:scale-110"
               >
-                <Facebook className="w-5 h-5 text-purple-400" />
+                <Facebook className="w-6 h-6" />
               </a>
               <a
                 href="mailto:nahidafzal97@gmail.com"
-                className="p-3 bg-slate-800 hover:bg-cyan-500/20 rounded-full transition-all duration-300 hover:scale-110"
+                className="p-3 text-slate-300 hover:text-white transition-all duration-300 hover:scale-110"
               >
-                <Mail className="w-5 h-5 text-cyan-400" />
+                <Mail className="w-6 h-6" />
               </a>
               <a
                 href="https://wa.me/8801690000732"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-slate-800 hover:bg-green-500/20 rounded-full transition-all duration-300 hover:scale-110"
+                className="p-3 text-slate-300 hover:text-white transition-all duration-300 hover:scale-110"
               >
-                <MessageCircle className="w-5 h-5 text-green-400" />
+                <MessageCircle className="w-6 h-6" />
               </a>
-            </div>
-          </div>
-
-          {/* Right - Profile image placeholder with glow */}
-          <div className="relative h-96 md:h-full flex items-center justify-center">
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/30 to-purple-500/30 rounded-3xl blur-2xl animate-pulse" />
-            <div className="relative w-72 h-72 md:w-96 md:h-96 bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl border-2 border-cyan-500/50 flex items-center justify-center overflow-hidden shadow-2xl">
-              <img
-                src={NahidImage}
-                alt="Afzal Nahid"
-                className="w-full h-full object-cover"
-              />
             </div>
           </div>
         </div>

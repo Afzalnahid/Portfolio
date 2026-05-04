@@ -99,6 +99,18 @@ export default function About() {
                 </p>
               </li>
             </ul>
+
+            <h3 className="text-2xl font-bold mb-6 mt-12 text-white flex items-center gap-3">
+              <span className="w-8 h-px bg-blue-500" /> Languages
+            </h3>
+            <div className="flex gap-4">
+              <div className="px-4 py-2 bg-slate-800/50 rounded-lg border border-white/5 text-sm font-medium text-slate-300">
+                Bangla (Native)
+              </div>
+              <div className="px-4 py-2 bg-slate-800/50 rounded-lg border border-white/5 text-sm font-medium text-slate-300">
+                English (Professional)
+              </div>
+            </div>
           </div>
         </div>
       </div>

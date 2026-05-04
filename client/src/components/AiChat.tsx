@@ -80,19 +80,19 @@ export default function AiChat() {
         "I'm sorry, I didn't quite catch that. Could you tell me more about your project?";
 
       const lowerInput = userMessage.toLowerCase();
-      if (lowerInput.includes("n8n")) {
+      if (lowerInput.includes("n8n") || lowerInput.includes("make") || lowerInput.includes("ghl")) {
         response =
-          "Nahid is an n8n expert! He's built 20+ workflows involving CRM syncs, automated lead gen, and complex API integrations. Would you like to see some specific n8n use cases?";
-      } else if (lowerInput.includes("chatbot")) {
+          "Nahid is an Automation Expert! He specializes in n8n, Make.com, and GoHighLevel. He has built complex booking workflows, AI advertising systems, and comprehensive internal automation ecosystems. What kind of workflow are you looking to build?";
+      } else if (lowerInput.includes("chatbot") || lowerInput.includes("messaging")) {
         response =
-          "Chatbots are one of Nahid's specialties. He builds them for Facebook, WhatsApp, and Telegram, often using AI for image recognition and natural language processing.";
+          "Chatbots and messaging automation are Nahid's specialties. He integrates WhatsApp, Instagram, and Facebook Messenger using Meta Messaging, often grounding AI responses in Supabase vector stores for accuracy.";
       } else if (
         lowerInput.includes("contact") ||
         lowerInput.includes("hire") ||
         lowerInput.includes("price")
       ) {
         response =
-          "You can reach out to Nahid via the contact section below, or directly via WhatsApp at +880 169 000 0732. He's currently available for new projects!";
+          "You can reach out to Nahid via the contact section, or directly via WhatsApp at +880 1690-000732. He's currently available for new projects and consultations!";
       } else if (lowerInput.includes("hi") || lowerInput.includes("hello")) {
         response =
           "Hello! I'm here to answer any questions you have about Nahid's AI automation services. What's on your mind?";

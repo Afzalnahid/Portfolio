@@ -12,7 +12,7 @@ const contactLinks = [
   },
   {
     name: "WhatsApp",
-    value: "+880 169 000 0732",
+    value: "+880 1690-000732",
     href: "https://wa.me/8801690000732",
     icon: <MessageCircle className="w-6 h-6" />,
     color: "from-green-500/10 to-green-600/5",
@@ -91,14 +91,19 @@ export default function Contact() {
           ))}
         </div>
 
-        <div className="mt-20 p-10 bg-slate-900/40 rounded-3xl border border-white/5 text-center backdrop-blur-sm">
-          <h3 className="text-2xl font-bold mb-4 text-white">
-            Based in Bangladesh, Working Globally
-          </h3>
-          <p className="text-slate-400 font-light">
-            Available for remote consultations and project-based partnerships
-            worldwide.
-          </p>
+        <div className="mt-20 p-10 bg-slate-900/40 rounded-3xl border border-white/5 grid grid-cols-1 md:grid-cols-2 gap-8 backdrop-blur-sm">
+          <div className="text-center md:text-left">
+            <h3 className="text-xl font-bold mb-2 text-white">Home Office</h3>
+            <p className="text-slate-400 font-light text-sm">
+              Nazrul Avenue, Kandirpar, Cumilla, Bangladesh.
+            </p>
+          </div>
+          <div className="text-center md:text-left">
+            <h3 className="text-xl font-bold mb-2 text-white">Workplace</h3>
+            <p className="text-slate-400 font-light text-sm">
+              Software Technology Park, Agrabad, Chittagong.
+            </p>
+          </div>
         </div>
       </div>
     </section>

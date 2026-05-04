@@ -33,19 +33,20 @@ export default function Hero() {
         <div className="max-w-3xl space-y-8 animate-fade-in w-full md:w-3/5">
           <div className="space-y-6">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] text-white uppercase drop-shadow-2xl tracking-tight">
-              INTELLIGENT{" "}
+              STREAMLINE{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
-                AUTOMATION
+                PROCESSES
               </span>{" "}
-              <br /> & AI SOLUTIONS
+              <br /> & EMPOWER GROWTH
             </h1>
             <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl font-light tracking-wide">
-              Hi, I'm Noray Afzal Nahid, a passionate{" "}
+              Hi, I'm Noray Afzal Nahid, an{" "}
               <span className="font-semibold text-white">
-                AI Automation Expert
+                Automation Expert
               </span>{" "}
-              specializing in building scalable n8n workflows and intuitive
-              chatbots to drive growth.
+              specializing in streamlining complex business processes using n8n,
+              Make.com, and GoHighLevel. I break down intricate technical
+              problems into efficient workflows.
             </p>
           </div>
 
@@ -133,10 +134,10 @@ export default function Hero() {
                   <MoreHorizontal className="w-5 h-5 text-slate-400 shrink-0" />
                 </div>
                 <p className="text-[11px] text-slate-500 mt-1 truncate font-medium">
-                  AI Automation Expert | n8n | Chatbots
+                  Automation Expert | n8n | Make.com | GHL
                 </p>
                 <p className="text-[10px] text-slate-400 mt-0.5 flex items-center gap-1">
-                  1d • <Globe className="w-2.5 h-2.5" />
+                  Just now • <Globe className="w-2.5 h-2.5" />
                 </p>
               </div>
             </div>
@@ -144,10 +145,11 @@ export default function Hero() {
             {/* Post Text */}
             <div className="px-4 pb-2">
               <p className="text-[13px] text-slate-800 leading-relaxed font-normal">
-                Crafting intelligent automation to drive growth. 🚀🤖 Let's
-                transform your business processes! <br />
+                I specialize in streamlining complex business processes using
+                n8n, Make.com, and GoHighLevel. Breaking down intricate problems
+                into efficient workflows. 🚀 <br />
                 <span className="text-blue-600 font-semibold hover:underline cursor-pointer">
-                  #AI #Automation #n8n
+                  #Automation #n8n #BusinessEfficiency
                 </span>
               </p>
             </div>

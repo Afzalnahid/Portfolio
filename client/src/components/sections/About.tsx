@@ -15,38 +15,91 @@ export default function About() {
 
         <div className="space-y-8 text-lg text-slate-400 leading-relaxed font-light">
           <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-white first-letter:mr-3 first-letter:float-left">
-            I'm an AI Automation Expert based in Bangladesh with a passion for
-            transforming businesses through intelligent automation. With
-            expertise in <span className="text-white font-medium">n8n</span>,
-            I've successfully built and deployed 20+ complex workflows that
-            streamline operations, reduce manual work, and unlock new
-            possibilities.
+            I am Noray Afzal Nahid, an{" "}
+            <span className="text-white font-medium">Automation Expert</span>{" "}
+            dedicated to streamlining complex business processes. I specialize
+            in leveraging powerful tools like{" "}
+            <span className="text-blue-400 font-medium">n8n</span>,{" "}
+            <span className="text-cyan-400 font-medium">Make.com</span>, and{" "}
+            <span className="text-blue-500 font-medium">GoHighLevel (GHL)</span>{" "}
+            to transform intricate technical challenges into simple, efficient
+            workflows.
           </p>
           <p>
-            My journey in automation began with a simple observation: most
-            businesses waste countless hours on repetitive tasks. I decided to
-            change that. Today, I specialize in creating{" "}
-            <span className="text-blue-400 font-medium">
-              intelligent systems
+            My approach is centered on efficiency and empowerment. By
+            automating repetitive tasks, I help businesses save valuable time
+            and provide them with the tools needed for better decision-making.
+            Currently, I serve as the{" "}
+            <span className="text-white font-medium italic">
+              CEO & Lead Technical Consultant
             </span>{" "}
-            that work 24/7, learning and adapting to your business needs.
+            at <span className="text-blue-400">AutoLogic Systems</span>, where I
+            lead automation strategies for diverse business clients.
           </p>
           <p>
-            From AI-powered chatbots that engage customers across multiple
-            platforms to sophisticated image classifiers and viral content
-            generators, I combine cutting-edge technology with practical
-            business solutions. Every project I undertake is designed with one
-            goal in mind: to deliver{" "}
-            <span className="text-white font-medium italic underline decoration-blue-500 underline-offset-4">
-              measurable value
-            </span>{" "}
-            and sustainable growth.
+            In April 2026, I reached a significant milestone by joining{" "}
+            <span className="text-white font-medium">Autolinium Ltd</span> as an
+            AI Automation Intern, where I collaborate on SaaS-based project
+            workflows and execute AI-driven automation tasks.
           </p>
-          <p>
-            When I'm not building workflows, you'll find me exploring new AI
-            technologies, optimizing automation processes, or helping businesses
-            discover the potential of intelligent automation.
-          </p>
+        </div>
+
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div>
+            <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+              <span className="w-8 h-px bg-blue-500" /> Education
+            </h3>
+            <ul className="space-y-6">
+              <li className="relative pl-6 border-l border-slate-800">
+                <div className="absolute -left-1.5 top-1.5 w-3 h-3 bg-blue-600 rounded-full border-2 border-slate-950" />
+                <p className="text-sm font-bold text-blue-400 uppercase tracking-widest mb-1">
+                  2020 — 2024
+                </p>
+                <h4 className="text-white font-bold text-lg">
+                  Bachelor of Pharmacy (B.Pharm)
+                </h4>
+                <p className="text-slate-500">Northern University Bangladesh</p>
+              </li>
+              <li className="relative pl-6 border-l border-slate-800">
+                <div className="absolute -left-1.5 top-1.5 w-3 h-3 bg-slate-700 rounded-full border-2 border-slate-950" />
+                <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">
+                  Graduated 2018
+                </p>
+                <h4 className="text-white font-bold text-lg">
+                  H.S.C in Science
+                </h4>
+                <p className="text-slate-500">Comilla Govt. College</p>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+              <span className="w-8 h-px bg-blue-500" /> Success & Achievements
+            </h3>
+            <ul className="space-y-6">
+              <li className="relative pl-6 border-l border-slate-800">
+                <div className="absolute -left-1.5 top-1.5 w-3 h-3 bg-emerald-600 rounded-full border-2 border-slate-950" />
+                <h4 className="text-white font-bold text-lg">
+                  Vector Store Migration
+                </h4>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                  Expertly migrated complex project data to Supabase vector
+                  stores ensuring grounded AI responses.
+                </p>
+              </li>
+              <li className="relative pl-6 border-l border-slate-800">
+                <div className="absolute -left-1.5 top-1.5 w-3 h-3 bg-emerald-600 rounded-full border-2 border-slate-950" />
+                <h4 className="text-white font-bold text-lg">
+                  Autolinium Appointment
+                </h4>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                  Appointed as AI Automation Intern at Autolinium Ltd in April
+                  2026.
+                </p>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/10 to-transparent" />

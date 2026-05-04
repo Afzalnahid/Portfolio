@@ -1,32 +1,32 @@
 const services = [
   {
-    title: "n8n Automation",
+    title: "n8n Expert Automation",
     description:
-      "Build powerful, scalable workflows to automate your business processes and connect your favorite tools.",
+      "Expert-level automation handling complex API integrations and self-hosted n8n instances for maximum control and scalability.",
     icon: "⚙️",
     color: "from-blue-500/20 to-blue-600/5",
     border: "group-hover:border-blue-500/50",
   },
   {
-    title: "Chatbot Development",
+    title: "Make.com & GHL Platforms",
     description:
-      "Create intelligent, context-aware chatbots for customer support, lead gen, and engagement.",
-    icon: "🤖",
+      "Scenario design and data mapping in Make.com, paired with powerful CRM automation and funnel building in GoHighLevel.",
+    icon: "🚀",
     color: "from-cyan-500/20 to-cyan-600/5",
     border: "group-hover:border-cyan-500/50",
   },
   {
-    title: "AI Solutions",
+    title: "Meta Messaging Integration",
     description:
-      "Implement cutting-edge AI technology to solve complex problems and extract insights from your data.",
-    icon: "✨",
+      "Seamless integration of WhatsApp, Instagram, and Facebook messaging for automated customer engagement and support.",
+    icon: "💬",
     color: "from-purple-500/20 to-purple-600/5",
     border: "group-hover:border-purple-500/50",
   },
   {
-    title: "Workflow Specialist",
+    title: "Workflow Logic & Troubleshooting",
     description:
-      "Expert consultation and audit of your existing processes to identify automation opportunities.",
+      "Designing advanced routers and triggers, and expert troubleshooting through execution log analysis to ensure 100% uptime.",
     icon: "💡",
     color: "from-emerald-500/20 to-emerald-600/5",
     border: "group-hover:border-emerald-500/50",

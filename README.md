@@ -22,11 +22,9 @@ client/src/
 │   ├── ui/             # Reusable UI primitives (Buttons, Cards, etc.)
 │   ├── sections/       # Main page sections (Hero, About, etc.)
 │   ├── Map.tsx         # Google Maps integration
-│   ├── ManusDialog.tsx # Specialized login dialog
 │   └── AiChat.tsx      # AI Assistant with streaming support
 ├── pages/
 │   ├── Home.tsx        # Public landing page
-│   ├── Dashboard.tsx   # Private client portal
 │   └── NotFound.tsx    # 404 error page
 └── contexts/
     └── ThemeContext.tsx # Dark/Light mode management
@@ -36,7 +34,6 @@ client/src/
 
 - **Cinematic Hero:** High-end design with glow button effects and tech overlays.
 - **AI Assistant:** Interactive streaming chat interface.
-- **Client Dashboard:** Private portal to track automation metrics and request workflows.
 - **Global Reach:** Interactive map visualizing active deployments worldwide.
 - **Enterprise Resiliency:** Professional-grade Error Boundaries and 404 pages.
 

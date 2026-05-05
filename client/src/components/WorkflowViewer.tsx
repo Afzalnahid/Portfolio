@@ -23,7 +23,7 @@ import {
   Home, Plus, Layers, Info, History,
   ChevronDown, Search as SearchIcon,
   MousePointer2, ZoomIn, ZoomOut, RotateCcw,
-  Eraser, Terminal
+  Eraser, Terminal, ArrowLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -167,6 +167,13 @@ export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }:
           {/* Top Bar */}
           <div className="h-14 bg-[#111] border-b border-[#222] flex items-center justify-between px-4 z-50">
             <div className="flex items-center gap-4">
+              <div 
+                className="flex items-center gap-2 text-slate-400 hover:text-white cursor-pointer mr-2 pr-4 border-r border-[#222] transition-colors"
+                onClick={onClose}
+              >
+                <ArrowLeft size={16} />
+                <span className="text-[13px] font-medium">Back</span>
+              </div>
               <div className="flex items-center gap-2 text-[13px]">
                 <Bot size={16} className="text-slate-400" />
                 <span className="text-slate-400">Personal</span>

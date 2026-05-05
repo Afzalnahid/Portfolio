@@ -108,7 +108,7 @@ const solutions = [
     accent: "bg-rose-500",
     gradient: "from-rose-900/40 via-rose-900/10 to-transparent",
     borderHover: "hover:border-rose-500/50",
-    workflowPath: "/workflows/UGC Ads Veo & Sora.json",
+    workflowPath: "workflows/UGC Ads Veo & Sora.json",
   },
 ];
 

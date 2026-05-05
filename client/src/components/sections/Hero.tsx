@@ -14,15 +14,15 @@ export default function Hero() {
     <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden group/hero">
       {/* Background Image with Zoom Effect */}
       <motion.div
-        className="absolute inset-0 bg-cover bg-[center_20%] bg-no-repeat opacity-60 scale-105 transition-all duration-1000 ease-in-out"
+        className="absolute inset-0 bg-cover bg-[center_20%] bg-no-repeat opacity-50 scale-105 transition-all duration-1000 ease-in-out"
         style={{ 
           backgroundImage: `url(${HeroReference})`,
           transformOrigin: '50% 25%' // Focus zoom on the face area
         }}
-        whileHover={{ scale: 1.15, opacity: 0.8 }}
+        whileHover={{ scale: 1.4, opacity: 1 }}
       />
-      {/* Gradient overlay to make text readable */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/40 to-slate-950/80 md:bg-gradient-to-r md:from-slate-950/90 md:via-slate-950/50 md:to-transparent" />
+      {/* Gradient overlay - fades slightly on group hover to reveal image */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/40 to-slate-950/80 md:bg-gradient-to-r md:from-slate-950/90 md:via-slate-950/50 md:to-transparent transition-opacity duration-1000 group-hover/hero:opacity-40" />
 
       {/* Futuristic Grid Overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />

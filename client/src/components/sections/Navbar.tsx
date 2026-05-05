@@ -24,12 +24,12 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div
-            className="text-xl font-black tracking-tighter bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent uppercase cursor-pointer"
+            className="text-lg font-black tracking-[0.2em] text-white uppercase cursor-pointer"
             onClick={() => setLocation("/")}
           >
-            Nahid<span className="text-white ml-0.5">.</span>
+            Nahid<span className="text-[#58a6ff]">.</span>
           </div>
-          <div className="hidden md:flex items-center gap-8 text-[13px] font-bold uppercase tracking-widest">
+          <div className="hidden md:flex items-center gap-10 text-[11px] font-black uppercase tracking-[0.3em]">
             {[
               { name: "About", href: "#about" },
               { name: "Projects", href: "#solutions" },
@@ -38,10 +38,9 @@ export default function Navbar() {
               <a
                 key={item.name}
                 href={item.href}
-                className="relative group text-slate-400 hover:text-white transition-colors duration-300"
+                className="text-white/70 hover:text-white transition-colors duration-300"
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
           </div>

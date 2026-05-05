@@ -32,29 +32,23 @@ const N8nNode = memo(({ data }: NodeProps) => {
   const isTrigger = (data.type as string).toLowerCase().includes('trigger') || (data.type as string).toLowerCase().includes('webhook');
 
   const getIcon = (type: string) => {
-    const t = type.toLowerCase();
-    if (t.includes('webhook')) return <Globe size={18} />;
-    if (t.includes('httprequest')) return <Zap size={18} />;
-    if (t.includes('googlesheets')) return <List size={18} />;
-    if (t.includes('langchain')) return <Bot size={18} />;
-    if (t.includes('postgres') || t.includes('supabase')) return <Database size={18} />;
-    if (t.includes('code')) return <Code size={18} />;
-    if (t.includes('schedule')) return <Clock size={18} />;
-    if (t.includes('set')) return <Settings size={18} />;
-    if (t.includes('switch') || t.includes('if')) return <Workflow size={18} />;
-    if (t.includes('telegram') || t.includes('facebook')) return <MessageSquare size={18} />;
-    return <Cpu size={18} />;
+    // Real, official n8n logo SVG
+    return (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5">
+        <path fill="#ffffff" d="M21.4737 5.6842c-1.1772 0-2.1663.8051-2.4468 1.8947h-2.8955c-1.235 0-2.289.893-2.492 2.111l-.1038.623a1.263 1.263 0 0 1-1.246 1.0555H11.289c-.2805-1.0896-1.2696-1.8947-2.4468-1.8947s-2.1663.8051-2.4467 1.8947H4.973c-.2805-1.0896-1.2696-1.8947-2.4468-1.8947C1.1311 9.4737 0 10.6047 0 12s1.131 2.5263 2.5263 2.5263c1.1772 0 2.1663-.8051 2.4468-1.8947h1.4223c.2804 1.0896 1.2696 1.8947 2.4467 1.8947 1.1772 0 2.1663-.8051 2.4468-1.8947h1.0008a1.263 1.263 0 0 1 1.2459 1.0555l.1038 2.111 2.492 2.111h.3692c.2804 1.0895 1.2696 1.8947 2.4468 1.8947 1.3952 0 2.5263-1.131 2.5263-2.5263s-1.131-2.5263-2.5263-2.5263c-1.1772 0-2.1664.805-2.4468 1.8947h-.3692a1.263 1.263 0 0 1-1.246-1.0555l-.1037-.623A2.52 2.52 0 0 0 13.9607 12a2.52 2.52 0 0 0 .821-1.4794l.1038-.623a1.263 1.263 0 0 1 1.2459-1.0555h2.8955c.2805 1.0896 1.2696 1.8947 2.4468 1.8947 1.3952 0 2.5263-1.131 2.5263-2.5263s-1.131-2.5263-2.5263-2.5263m0 1.2632a1.263 1.263 0 0 1 1.2631 1.2631 1.263 1.263 0 0 1-1.2631 1.2632 1.263 1.263 0 0 1-1.2632-1.2632 1.263 1.263 0 0 1 1.2632-1.2631M2.5263 10.7368A1.263 1.263 0 0 1 3.7895 12a1.263 1.263 0 0 1-1.2632 1.2632A1.263 1.263 0 0 1 1.2632 12a1.263 1.263 0 0 1 1.2631-1.2632m6.3158 0A1.263 1.263 0 0 1 10.1053 12a1.263 1.263 0 0 1-1.2632 1.2632A1.263 1.263 0 0 1 7.579 12a1.263 1.263 0 0 1 1.2632-1.2632m10.1053 3.7895a1.263 1.263 0 0 1 1.2631 1.2632 1.263 1.263 0 0 1-1.2631 1.2631 1.263 1.263 0 0 1-1.2632-1.2631 1.263 1.263 0 0 1 1.2632-1.2632"/>
+      </svg>
+    );
   };
 
   const getColor = (type: string) => {
     const t = type.toLowerCase();
-    if (t.includes('trigger') || t.includes('webhook') || t.includes('schedule')) return '#ff6d5a'; 
+    if (t.includes('trigger') || t.includes('webhook') || t.includes('schedule')) return '#EA4B71'; 
     if (t.includes('langchain') || t.includes('ai')) return '#ff9900'; 
     if (t.includes('googlesheets')) return '#1d8d53'; 
     if (t.includes('postgres') || t.includes('supabase')) return '#0052cc'; 
     if (t.includes('code')) return '#fcc419'; 
     if (t.includes('switch') || t.includes('if')) return '#6b7280'; 
-    return '#4e54c8'; 
+    return '#EA4B71'; 
   };
 
   return (
@@ -71,7 +65,12 @@ const N8nNode = memo(({ data }: NodeProps) => {
         className="w-[40px] h-[38px] flex items-center justify-center text-white rounded-l-[2px]"
         style={{ backgroundColor: getColor(data.type as string) }}
       >
-        {getIcon(data.type as string)}
+        <motion.div
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          {getIcon(data.type as string)}
+        </motion.div>
       </div>
       
       <div className="px-3 flex flex-col justify-center flex-grow overflow-hidden">
@@ -106,12 +105,14 @@ interface WorkflowViewerProps {
 const parseN8nToReactFlow = (json: any) => {
   if (!json || !json.nodes) return { nodes: [], edges: [] };
 
-  const nodes: Node[] = json.nodes.map((node: any) => ({
-    id: node.name,
-    type: 'n8n',
-    data: { label: node.name, type: node.type },
-    position: { x: node.position[0], y: node.position[1] },
-  }));
+  const nodes: Node[] = json.nodes
+    .filter((node: any) => node.type !== 'n8n-nodes-base.stickyNote')
+    .map((node: any) => ({
+      id: node.name,
+      type: 'n8n',
+      data: { label: node.name, type: node.type },
+      position: { x: node.position[0], y: node.position[1] },
+    }));
 
   const edges: Edge[] = [];
   const connections = json.connections || {};
@@ -126,8 +127,8 @@ const parseN8nToReactFlow = (json: any) => {
             source: sourceName,
             target: target.node,
             type: 'smoothstep',
-            animated: false,
-            style: { stroke: '#444', strokeWidth: 1.5 },
+            animated: true,
+            style: { stroke: '#ff6d5a', strokeWidth: 2 },
           });
         });
       });
@@ -140,7 +141,6 @@ const parseN8nToReactFlow = (json: any) => {
 export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }: WorkflowViewerProps) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
     if (isOpen && workflowJson) {
@@ -164,7 +164,7 @@ export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }:
         
         <div className="w-full h-full flex flex-col relative">
           
-          {/* Top Bar - breadcrumbs, tabs, publish toggle */}
+          {/* Top Bar */}
           <div className="h-14 bg-[#111] border-b border-[#222] flex items-center justify-between px-4 z-50">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 text-[13px]">
@@ -176,22 +176,13 @@ export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }:
               </div>
             </div>
 
-            <div className="absolute left-1/2 -translate-x-1/2 flex items-center bg-[#1a1a1a] rounded-md p-1 border border-[#222]">
-              <button className="px-4 py-1.5 text-[12px] font-medium text-white bg-[#222] rounded-[4px]">Editor</button>
-              <button className="px-4 py-1.5 text-[12px] font-medium text-slate-400 hover:text-white transition-colors">Executions</button>
-              <button className="px-4 py-1.5 text-[12px] font-medium text-slate-400 hover:text-white transition-colors">Evaluations</button>
-            </div>
-
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-3">
                 <span className="text-[12px] text-slate-500 font-bold">0 / 4</span>
                 <div className="flex items-center gap-2 px-3 py-1.5 bg-[#1a1a1a] border border-[#222] rounded-md">
                    <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                   <span className="text-[12px] font-bold text-emerald-500">Published</span>
-                   <ChevronDown size={14} className="text-slate-500" />
+                   <span className="text-[12px] font-bold text-emerald-500">Active</span>
                 </div>
-                <History size={18} className="text-slate-400 cursor-pointer hover:text-white transition-colors" />
-                <MoreHorizontal size={18} className="text-slate-400 cursor-pointer hover:text-white transition-colors" />
                 <X 
                   size={20} 
                   className="text-slate-400 cursor-pointer hover:text-white transition-colors ml-4" 
@@ -206,9 +197,6 @@ export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }:
             <div className="w-14 bg-[#111] border-r border-[#222] flex flex-col items-center py-4 gap-6 z-50">
               <Home size={20} className="text-slate-500 cursor-pointer hover:text-white" />
               <Layers size={20} className="text-slate-500 cursor-pointer hover:text-white" />
-              <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center text-slate-400 border border-white/5">
-                <Plus size={18} />
-              </div>
               <SearchIcon size={20} className="text-slate-500 cursor-pointer hover:text-white" />
               <Info size={20} className="text-slate-500 cursor-pointer hover:text-white" />
             </div>
@@ -235,7 +223,7 @@ export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }:
                 
                 {/* Right Floating Bar */}
                 <Panel position="top-right" className="flex flex-col gap-2 mt-4 mr-4">
-                  {[Plus, SearchIcon, Layers, Info, History].map((Icon, idx) => (
+                  {[SearchIcon, Layers, Info].map((Icon, idx) => (
                     <div key={idx} className="w-10 h-10 bg-[#1a1a1a] border border-[#222] rounded-lg flex items-center justify-center text-slate-400 cursor-pointer hover:bg-[#222] hover:text-white transition-all shadow-xl">
                       <Icon size={18} />
                     </div>
@@ -248,30 +236,12 @@ export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }:
                   <div className="p-2 text-slate-400 hover:text-white cursor-pointer"><ZoomIn size={16} /></div>
                   <div className="p-2 text-slate-400 hover:text-white cursor-pointer"><ZoomOut size={16} /></div>
                   <div className="p-2 text-slate-400 hover:text-white cursor-pointer"><RotateCcw size={16} /></div>
-                  <div className="w-[1px] h-4 bg-[#222] mx-1" />
-                  <div className="p-2 text-slate-400 hover:text-white cursor-pointer"><Eraser size={16} /></div>
-                </Panel>
-
-                {/* Center Bottom Execute Button */}
-                <Panel position="bottom-center" className="mb-8">
-                  <div className="flex items-center bg-[#ff6d5a] rounded-lg overflow-hidden shadow-[0_8px_32px_rgba(255,109,90,0.3)] group cursor-pointer active:scale-95 transition-all">
-                    <div className="px-3 py-4 flex items-center justify-center border-r border-white/10 group-hover:bg-white/10">
-                       <Zap size={20} className="text-white fill-white" />
-                    </div>
-                    <div className="px-6 py-4 flex flex-col items-start bg-[#ff6d5a] group-hover:bg-[#ff7e6d] transition-colors">
-                      <span className="text-[14px] font-bold text-white leading-none">Execute workflow</span>
-                      <span className="text-[10px] text-white/70 font-bold mt-1 uppercase tracking-tight">from Webhook</span>
-                    </div>
-                    <div className="px-3 py-4 flex items-center justify-center border-l border-white/10 group-hover:bg-white/10">
-                       <ChevronDown size={16} className="text-white" />
-                    </div>
-                  </div>
                 </Panel>
 
                 <Panel position="bottom-left" className="!m-0 !left-0 !bottom-0">
                    <div className="h-8 bg-[#111] border-t border-[#222] w-screen flex items-center px-4 gap-4">
                       <Terminal size={12} className="text-slate-500" />
-                      <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Logs</span>
+                      <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Live Execution Log</span>
                    </div>
                 </Panel>
               </ReactFlow>

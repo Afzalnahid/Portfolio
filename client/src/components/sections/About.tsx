@@ -1,3 +1,5 @@
+import nahid2 from "@/nahid2.png";
+
 export default function About() {
   return (
     <section
@@ -5,7 +7,7 @@ export default function About() {
       className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/30 relative"
     >
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
-      <div className="max-w-4xl mx-auto relative">
+      <div className="max-w-6xl mx-auto relative">
         <div className="flex flex-col items-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black mb-4 text-center tracking-tighter uppercase">
             About Me
@@ -13,38 +15,47 @@ export default function About() {
           <div className="w-20 h-1.5 bg-blue-600 rounded-full" />
         </div>
 
-        <div className="space-y-8 text-lg text-slate-400 leading-relaxed font-light">
-          <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-white first-letter:mr-3 first-letter:float-left">
-            I am Noray Afzal Nahid, an{" "}
-            <span className="text-white font-medium">Automation Expert</span>{" "}
-            dedicated to streamlining complex business processes. I specialize
-            in leveraging powerful tools like{" "}
-            <span className="text-blue-400 font-medium">n8n</span>,{" "}
-            <span className="text-cyan-400 font-medium">Make.com</span>, and{" "}
-            <span className="text-blue-500 font-medium">GoHighLevel (GHL)</span>{" "}
-            to transform intricate technical challenges into simple, efficient
-            workflows.
-          </p>
-          <p>
-            My approach is centered on efficiency and empowerment. By
-            automating repetitive tasks, I help businesses save valuable time
-            and provide them with the tools needed for better decision-making.
-            Currently, I serve as the{" "}
-            <span className="text-white font-medium italic">
-              CEO & Lead Technical Consultant
-            </span>{" "}
-            at <a href="https://www.facebook.com/profile.php?id=61586879968082" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">AutoLogic Systems</a>, where I
-            lead automation strategies for diverse business clients.
-          </p>
-          <p>
-            In April 2026, I reached a significant milestone by joining{" "}
-            <a href="https://www.autolinium.com" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:underline">Autolinium Ltd</a> as an
-            AI Automation Intern, where I collaborate on SaaS-based project
-            workflows and execute AI-driven automation tasks.
-          </p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-5 order-2 lg:order-1 relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+            <div className="relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-800">
+              <img src={nahid2} alt="Noray Afzal Nahid" className="w-full h-auto object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-500" />
+            </div>
+          </div>
+
+          <div className="lg:col-span-7 order-1 lg:order-2 space-y-8 text-lg text-slate-400 leading-relaxed font-light">
+            <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-white first-letter:mr-3 first-letter:float-left">
+              I am Noray Afzal Nahid, an{" "}
+              <span className="text-white font-medium">Automation Expert</span>{" "}
+              dedicated to streamlining complex business processes. I specialize
+              in leveraging powerful tools like{" "}
+              <span className="text-blue-400 font-medium">n8n</span>,{" "}
+              <span className="text-cyan-400 font-medium">Make.com</span>, and{" "}
+              <span className="text-blue-500 font-medium">GoHighLevel (GHL)</span>{" "}
+              to transform intricate technical challenges into simple, efficient
+              workflows.
+            </p>
+            <p>
+              My approach is centered on efficiency and empowerment. By
+              automating repetitive tasks, I help businesses save valuable time
+              and provide them with the tools needed for better decision-making.
+              Currently, I serve as the{" "}
+              <span className="text-white font-medium italic">
+                CEO & Lead Technical Consultant
+              </span>{" "}
+              at <a href="https://www.facebook.com/profile.php?id=61586879968082" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">AutoLogic Systems</a>, where I
+              lead automation strategies for diverse business clients.
+            </p>
+            <p>
+              In April 2026, I reached a significant milestone by joining{" "}
+              <a href="https://www.autolinium.com" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:underline">Autolinium Ltd</a> as an
+              AI Automation Intern, where I collaborate on SaaS-based project
+              workflows and execute AI-driven automation tasks.
+            </p>
+          </div>
         </div>
 
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
           <div>
             <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
               <span className="w-8 h-px bg-blue-500" /> Education

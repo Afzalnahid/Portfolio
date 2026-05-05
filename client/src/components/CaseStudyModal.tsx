@@ -136,7 +136,7 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: CaseStudyM
                 </div>
                 <div className="flex items-center gap-3">
                   <a 
-                    href="https://calendar.app.google/Gctx4X4k8cAHjPWK9" 
+                    href="https://calendar.app.google/2kkn9abjZreibAJx6" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="hidden sm:flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-xs font-bold text-slate-300 rounded-lg transition-colors border border-white/5"
@@ -156,7 +156,7 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: CaseStudyM
                    <CalendarDays size={48} className="text-slate-600 mb-2" />
                    <p>If the calendar doesn't load (due to Google's strict embed policies on this specific URL structure),<br/> please open it directly.</p>
                    <a 
-                    href="https://calendar.app.google/Gctx4X4k8cAHjPWK9" 
+                    href="https://calendar.app.google/2kkn9abjZreibAJx6" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="px-6 py-3 bg-blue-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-blue-500 transition-colors shadow-lg"
@@ -166,7 +166,7 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: CaseStudyM
                 </div>
 
                 <iframe
-                  src="https://calendar.app.google/Gctx4X4k8cAHjPWK9"
+                  src="https://calendar.app.google/2kkn9abjZreibAJx6"
                   style={{ border: 0 }}
                   width="100%"
                   height="100%"

@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useState, useEffect, memo } from 'react';
+import { createPortal } from 'react-dom';
 import {
   ReactFlow,
   Background,
@@ -150,19 +151,20 @@ export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }:
     }
   }, [isOpen, workflowJson, setNodes, setEdges]);
 
-  if (!isOpen) return null;
+  if (typeof document === 'undefined') return null;
 
-  return (
+  return createPortal(
     <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0d0d0d]"
-      >
-        <div className="absolute inset-0" />
-        
-        <div className="w-full h-full flex flex-col relative">
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0d0d0d]"
+        >
+          <div className="absolute inset-0" />
+          
+          <div className="w-full h-full flex flex-col relative">
           
           {/* Top Bar */}
           <div className="h-14 bg-[#111] border-b border-[#222] flex items-center justify-between px-4 z-50">
@@ -256,6 +258,8 @@ export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }:
           </div>
         </div>
       </motion.div>
-    </AnimatePresence>
+      )}
+    </AnimatePresence>,
+    document.body
   );
 }

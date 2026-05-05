@@ -13,14 +13,20 @@ import {
 } from "lucide-react";
 import HeroImage from "@/Hero.jpeg";
 import Nahid2Image from "@/nahid2.png";
+import HeroReference from "@/HeroReference.jpeg";
+import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40 mix-blend-luminosity scale-105 animate-pulse-slow"
-        style={{ backgroundImage: `url(${HeroImage})` }}
+    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden group/hero">
+      {/* Background Image with Zoom Effect */}
+      <motion.div
+        className="absolute inset-0 bg-cover bg-[center_20%] bg-no-repeat opacity-50 scale-105 transition-all duration-1000 ease-in-out"
+        style={{ 
+          backgroundImage: `url(${HeroReference})`,
+          transformOrigin: '50% 25%' // Focus zoom on the face area
+        }}
+        whileHover={{ scale: 1.25, opacity: 0.7 }}
       />
       {/* Gradient overlay to make text readable on the left */}
       <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/70 to-slate-950/30" />

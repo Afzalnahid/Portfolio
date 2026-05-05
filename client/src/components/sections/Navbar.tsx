@@ -32,7 +32,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-8 text-[13px] font-bold uppercase tracking-widest">
             {[
               { name: "About", href: "#about" },
-              { name: "Solutions", href: "#solutions" },
+              { name: "Projects", href: "#solutions" },
               { name: "Contact", href: "#contact" },
             ].map((item) => (
               <a

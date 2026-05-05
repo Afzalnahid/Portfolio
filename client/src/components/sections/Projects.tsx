@@ -9,8 +9,20 @@ const projects = [
   },
   {
     title: "Booking & Consultation Workflow",
-    description:
-      "Complex booking sequence for AutoLogic Systems integrating Google Calendar and automated meeting link generation.",
+    description: (
+      <>
+        Complex booking sequence for{" "}
+        <a
+          href="https://www.facebook.com/profile.php?id=61586879968082"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-400 hover:underline"
+        >
+          AutoLogic Systems
+        </a>{" "}
+        integrating Google Calendar and automated meeting link generation.
+      </>
+    ),
     tags: ["n8n", "GHL", "Google Calendar"],
     icon: "📅",
     color: "from-blue-600/20 to-transparent",
@@ -41,8 +53,20 @@ const projects = [
   },
   {
     title: "AI Automation Intern Tasks",
-    description:
-      "Executing SaaS-based project workflows and AI-driven automation at Autolinium Ltd.",
+    description: (
+      <>
+        Executing SaaS-based project workflows and AI-driven automation at{" "}
+        <a
+          href="https://www.autolinium.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white font-medium hover:underline"
+        >
+          Autolinium Ltd
+        </a>
+        .
+      </>
+    ),
     tags: ["SaaS", "AI Automation", "Autolinium"],
     icon: "🤖",
     color: "from-amber-600/20 to-transparent",
@@ -51,10 +75,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section
-      id="projects"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/50"
-    >
+    <section id="projects" className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/50">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center mb-20">
           <h2 className="text-4xl md:text-5xl font-black mb-4 text-center tracking-tighter uppercase">
@@ -82,9 +103,9 @@ export default function Projects() {
                 <h3 className="text-xl font-bold mb-3 text-white group-hover:text-purple-400 transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-slate-400 text-sm mb-6 leading-relaxed font-light">
+                <div className="text-slate-400 text-sm mb-6 leading-relaxed font-light">
                   {project.description}
-                </p>
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag, tagIdx) => (
                     <span

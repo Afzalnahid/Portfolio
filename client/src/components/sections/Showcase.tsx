@@ -159,7 +159,7 @@ export default function Showcase() {
               Product Showcase
             </span>
             <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tighter uppercase text-white">
-              Proven n8n Workflows
+              n8n workflows
             </h2>
             <div className="w-20 h-1.5 bg-blue-500 rounded-full mx-auto mb-6" />
             <p className="text-slate-400 max-w-2xl font-light text-lg">

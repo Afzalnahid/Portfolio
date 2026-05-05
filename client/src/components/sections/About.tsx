@@ -38,7 +38,7 @@ export default function About() {
           </p>
           <p>
             In April 2026, I reached a significant milestone by joining{" "}
-            <span className="text-white font-medium">Autolinium Ltd</span> as an
+            <a href="https://www.autolinium.com" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:underline">Autolinium Ltd</a> as an
             AI Automation Intern, where I collaborate on SaaS-based project
             workflows and execute AI-driven automation tasks.
           </p>
@@ -115,6 +115,10 @@ export default function About() {
         </div>
       </div>
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/10 to-transparent" />
+    </section>
+  );
+}
+/>
     </section>
   );
 }

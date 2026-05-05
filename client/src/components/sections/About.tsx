@@ -33,7 +33,7 @@ export default function About() {
             <span className="text-white font-medium italic">
               CEO & Lead Technical Consultant
             </span>{" "}
-            at <span className="text-blue-400">AutoLogic Systems</span>, where I
+            at <a href="https://www.facebook.com/profile.php?id=61586879968082" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">AutoLogic Systems</a>, where I
             lead automation strategies for diverse business clients.
           </p>
           <p>
@@ -91,10 +91,10 @@ export default function About() {
               <li className="relative pl-6 border-l border-slate-800">
                 <div className="absolute -left-1.5 top-1.5 w-3 h-3 bg-emerald-600 rounded-full border-2 border-slate-950" />
                 <h4 className="text-white font-bold text-lg">
-                  Autolinium Appointment
+                  <a href="https://www.autolinium.com" target="_blank" rel="noopener noreferrer" className="hover:underline">Autolinium Appointment</a>
                 </h4>
                 <p className="text-slate-500 text-sm leading-relaxed">
-                  Appointed as AI Automation Intern at Autolinium Ltd in April
+                  Appointed as AI Automation Intern at <a href="https://www.autolinium.com" target="_blank" rel="noopener noreferrer" className="hover:underline">Autolinium Ltd</a> in April
                   2026.
                 </p>
               </li>
@@ -115,10 +115,6 @@ export default function About() {
         </div>
       </div>
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/10 to-transparent" />
-    </section>
-  );
-}
-/>
     </section>
   );
 }

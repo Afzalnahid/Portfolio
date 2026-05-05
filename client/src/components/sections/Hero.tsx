@@ -17,8 +17,8 @@ export default function Hero() {
         style={{ backgroundImage: `url(${HeroDesign})` }}
       />
       
-      {/* Gradient Overlay to darken the left side for text readability while keeping the right side clear */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+      {/* Gradient Overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/10" />
 
       {/* Top Section - Spacing for Navbar */}
       <div className="relative z-10 h-24" />

@@ -1,5 +1,13 @@
 const projects = [
   {
+    title: "Multimodal E-Commerce Chatbot",
+    description:
+      "Advanced ecosystem for retail brands using Gemini 2.5 Pro for visual discovery, Whisper-large-v3 for voice commerce, and Supabase RAG for real-time inventory.",
+    tags: ["Gemini 2.5 Pro", "Whisper", "Supabase", "n8n"],
+    icon: "💎",
+    color: "from-blue-600/20 to-transparent",
+  },
+  {
     title: "Booking & Consultation Workflow",
     description:
       "Complex booking sequence for AutoLogic Systems integrating Google Calendar and automated meeting link generation.",
@@ -38,13 +46,6 @@ const projects = [
     tags: ["SaaS", "AI Automation", "Autolinium"],
     icon: "🤖",
     color: "from-amber-600/20 to-transparent",
-  },
-  {
-    title: "Facebook & Meta Messaging",
-    description: "Skilled in Meta Messaging integration for WhatsApp, Instagram, and FB automation.",
-    tags: ["WhatsApp", "Instagram", "Meta"],
-    icon: "📱",
-    color: "from-rose-600/20 to-transparent",
   },
 ];
 

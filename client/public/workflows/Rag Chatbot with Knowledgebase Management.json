@@ -1,0 +1,1303 @@
+{
+  "name": "Autolonium chatbot",
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Use this tool to retrieve official information about Autolinium, including its services (Marketing Automation, BPA, Custom Software), leadership team, and proprietary products like Voicium and PicDrift Studio. This tool performs a semantic search within the Autolinium Knowledge Base and returns the most relevant documentation snippets and their source metadata. Use this whenever a user asks 'who', 'what', 'how', or 'where' regarding Autolinium's operations or expertise.",
+        "tableName": {
+          "__rl": true,
+          "value": "knowledge_base",
+          "mode": "list",
+          "cachedResultName": "knowledge_base"
+        },
+        "topK": 20,
+        "options": {
+          "queryName": "match_knowledge_base"
+        }
+      },
+      "id": "ec3104d0-9ccf-47db-a063-77ceb40122a7",
+      "name": "Supabase Vector Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "position": [
+        -2416,
+        1104
+      ],
+      "typeVersion": 1.3,
+      "credentials": {
+        "supabaseApi": {
+          "id": "ovPyaFS7leYwiEcU",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.body.sessionId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -2528,
+        1200
+      ],
+      "id": "621d2174-9f44-4861-8bdf-c6a886f5eb59",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "httpMethod": [
+          "POST"
+        ],
+        "path": "autolonium",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -2768,
+        880
+      ],
+      "id": "d8ebedb7-c72f-42b5-b263-e6d55015231d",
+      "name": "Webhook",
+      "webhookId": "ab1237a7-773b-4003-b4ca-5f85ee91c66c",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "PJwomwub4P7oIXnJ",
+          "name": "Autolonium webhook"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"reply\": $json.reply } }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "x-autolinium-timestamp",
+                "value": "={{$json._respTimestamp}}"
+              },
+              {
+                "name": "x-autolinium-signature",
+                "value": "={{$json._respSignature}}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        -1600,
+        880
+      ],
+      "id": "92dffe78-66b0-4b34-96c7-ed84c99d79cf",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "const crypto = require(\"crypto\");\n\n  const reply = $json.reply;\n  if (!reply) throw new Error(\"Reply not found at $json.reply\");\n\n  const responseBody = { reply: String(reply) };\n  const secret = \"autoresponse@2026!!\";\n\n  const timestamp = Math.floor(Date.now() / 1000).toString();\n  const payload = JSON.stringify(responseBody);\n\n  const signature = crypto\n    .createHmac(\"sha256\", secret)\n    .update(`${timestamp}.${payload}`)\n    .digest(\"hex\");\n\n  return [\n    {\n      json: {\n        reply: responseBody.reply,\n        _respTimestamp: timestamp,\n        _respSignature: signature,\n      },\n    },\n  ];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1824,
+        880
+      ],
+      "id": "05085b5c-14ba-4ecc-bb39-8d8f473a269a",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a3cc5176-0dfc-4c0c-936e-60dcfe3ad153",
+              "name": "reply",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2048,
+        880
+      ],
+      "id": "0f8a71ac-0c06-4fd6-99a8-de24ceb8cc4a",
+      "name": "AI Response"
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "id": "52a1a023-7dab-4963-9dea-b638c691eedc",
+      "name": "Extract Document Text",
+      "type": "n8n-nodes-base.extractFromFile",
+      "position": [
+        -976,
+        -560
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "tableId": "knowledge_base",
+        "filterType": "string",
+        "filterString": "=metadata->>file_id=eq.{{ $json.file_id }}"
+      },
+      "id": "a2b875c7-1943-44d8-9f6d-a4ca24de0b22",
+      "name": "Delete Old Doc Rows",
+      "type": "n8n-nodes-base.supabase",
+      "position": [
+        -1872,
+        -656
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "ovPyaFS7leYwiEcU",
+          "name": "Supabase account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "10646eae-ae46-4327-a4dc-9987c2d76173",
+              "name": "file_id",
+              "type": "string",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "id": "f4536df5-d0b1-4392-bf17-b8137fb31a44",
+              "name": "file_type",
+              "type": "string",
+              "value": "={{ $json.mimeType }}"
+            },
+            {
+              "id": "77d782de-169d-4a46-8a8e-a3831c04d90f",
+              "name": "file_name",
+              "type": "string",
+              "value": "={{ $json.name }}"
+            },
+            {
+              "id": "9bde4d7f-e4f3-4ebd-9338-dce1350f9eab",
+              "name": "file_url",
+              "type": "string",
+              "value": "={{ $json.webViewLink }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bf368b42-5a20-4e20-b4ba-b495b6454659",
+      "name": "Set File ID",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -2096,
+        -656
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "id": "b20d8962-01ca-411a-98c2-2816e7e83241",
+      "name": "Extract PDF Text",
+      "type": "n8n-nodes-base.extractFromFile",
+      "position": [
+        -976,
+        -752
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "separator": "\\n",
+        "chunkOverlap": 200
+      },
+      "id": "a5bc5f2c-9b98-4531-8f04-62b587396398",
+      "name": "Character Text Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterCharacterTextSplitter",
+      "position": [
+        -544,
+        -128
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $('Set File ID').item.json.file_type }}",
+                    "rightValue": "application/pdf"
+                  }
+                ]
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "b69f5605-0179-4b02-9a32-e34bb085f82d",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $('Set File ID').item.json.file_type }}",
+                    "rightValue": "application/vnd.google-apps.document"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": 3
+        }
+      },
+      "id": "166d8b63-ad07-4b64-a687-ffba516798c7",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "position": [
+        -1200,
+        -656
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "knowledge_base",
+          "mode": "list"
+        },
+        "options": {
+          "queryName": "match_knowledge"
+        }
+      },
+      "id": "23a8e1e4-dcb5-4246-81d8-cb4ad23df98a",
+      "name": "Insert into Supabase Vectorstore",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "position": [
+        -720,
+        -560
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "supabaseApi": {
+          "id": "ovPyaFS7leYwiEcU",
+          "name": "Supabase account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "17e98dea-dd08-45e0-8787-e40b90b3c924",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        -2320,
+        -592
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "file_registry",
+          "mode": "list",
+          "cachedResultName": "file_registry"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "file_id": "={{ $('Set File ID').item.json.file_id }}",
+            "file_name": "={{ $('Set File ID').item.json.file_name }}",
+            "file_url": "={{ $('Set File ID').item.json.file_url }}",
+            "file_type": "={{ $('Set File ID').item.json.file_type }}",
+            "last_synced": "={{ $now }}"
+          },
+          "matchingColumns": [
+            "file_id"
+          ],
+          "schema": [
+            {
+              "id": "file_id",
+              "displayName": "file_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "file_name",
+              "displayName": "file_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "file_url",
+              "displayName": "file_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "file_type",
+              "displayName": "file_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "last_synced",
+              "displayName": "last_synced",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "cb1f6199-6312-4d4c-b293-55e74847d746",
+      "name": "Insert Document Metadata",
+      "type": "n8n-nodes-base.postgres",
+      "position": [
+        -1648,
+        -656
+      ],
+      "executeOnce": false,
+      "typeVersion": 2.5,
+      "credentials": {
+        "postgres": {
+          "id": "FqYAU4i2Ia7NN1AG",
+          "name": "Autolonium"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $json.data || $json.text || $json.concatenated_data }}",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "=file_id",
+                "value": "={{ $('Set File ID').first().json.file_id }}"
+              },
+              {
+                "name": "file_title",
+                "value": "={{ $('Set File ID').item.json.file_name }}"
+              },
+              {
+                "name": "url",
+                "value": "={{ $('Set File ID').first().json.file_url }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "37615557-5458-4447-bcf0-2521d98b90e8",
+      "name": "Default Data Loader1",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "position": [
+        -624,
+        -336
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('Set File ID').item.json.file_id }}"
+        },
+        "options": {
+          "googleFileConversion": {
+            "conversion": {
+              "docsToFormat": "text/plain",
+              "slidesToFormat": "application/pdf"
+            }
+          }
+        }
+      },
+      "id": "815c0eff-2be9-4253-8883-f320bc3d31bd",
+      "name": "Download File1",
+      "type": "n8n-nodes-base.googleDrive",
+      "position": [
+        -1424,
+        -656
+      ],
+      "executeOnce": true,
+      "retryOnFail": true,
+      "typeVersion": 3,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Nue6urCPB4sJFnWo",
+          "name": "Nahid"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "'1-35CDeQPaiAcEqMa7wQECFEisYM_cfDr' in parents and trashed = false",
+        "returnAll": true,
+        "filter": {},
+        "options": {
+          "fields": [
+            "id",
+            "name"
+          ]
+        }
+      },
+      "id": "30bf0644-f124-468f-b120-5219ff878726",
+      "name": "Get File IDs",
+      "type": "n8n-nodes-base.googleDrive",
+      "position": [
+        -2544,
+        -128
+      ],
+      "typeVersion": 3,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Nue6urCPB4sJFnWo",
+          "name": "Nahid"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "2ce4da0e-5952-42b2-a478-058789b69966",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        -2320,
+        -32
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "file_registry",
+        "returnAll": true,
+        "filterType": "none"
+      },
+      "id": "50199073-ed33-468e-8c61-0bb3ca06a907",
+      "name": "Supabase",
+      "type": "n8n-nodes-base.supabase",
+      "position": [
+        -2544,
+        64
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "supabaseApi": {
+          "id": "ovPyaFS7leYwiEcU",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Grab the raw data from all inputs\nconst inputData = $input.all().map(item => item.json);\n\n// Separate out the Google Drive items (no \"metadata\") vs. Supabase items (have \"metadata\")\nconst googleDriveItems = inputData.filter(item => item.id && !item.metadata);\nconst supabaseItems = inputData.filter(item => item.metadata);\n\n// Extract just the file IDs from Google Drive\nconst googleDriveIds = googleDriveItems.map(item => item.id);\n\n// Build a Set for quick membership checks (recommended for large arrays)\nconst driveIdSet = new Set(googleDriveIds);\n\n// Filter Supabase rows to find those whose file_id is not in the Drive set\nconst orphanedSupabaseRows = supabaseItems.filter(item => {\n  return !driveIdSet.has(item.metadata.file_id);\n});\n\n// Return each orphaned row as a separate n8n item\nreturn orphanedSupabaseRows.map(row => ({ json: row }));\n"
+      },
+      "id": "e9282935-b1ae-48df-9e4a-9ffa21e77737",
+      "name": "Code1",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        -2096,
+        -32
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 10
+            }
+          ]
+        }
+      },
+      "id": "ecce2b3c-7fb4-4a41-8484-b190432ea106",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        -2768,
+        160
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "tableId": "file_registry",
+        "filterType": "string",
+        "filterString": "=file_id=eq.{{ $json.file_id }}"
+      },
+      "id": "ff9e9171-c78e-4543-835f-1cff4b672b4c",
+      "name": "Delete Rows",
+      "type": "n8n-nodes-base.supabase",
+      "position": [
+        -1872,
+        -32
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "supabaseApi": {
+          "id": "ovPyaFS7leYwiEcU",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "'1-35CDeQPaiAcEqMa7wQECFEisYM_cfDr' in parents and trashed = false",
+        "returnAll": true,
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "1-35CDeQPaiAcEqMa7wQECFEisYM_cfDr",
+            "mode": "list",
+            "cachedResultName": "Autolonium knowladebase",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1-35CDeQPaiAcEqMa7wQECFEisYM_cfDr"
+          }
+        },
+        "options": {
+          "fields": [
+            "id",
+            "name"
+          ]
+        }
+      },
+      "id": "1c43a3af-e18f-4ff2-a592-d2e932d14c10",
+      "name": "Get File IDs2",
+      "type": "n8n-nodes-base.googleDrive",
+      "position": [
+        -2544,
+        256
+      ],
+      "typeVersion": 3,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Nue6urCPB4sJFnWo",
+          "name": "Nahid"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "knowledge_base",
+        "returnAll": true,
+        "filterType": "none"
+      },
+      "id": "2d028a65-9f00-4aef-90c5-935bc80d804f",
+      "name": "Supabase2",
+      "type": "n8n-nodes-base.supabase",
+      "position": [
+        -2544,
+        448
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "supabaseApi": {
+          "id": "ovPyaFS7leYwiEcU",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "67f0332e-0546-4c30-adc1-cd3c64fe24c6",
+      "name": "Merge2",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        -2320,
+        352
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "jsCode": "// Simple code to handle empty Google Drive\n\n// Determine if we have Google Drive data\nlet hasDriveData = false;\nlet driveFileIds = new Set();\n\n// Check the first item to see if it's a Google Drive file or a file list\nif (items[0] && items[0].json) {\n  // Is it a files array?\n  if (items[0].json.files && Array.isArray(items[0].json.files)) {\n    hasDriveData = true;\n    for (const file of items[0].json.files) {\n      if (file && file.id) driveFileIds.add(file.id);\n    }\n  }\n  // Is it a single file with no metadata-like properties?\n  else if (items[0].json.id && !items[0].json.title && !items[0].json.created_at) {\n    hasDriveData = true;\n    driveFileIds.add(items[0].json.id);\n  }\n}\n\nconsole.log(\"Has Drive data:\", hasDriveData);\nconsole.log(\"Drive file IDs:\", Array.from(driveFileIds));\n\n// Determine which items are metadata records\nlet metadataRecords = [];\n\n// If the first item looks like a metadata record (has title, url, created_at)\nif (!hasDriveData) {\n  // All items are metadata records\n  metadataRecords = items.map(item => item.json).filter(Boolean);\n  console.log(\"All items are metadata records:\", metadataRecords.length);\n} else {\n  // Only items after the first are metadata records\n  metadataRecords = items.slice(1).map(item => item.json).filter(Boolean);\n  console.log(\"Items after first are metadata records:\", metadataRecords.length);\n}\n\n// If there are no Drive files, mark all metadata records for deletion\nconst recordsToDelete = [];\n\nif (driveFileIds.size === 0) {\n  console.log(\"No Drive files, marking ALL metadata records for deletion\");\n  for (const record of metadataRecords) {\n    if (record && record.id) {\n      recordsToDelete.push({\n        ...record,\n        _shouldDelete: true\n      });\n    }\n  }\n} else {\n  // Otherwise, only mark records not in Drive\n  console.log(\"Checking metadata records against Drive files\");\n  for (const record of metadataRecords) {\n    if (record && record.id && !driveFileIds.has(record.id)) {\n      recordsToDelete.push({\n        ...record,\n        _shouldDelete: true\n      });\n    }\n  }\n}\n\nconsole.log(\"Records to delete:\", recordsToDelete.length);\nreturn recordsToDelete;"
+      },
+      "id": "b8bd61aa-057a-4dde-96fc-fff50d41807a",
+      "name": "Code2",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        -2096,
+        352
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "tableId": "knowledge_base",
+        "filterType": "string",
+        "filterString": "=metadata->>file_id=eq.{{ $json.file_id }}"
+      },
+      "id": "5fdba139-df5e-4712-940d-6ebec752348f",
+      "name": "Delete Rows2",
+      "type": "n8n-nodes-base.supabase",
+      "position": [
+        -1872,
+        352
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "supabaseApi": {
+          "id": "ovPyaFS7leYwiEcU",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "={{ \"'1-35CDeQPaiAcEqMa7wQECFEisYM_cfDr' in parents and trashed = false\" }}",
+        "returnAll": true,
+        "filter": {},
+        "options": {
+          "fields": [
+            "webViewLink",
+            "id",
+            "name",
+            "mimeType"
+          ]
+        }
+      },
+      "id": "ad6e5b74-c528-4768-a067-676dcaf38875",
+      "name": "Search files and folders",
+      "type": "n8n-nodes-base.googleDrive",
+      "position": [
+        -2544,
+        -592
+      ],
+      "typeVersion": 3,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Nue6urCPB4sJFnWo",
+          "name": "Nahid"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "4196e5d4-4c80-4814-88e1-941e8cbabc63",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        -2768,
+        -592
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -752,
+        -336
+      ],
+      "id": "a1a138cf-86f7-473c-b482-64b0ce62e6cd",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "nMutbxm8ZfvhoSgz",
+          "name": "OpenAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -2704,
+        1200
+      ],
+      "id": "6f4d78f4-0a39-416d-8093-e42f27483943",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "nMutbxm8ZfvhoSgz",
+          "name": "OpenAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1536
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -2336,
+        1312
+      ],
+      "id": "6cb419a6-8cfe-4b81-ad0b-407f65155c05",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "nMutbxm8ZfvhoSgz",
+          "name": "OpenAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "# ROLE & IDENTITY\nYou are the official AI assistant for Autolinium. You are a sharp, smart, and highly efficient human-like executive. You represent a company specializing in intelligent software systems and AI automation.\n\n# CONTACT INFORMATION (SHARE UPON REQUEST)\n- Email Support: office@autolinium.com\n- Call Center: +8801533633084\n- Main Office: Chattogram Software Technology Park\n\n# CONTEXT USAGE (RAG PROTOCOL)\nYou will be provided with retrieved context from a Supabase vector database. You must base your answers ONLY on this provided context. If the answer is not in the context, do not guess. \n\n# THE GOLDEN RULE (STRICT LENGTH LIMIT)\nYou MUST be relentlessly concise. \n- NEVER exceed 1 to 3 short sentences. \n- Answer the user's question immediately in the first few words.\n- Respect people's time by being clear and direct.\n\n# TONE & BEHAVIORAL PROTOCOLS\n- NO AI FILLER: You are strictly forbidden from using robotic, performative phrases like \"Great question!\", \"I'd be happy to help!\", \"As an AI...\", or \"Sure, I can tell you about that.\"\n- HUMAN CONVERSATION: Speak naturally. Be confident but not arrogant.\n- HONESTY: Never make up product features, pricing, or capabilities.\n\n# ROUTING & ESCALATION RULES\n- Your goal is to identify the user's industry/problem and guide them to the right solution.\n- DO NOT share specific pricing numbers, internal technical architecture, or unreleased product details.\n- ESCALATE: If a user asks for a demo, custom development, specific pricing, or a question outside your knowledge, immediately offer to connect them with the human team. \n- HANDOFF FORMAT: Use a natural phrase like: \"Let me connect you with our team for that. What's the best email to reach you at?\"",
+          "returnIntermediateSteps": false,
+          "enableStreaming": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -2512,
+        880
+      ],
+      "id": "5bdcff2e-365c-4796-a8ee-a2ef3b203906",
+      "name": "AI Agent"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "walkermusic.app.n8n.cloud",
+            "user-agent": "node",
+            "content-length": "161",
+            "accept": "application/json, text/plain, */*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "*",
+            "authorization": {
+              "__redacted": true,
+              "reason": "node_defined_field",
+              "canReveal": false
+            },
+            "cache-control": "no-cache",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "54.156.86.62",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "US",
+            "cf-ray": "9f4886dc1b6f436e-EWR",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "pragma": "no-cache",
+            "sec-fetch-mode": "cors",
+            "x-autolinium-signature": "8523ee46075e2e94e1337afa2c585cf4a46e5a69375579f086264427d6233fd5",
+            "x-autolinium-timestamp": "1777572873",
+            "x-forwarded-for": "54.156.86.62, 162.158.154.135",
+            "x-forwarded-host": "walkermusic.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-42-645cff74db-x766g",
+            "x-invocation-id": "bom1::g92pm-1777572873427-4b2e213fb081",
+            "x-is-trusted": "yes",
+            "x-real-ip": "54.156.86.62",
+            "x-vercel-id": "bom1::g92pm-1777572873427-4b2e213fb081"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "message": "Tell Me About the servicess",
+            "sessionId": "bd888905-0d94-429b-a2f4-925b40dff5fe",
+            "source": "autolinium-website",
+            "timestamp": "2026-04-30T18:14:33.571Z"
+          },
+          "webhookUrl": "https://walkermusic.app.n8n.cloud/webhook/autolonium",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Supabase Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Response": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Document Text": {
+      "main": [
+        [
+          {
+            "node": "Insert into Supabase Vectorstore",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Old Doc Rows": {
+      "main": [
+        [
+          {
+            "node": "Insert Document Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set File ID": {
+      "main": [
+        [
+          {
+            "node": "Delete Old Doc Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract PDF Text": {
+      "main": [
+        [
+          {
+            "node": "Insert into Supabase Vectorstore",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader1",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Extract PDF Text",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract Document Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert into Supabase Vectorstore": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Set File ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Document Metadata": {
+      "main": [
+        [
+          {
+            "node": "Download File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader1": {
+      "ai_document": [
+        [
+          {
+            "node": "Insert into Supabase Vectorstore",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download File1": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get File IDs": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Delete Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get File IDs",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get File IDs2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Supabase2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get File IDs2": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase2": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Delete Rows2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search files and folders": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Search files and folders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Insert into Supabase Vectorstore",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "errorWorkflow": "nHdTiAuEhgKSGcbk",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "296a2acf-5f01-4b62-ada9-aa05aefd32e5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f6b1619e72c7a67771ee3ceb547062802501090268a7fa6476e4ce776b94042c"
+  },
+  "id": "lt8kRmxmh2VfQtrs",
+  "tags": []
+}

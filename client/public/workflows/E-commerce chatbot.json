@@ -1,0 +1,2026 @@
+{
+  "name": "Evalora cahtbot FB ^^^^",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v24.0/766682246536100/messages",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "EAF0MlRYQFLkBRMCjZBVBozFm4mdsY8VyWjQLb1kUFsnEH6kr4ZCoi11YMOC9f6NI85x8vGCZAwtuKa68sZByy8HAEGiWpTJdu48XyThihe3FIZBX1BMKcya4mnaCQeozb2qpdzoeniXe41KbyvgD6dWVFbySHTUDuvj8RuXY6qSLcV8TN7f9OAsf2HU1zpTykSfCpkfe4rLgGs3yJGW7jfatJVAZDZD"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"recipient\": {\n    \"id\": \"{{ $('Webhook').item.json.body.entry[0].messaging[0].sender.id }}\"\n  },\n  \"sender_action\": \"typing_on\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        672,
+        416
+      ],
+      "id": "10f7dae5-d489-4464-bbaa-a41339400cfd",
+      "name": "Typing Indicator"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "4363e3f6-004b-466d-b1e1-5e87ce855e0a",
+                    "leftValue": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.attachments[0].type }}",
+                    "rightValue": "image",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Image Message"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "e1e43a62-942e-4334-b811-f5a24e461001",
+                    "leftValue": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.text }}",
+                    "rightValue": "text",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text Message"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.attachments[0].type }}",
+                    "rightValue": "audio",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "6f4815fb-56bd-4c11-92a4-a4f1d55b6a3f"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Audio Message"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "f6ae9198-d74f-4357-8340-e33db78914e3",
+                    "leftValue": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.attachments[0].type }}",
+                    "rightValue": "video",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Video Message"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -896,
+        432
+      ],
+      "id": "6342be51-80e3-4d57-a21f-26fdae978105",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.attachments[0].payload.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -672,
+        672
+      ],
+      "id": "06ee981b-c047-4c5a-bb9c-b9653325f8f5",
+      "name": "Download Audio"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.image_url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "be65b8f3-87fa-4bff-8c03-a33f1164c115",
+      "name": "Download Image"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d199d713-4c34-49bb-9f7e-e6855e16592d",
+              "name": "Text",
+              "value": "={{ $json.body.entry[0].messaging[0].message.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -224,
+        480
+      ],
+      "id": "a0d30351-5e7a-4682-b49e-6e1b202d0f83",
+      "name": "txt msg"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "678e7443-db4e-4193-9719-4bad0afc9fc7",
+              "name": "audio txt",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -224,
+        672
+      ],
+      "id": "cf651184-540a-4b57-b0da-c802f91dcc28",
+      "name": "Audio to TXT"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.combined_prompt }}",
+        "options": {
+          "systemMessage": "Role: You are a professional, direct sales executive for the premium jewelry brand \"Evalora\".\nCore Goal: Identify products using tools and provide short, accurate responses based on customer context using strict brand guidelines.\n\n━━━━━━━━━━━━━━━━━━━━━━\n💎 BUSINESS OVERVIEW & BRAND IDENTITY\n━━━━━━━━━━━━━━━━━━━━━━\n- Brand Name: Evalora (Premium quality jewelry shop).\n- Products: High-grade premium quality accessories imported from China for males and females.\n- Operations: Online only (no physical retail outlet). \n- Office: Islamnagar, Jahangirnagar University Campus Area, Savar, Dhaka (Customers may visit if requested).\n- Tone: Professional, polite, and respectful. Always refer to the business as “we” (third person plural).\n- Address Protocol: Always address the customer as “apni” (আপনি) in Bangla script.\n\n━━━━━━━━━━━━━━━━━━━━━━\n🔴 STRICT RULE: GREETING & ETIQUETTE\n━━━━━━━━━━━━━━━━━━━━━━\n- Banned Word: NEVER use \"Nomoshkar\" (নমস্কার).\n- Professionalism: No \"Ji\" or \"Ji nishchoi\". Keep the tone high-end.\n- Language Sync: You must talk in every type of language and strictly match the customer's tone. If customer speaks Bangla -> reply in Bangla. If English -> reply in standard English. Understands Banglish perfectly.\n- First-Time Customers: If the chat history is empty or this is the first message of the session, start with a greeting like \"Hello\" (হ্যালো) or \"Hi\" (হাই).\n- Ongoing Conversations: If history exists, DO NOT use \"Hello\" or \"Hi\". Jump straight to the answer.\n\n━━━━━━━━━━━━━━━━━━━━━━\n🚫 FORBIDDEN FORMATTING (STRICT BAN)\n━━━━━━━━━━━━━━━━━━━━━━\n- NO MARKDOWN IMAGES: Never use the ![Image](url) syntax inside any field.\n- NO MARKDOWN LISTS: Never use \"1.\", \"2.\", or \"-\" to list products.\n- NO MIXING: Never put an image URL inside a text_msg.\n- NO FILLER: Keep answers as short as possible. Answer only what is asked.\n\n━━━━━━━━━━━━━━━━━━━━━━\n⚠️ MANDATORY OUTPUT FORMAT (JSON ARRAY)\n━━━━━━━━━━━━━━━━━━━━━━\nOutput ONLY a single JSON array containing all messages. No intro/outro text.\n\n━━━━━━━━━━━━━━━━━━━━━━\n🔴 STRICT SEQUENTIAL LOGIC (1:1 RATIO)\n━━━━━━━━━━━━━━━━━━━━━━\n- Interleaved Pattern: Every single product requires a PAIR of objects (Image + Text). \n- Pattern: [image_msg, text_msg, image_msg, text_msg, closing_text_msg].\n- Banned Behavior: DO NOT group all images together or all text blocks together.\n\n━━━━━━━━━━━━━━━━━━━━━━\n🔴 LOGIC FOR DYNAMIC RESPONSES & IMAGE VALIDATION\n━━━━━━━━━━━━━━━━━━━━━━\n1. GENERAL CATALOG REQUEST:\n   If the customer wants to see products, the collection, or designs, send ONLY a text message with the website link:\n   - {\"type\": \"text_msg\", \"text\": \"আমাদের সব কালেকশন এবং ডিজাইন বিস্তারিত দেখতে এই লিংকে ভিজিট করুন: www.evalorabd.com\"}\n\n2. PRODUCT IDENTIFICATION (STRICT IMAGE CHECK):\n   When identifying products via the Supabase Vector Store tool, you MUST verify the image URL:\n   - STAGE 1: Match the product strictly using the Supabase tool.\n   - STAGE 2: Check the 'image_url' field in the tool output.\n   - STAGE 3 (VALID URL): If the URL is a valid, non-empty link, send the pair:\n     - {\"type\": \"image_msg\", \"url\": \"[Valid URL from Tool]\"}\n     - {\"type\": \"text_msg\", \"text\": \"Product: [Name]\\nCode: [Code]\\nPrice: [Sale Price] BDT\"}\n   - STAGE 4 (BLANK/NULL URL): If the URL is missing, null, or \"N/A\", DO NOT send an image_msg. Send ONLY the text_msg for that product.\n\n3. 🧠 SMART ONE-LINER CLOSING:\n   Write a single, smart line in Standard Bangla (বাংলা) under 10 words to close the deal. No fixed templates.\n\n4. TEXT-ONLY REPLIES:\n   If no products are identified or for general questions, use ONLY: {\"type\": \"text_msg\", \"text\": \"[Your Answer]\"}\n\n━━━━━━━━━━━━━━━━━━━━━━\n📊 PRODUCT & PRICING POLICIES\n━━━━━━━━━━━━━━━━━━━━━━\n- Source of Truth: Use ONLY the Supabase Vector Store tool for product data. Never hallucinate prices or codes.\n- Materials: Copper and Zircon (if stones are present). All rings are Adjustable/Free size.\n- Couple Rings: Sold only as a set. No customization of individual rings from a set.\n- Box Pricing: \n    - Ring Box: Only box ৳250 | With ring ৳200.\n    - Pendant/Necklace Box: Only box ৳350 | With product ৳300.\n- Packaging: If no box is bought, delivery is in jewelry poly + bubble wrap + delivery box.\n- Pricing Policy: All prices are FIXED. No negotiation.\n\n━━━━━━━━━━━━━━━━━━━━━━\n🚚 DELIVERY & RETURNS\n━━━━━━━━━━━━━━━━━━━━━━\n- Dhaka City: ৳80 (1–2 days).\n- Outside Dhaka: ৳130 (2–3 days).\n- Payment: Cash on Delivery (COD) or Advance (Bkash, Nagad, Rocket - Send Money).\n- Return Policy: Customer must check in front of the rider. Defects = free return. Dislike = Customer pays delivery charge.\n- Guarantee: 6 months color guarantee. Requires replacement (no refunds).\n\n━━━━━━━━━━━━━━━━━━━━━━\n📝 ORDER PROCESS\n━━━━━━━━━━━━━━━━━━━━━━\nOrder Confirmation Format (MUST use exactly):\nFull Name:\nPhone Number:\nFull Address:\n\nSteps:\n1. Ask for details using the exact format above.\n2. Ask for order confirmation with product image.\n3. Verify details with the customer before final confirmation.\n\nFINAL INSTRUCTION: Be a \"Boss\" sales executive. Do not sound like a bot. If the tool provides a blank image, focus on the professional text description instead."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1760,
+        592
+      ],
+      "id": "d2a9c38b-982a-48ff-8342-dc28f7482ebd",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "httpMethod": [
+          "POST"
+        ],
+        "path": "evalora",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1344,
+        464
+      ],
+      "id": "ab0c2244-8db7-4f5e-ab79-ce98f9fa4d51",
+      "name": "Webhook",
+      "webhookId": "544ffc77-141b-485a-a269-8eb40febcaeb"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1HBzfUIDJheW2Lk_9LEVVHaZGmhkS61z_8iQKJz-1vio",
+          "mode": "list",
+          "cachedResultName": "Evalora Management system",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HBzfUIDJheW2Lk_9LEVVHaZGmhkS61z_8iQKJz-1vio/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 49002734,
+          "mode": "list",
+          "cachedResultName": "Order List",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HBzfUIDJheW2Lk_9LEVVHaZGmhkS61z_8iQKJz-1vio/edit#gid=49002734"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Customer Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Customer_Name__using_to_match_', ``, 'string') }}",
+            "Order ID": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Order_ID', ``, 'string') }}",
+            "Date & Time": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Date___Time', ``, 'string') }}",
+            "Phone Number": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Phone_Number', ``, 'string') }}",
+            "Product ID": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Product_ID', ``, 'string') }}",
+            "Product Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Product_Name', ``, 'string') }}",
+            "Quantity": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Quantity', ``, 'string') }}",
+            "Total Price": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Total_Price', ``, 'string') }}",
+            "Order Status": "Pending",
+            "Address": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Address', ``, 'string') }}",
+            "Image url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Image_url', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "Phone Number"
+          ],
+          "schema": [
+            {
+              "id": "Order ID",
+              "displayName": "Order ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date & Time",
+              "displayName": "Date & Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Customer Name",
+              "displayName": "Customer Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product ID",
+              "displayName": "Product ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Product Name",
+              "displayName": "Product Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Quantity",
+              "displayName": "Quantity",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Total Price",
+              "displayName": "Total Price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Order Status",
+              "displayName": "Order Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Image url",
+              "displayName": "Image url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        1824,
+        816
+      ],
+      "id": "b916a413-9735-4aa3-b1ab-0a6aad06130f",
+      "name": "Order List",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8ItS0FDb5BCXI7ej",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        1952,
+        816
+      ],
+      "id": "94a2792a-64be-43cc-b483-53dd2221ae16",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "This is the authoritative tool for Evalora's jewelry inventory. Use it to find products by Category (Male, Female, Couple), Name, or ID. It returns a JSON object containing: 'product_id', 'category', 'regular_price', 'sale_price', 'stock_status', 'description', and 'image_url' (the ONLY valid image link from https://www.google.com/url?sa=E&source=gmail&q=evalorabd.com).\n\nCRITICAL FILTERING RULE: When a customer asks for a specific category (e.g., 'Female rings', 'Couple collection'), you MUST apply a strict filter in your query to fetch ONLY matching items for that 'category'. DO NOT return the entire inventory or mixed categories.\n\nOUTPUT INTEGRITY: NEVER guess or hallucinate any data. All details, especially 'image_url' and 'sale_price', must be used exactly as provided by this tool in the final response. This tool is the final authority for all product information.",
+        "tableName": {
+          "__rl": true,
+          "value": "website_inventory",
+          "mode": "list",
+          "cachedResultName": "website_inventory"
+        },
+        "topK": 2,
+        "options": {
+          "queryName": "match_documents"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        2080,
+        816
+      ],
+      "id": "2c502c6d-2935-4e42-96c3-49cf18e11ebe",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "E1bWEmV8y3L25Cy2",
+          "name": "Evalora Supabase"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/audio/transcriptions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer [REDACTED]"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            },
+            {
+              "name": "model",
+              "value": "whisper-large-v3"
+            },
+            {
+              "name": "prompt",
+              "value": "Role: Expert Transcriber. Input: Voice in Bengali, English, or Banglish. Task: Transcribe precisely. If in English/Banglish, translate to standard Bengali. Failure Rule: If audio is silent, noisy, or unrecognizable, ONLY output: 'দুঃখিত, আপনার ভয়েস মেসেজটি ক্লিয়ার না। দয়া করে আরেকবার বলবেন কি?' Constraint: No other languages or gibberish. Final output MUST be in Bengali."
+            },
+            {
+              "name": "language",
+              "value": "bn"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -448,
+        672
+      ],
+      "id": "2e3477a7-dcf1-4146-a85a-830be1d156d9",
+      "name": "Audio"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "image_url",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "94446d31-70ca-4be9-97a0-133daa3bb26c",
+      "name": "Split Out2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -224,
+        192
+      ],
+      "id": "54e4afeb-9011-4471-af4b-de18d6af5bd2",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Webhook').item.json.body.entry[0].messaging[0].sender.id }}",
+        "tableName": "fb_bot_chat_history",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        1696,
+        816
+      ],
+      "id": "7bc20a65-32d8-4125-8885-e5b2606de14f",
+      "name": "Postgres Chat Memory1",
+      "credentials": {
+        "postgres": {
+          "id": "7xcVUQwmLA6BlN9p",
+          "name": "EVALORA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v24.0/766682246536100/messages",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "EAF0MlRYQFLkBRMCjZBVBozFm4mdsY8VyWjQLb1kUFsnEH6kr4ZCoi11YMOC9f6NI85x8vGCZAwtuKa68sZByy8HAEGiWpTJdu48XyThihe3FIZBX1BMKcya4mnaCQeozb2qpdzoeniXe41KbyvgD6dWVFbySHTUDuvj8RuXY6qSLcV8TN7f9OAsf2HU1zpTykSfCpkfe4rLgGs3yJGW7jfatJVAZDZD"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"recipient\": {\n    \"id\": \"{{ $('Webhook').item.json.body.entry[0].messaging[0].sender.id }}\"\n  },\n  \"message\": {\n    \"attachment\": {\n      \"type\": \"image\",\n      \"payload\": {\n        \"url\": \"{{ $json.url }}\",\n        \"is_reusable\": true\n      }\n    }\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        3120,
+        688
+      ],
+      "id": "7435a6bc-7dcc-44ef-a1fe-7a2c3034b00d",
+      "name": "Image send",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Get the data directly from the Webhook node, not the Supabase input\nconst webhookData = $(\"Webhook\").first().json;\nlet urlArray = [];\n\n// ২. ডাটার ভেতর থেকে সব ইউআরএল খুঁজে বের করার ফাংশন\nfunction extractUrlsFromDeep(obj) {\n    if (obj !== null && typeof obj === 'object') {\n        Object.entries(obj).forEach(([key, value]) => {\n            // Meta usually stores the image URL in 'payload.url' inside the messaging array\n            if (key === 'payload' && value && typeof value.url === 'string') {\n                urlArray.push(value.url);\n            } else if (key === 'url' && typeof value === 'string' && value.startsWith('http')) {\n                urlArray.push(value);\n            } else if (typeof value === 'object') {\n                extractUrlsFromDeep(value);\n            }\n        });\n    }\n}\n\n// Start scanning the Webhook data\nextractUrlsFromDeep(webhookData);\n\n// ৩. ডুপ্লিকেট রিমুভ করা\nconst uniqueUrls = [...new Set(urlArray)];\n\n// ৪. প্রতিটি ইউআরএল-কে আলাদা আইটেম হিসেবে সাজানো\nconst finalOutput = uniqueUrls.map(url => {\n    return {\n        json: {\n            image_url: url\n        }\n    };\n});\n\n// BOSS: If no URL is found, we STOP the execution here so the Download node doesn't crash\nif (finalOutput.length === 0) {\n    return $stopExecution();\n}\n\nreturn finalOutput;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -448,
+        192
+      ],
+      "id": "a83a7aba-3c69-470f-a5f5-17fe5c6f44a6",
+      "name": "Code in JavaScript4"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "message_buffer",
+          "mode": "list",
+          "cachedResultName": "message_buffer"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "sender_id",
+              "value": "={{ $('Webhook').item.json.body.entry[0].messaging[0].sender.id }}"
+            },
+            {
+              "column": "status",
+              "value": "Pending"
+            }
+          ]
+        },
+        "sort": {
+          "values": []
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        896,
+        416
+      ],
+      "id": "185f44fc-5981-4f5f-a423-73b86e43b3bb",
+      "name": "Select rows from a table",
+      "credentials": {
+        "postgres": {
+          "id": "7xcVUQwmLA6BlN9p",
+          "name": "EVALORA"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        416
+      ],
+      "id": "e874fc37-8413-400d-b3c5-bb88d20f2e84",
+      "name": "Wait",
+      "webhookId": "d6d95163-44c6-4dda-b56e-6fab96ea6502"
+    },
+    {
+      "parameters": {
+        "jsCode": "let cleanList = \"IDENTIFIED PRODUCTS:\\n\\n\";\n\n// Grab all items from the loop\nconst items = $input.all();\n\n// 1. Extract the sender_id safely\nconst senderId = items.length > 0 ? items[0].json.sender_id : \"unknown_sender\";\n\n// 2. Combine all descriptions using the deep path\nitems.forEach((item, index) => {\n  // NEW PATH: reaches into content.parts[0].text\n  const description = item.json.content?.parts?.[0]?.text || \"No description found\";\n  \n  cleanList += `--- PRODUCT ${index + 1} ---\\n`;\n  cleanList += `${description.trim()}\\n\\n`;\n});\n\n// 3. Return the combined data and the ID\nreturn {\n  sender_id: senderId,\n  separated_descriptions: cleanList\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        192
+      ],
+      "id": "71364842-1096-4494-b236-43ab5edcff7a",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "message_buffer",
+          "mode": "list",
+          "cachedResultName": "message_buffer"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "sender_id": "={{ $('Webhook').item.json.body.entry[0].messaging[0].sender.id }}",
+            "message_content": "={{ $json.separated_descriptions }}{{ $json.Text }}{{ $json['audio txt'] }}",
+            "status": "Pending",
+            "created_at": "={{ $now.toISO() }}",
+            "execution_id": "={{ $executionId }}",
+            "message_id": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.mid }}"
+          },
+          "matchingColumns": [
+            "sender_id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "sender_id",
+              "displayName": "sender_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "message_content",
+              "displayName": "message_content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "execution_id",
+              "displayName": "execution_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "message_id",
+              "displayName": "message_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        560
+      ],
+      "id": "03ad311d-ecf5-48fa-9ae2-b57f973b3493",
+      "name": "Insert rows in a table",
+      "credentials": {
+        "postgres": {
+          "id": "7xcVUQwmLA6BlN9p",
+          "name": "EVALORA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Grab ALL rows retrieved from Supabase\nconst items = $input.all();\n\n// 2. Get the current Webhook message ID\nconst webhookNode = $(\"Webhook\").first();\nconst currentMid = String(webhookNode.json?.body?.entry?.[0]?.messaging?.[0]?.message?.mid || \"\").trim().toLowerCase();\n\nif (items.length === 0) {\n  return [];\n}\n\n// 3. SORT BY TIME (Oldest to Newest)\nitems.sort((a, b) => {\n  return new Date(a.json.created_at) - new Date(b.json.created_at);\n});\n\n// 4. THE NULL/EMPTY CHECK (The only reason to stop)\nconst hasNullOrEmpty = items.some(item => {\n  let content = item.json.message_content || item.json.messages || item.json.Message_Content;\n  \n  // Success if it's truly null or undefined\n  if (content === null || content === undefined) return true;\n\n  // Success if it's the literal string \"null\" or empty\n  let strContent = String(content).trim().toLowerCase();\n  return strContent === \"\" || strContent === \"null\";\n});\n\n// 5. DECISION LOGIC\n// If we found a NULL/EMPTY row, we stop here (return empty array)\nif (hasNullOrEmpty) {\n  return []; \n}\n\n// 6. PREPARE OUTPUT (Since there are no nulls, we proceed!)\nconst senderId = items[0].json.sender_id;\nconst idsToUpdate = items.map(item => item.json.id); \n\nlet fullContext = \"THE CUSTOMER SENT THE FOLLOWING ITEMS:\\n\\n\";\nitems.forEach((item, index) => {\n  let content = item.json.message_content || item.json.messages || item.json.Message_Content;\n  fullContext += `[Item ${index + 1}]: ${content}\\n`;\n});\n\nreturn [{\n  json: {\n    isValid: true,\n    sender_id: senderId,\n    combined_prompt: fullContext,\n    row_ids: idsToUpdate,\n    debug: \"SUCCESS: No null values found. Proceeding with combined context.\"\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        416
+      ],
+      "id": "908cca18-ce49-4e59-ac16-bae4673ec102",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "row_ids",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2896,
+        288
+      ],
+      "id": "6f621171-b0cd-4f44-8cb1-1375988917e6",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "96e0776e-c5a9-4838-900a-1a6deb9aabee",
+              "leftValue": "={{ $json.isValid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1344,
+        592
+      ],
+      "id": "29ee1d01-79f6-4863-a009-0f919ab163c0",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "message_buffer",
+          "mode": "list",
+          "cachedResultName": "message_buffer"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "Replied",
+            "id": "={{ $json.row_ids }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sender_id",
+              "displayName": "sender_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "message_content",
+              "displayName": "message_content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "execution_id",
+              "displayName": "execution_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        3120,
+        288
+      ],
+      "id": "ad05d334-f5ab-4bbb-b05c-cb32a1f1c4b4",
+      "name": "Update rows in a table",
+      "credentials": {
+        "postgres": {
+          "id": "7xcVUQwmLA6BlN9p",
+          "name": "EVALORA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Clean the output from the AI by removing markdown backticks\nlet rawOutput = $input.item.json.output;\n\n// Remove triple backticks and the word 'json' if present\nrawOutput = rawOutput.replace(/```json|```/g, \"\").trim();\n\ntry {\n  // Parse the clean text into real objects\n  const parsed = JSON.parse(rawOutput);\n  return parsed;\n\n} catch (e) {\n  // BOSS: If the AI sends plain Bangla text instead of JSON, this prevents the crash\n  // It turns the \"messy\" text into a valid message your next nodes can understand.\n  return [{\n    json: {\n      type: \"text_msg\",\n      text: rawOutput\n    }\n  }];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2448,
+        592
+      ],
+      "id": "56892c6c-51a2-44c7-9d28-f11f6dec3b3b",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "7c1bf910-1ea0-4b4c-9a0e-988819e514f9",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "image_msg",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "image"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "text_msg",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "f31bbfe5-5236-4fed-bad8-93165ce82cc1"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        2896,
+        608
+      ],
+      "id": "3e8b1188-c1e1-48de-b1ea-339ee43df70f",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v24.0/766682246536100/messages",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "EAF0MlRYQFLkBRMCjZBVBozFm4mdsY8VyWjQLb1kUFsnEH6kr4ZCoi11YMOC9f6NI85x8vGCZAwtuKa68sZByy8HAEGiWpTJdu48XyThihe3FIZBX1BMKcya4mnaCQeozb2qpdzoeniXe41KbyvgD6dWVFbySHTUDuvj8RuXY6qSLcV8TN7f9OAsf2HU1zpTykSfCpkfe4rLgGs3yJGW7jfatJVAZDZD"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"recipient\": {\n    \"id\": \"{{ $('Webhook').item.json.body.entry[0].messaging[0].sender.id }}\"\n  },\n  \"messaging_type\": \"RESPONSE\",\n  \"message\": {\n    \"text\": {{ JSON.stringify($json.text) }}\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        3120,
+        880
+      ],
+      "id": "725cbfe3-a17e-41a8-a580-b0fae3b00ab6",
+      "name": "Text Reply",
+      "alwaysOutputData": false,
+      "executeOnce": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5b791d62-bcb2-4cd0-bff5-1ca777c8c624",
+              "leftValue": "={{ $json.isValid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2672,
+        176
+      ],
+      "id": "50ee6e93-8f52-4ffd-89f4-6613a15b7e81",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2672,
+        720
+      ],
+      "id": "f8abd8a7-ecfd-42da-a91a-45a9059fbc2e",
+      "name": "Loop Over Items2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "13df8955-d394-42fc-aaef-d101024babb2",
+              "leftValue": "={{ $json.body.entry[0].messaging[0].message.is_echo }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "3b81b7c5-00a2-4ea0-8f17-06ad6a3a0126",
+              "leftValue": "={{ $json.body.entry[0].messaging[0].sender.id }}",
+              "rightValue": "17841477496164232",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1120,
+        464
+      ],
+      "id": "fc0b0a04-3aac-42a0-a264-fa7d05ff0eae",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "message_buffer",
+          "mode": "list",
+          "cachedResultName": "message_buffer"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "sender_id": "={{ $('Webhook').item.json.body.entry[0].messaging[0].sender.id }}",
+            "message_content": "null",
+            "status": "Pending",
+            "execution_id": "={{ $executionId }}",
+            "message_id": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.mid }}",
+            "created_at": "={{ $now.toISO() }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "sender_id",
+              "displayName": "sender_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message_content",
+              "displayName": "message_content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "execution_id",
+              "displayName": "execution_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message_id",
+              "displayName": "message_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -672,
+        192
+      ],
+      "id": "925a9254-5f8c-45ef-8346-63e359466dfa",
+      "name": "Insert rows in a table1",
+      "credentials": {
+        "postgres": {
+          "id": "7xcVUQwmLA6BlN9p",
+          "name": "EVALORA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "message_buffer",
+          "mode": "list",
+          "cachedResultName": "message_buffer"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "message_id": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.mid }}",
+            "message_content": "={{ $json.separated_descriptions }}"
+          },
+          "matchingColumns": [
+            "message_id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "sender_id",
+              "displayName": "sender_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "message_content",
+              "displayName": "message_content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message_id",
+              "displayName": "message_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "execution_id",
+              "displayName": "execution_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        224,
+        192
+      ],
+      "id": "f5f5d792-3950-4367-ba9f-37dad0de4ce7",
+      "name": "Update rows in a table1",
+      "credentials": {
+        "postgres": {
+          "id": "7xcVUQwmLA6BlN9p",
+          "name": "EVALORA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-pro",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-pro"
+        },
+        "text": "You are an elite Master Jeweler and a Senior Product Cataloger for Evalora. Your ONLY objective is to extract the microscopic physical characteristics of the jewelry item in the image to ensure a 100% perfect database match. \n\nSTRICT RULES:\n1. BLIND SPOT: You must COMPLETELY IGNORE the background, the hand, the black glove, the ring box (whether it is red, blue, pink, or any other color), the golden crown logo on the box, the background plants, and any text/watermarks. \n2. SOLE FOCUS: Analyze ONLY the physical jewelry piece itself. Describe it as if examining it under a jeweler's loupe.\n3. NO GUESSWORK: Do not guess the price, inventory status, or target audience. Provide technical descriptions only.\n\nEXTRACT THE FOLLOWING DETAILS WITH 100% PRECISION:\n* Category: Identify the exact item type (e.g., Women's Single Ring, Couple Ring Set, Men's Band).\n* Metal Color & Finish: State the visible metal color (e.g., High-polish Yellow Gold, Bright Silver/Platinum tone, Rose Gold, Dual-tone) and finish (e.g., smooth, textured, black enamel/oxidized accents).\n* Primary Motif/Architecture: Describe the overarching shape (e.g., Criss-cross/Infinity bypass, Symmetrical Butterfly, Floral/Sunburst Cluster, Geometric layout, Minimalist Solitaire).\n* Gemstone Anatomy: Detail the exact cuts of the stones (e.g., Round Brilliant, Baguette, Marquise) and their setting style (e.g., Micro-pave, Prong-set center, Channel-set edges, Cluster formation).\n* Band/Shank Style: Describe the band's structure (e.g., Split shank, twisted, plain, engraved patterns, thick/thin).\n\nOUTPUT FORMAT:\nProvide a highly dense, strictly technical paragraph describing the exact structural and visual features of the jewelry based ONLY on the criteria above. Exclude all conversational filler, greetings, or introductory text. Start the description immediately.",
+        "inputType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        496,
+        192
+      ],
+      "id": "cc5b37c0-ab3a-40e5-96ec-df655c585d49",
+      "name": "Analyze an image1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "maxTries": 5,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "RJRlSaocY3IAA2dE",
+          "name": "Facebook Image Analizer"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-pro",
+        "options": {
+          "temperature": 0.3,
+          "topK": 40
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        864
+      ],
+      "id": "d8348f0c-beb4-4f41-a90d-56295d2fd775",
+      "name": "Google Gemini Chat Model1",
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "bHjuDHk7hFuSc3Jo",
+          "name": "Facebook chat model"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-embedding-001"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        992
+      ],
+      "id": "b99e64eb-ab66-4567-a577-e3d205d832de",
+      "name": "Embeddings Google Gemini",
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "pX4KykLt88joQ7J8",
+          "name": "Facebook Embedding"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1520,
+        1120
+      ],
+      "id": "7867f056-9a0a-4bd5-a9c0-4aa8b69d211a",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "FjO6OoR3b2sKYBcb",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "text": "You are an elite Master Jeweler and a Senior Product Cataloger for Evalora. Your ONLY objective is to extract the microscopic physical characteristics of the jewelry item in the image to ensure a 100% perfect database match. \n\nSTRICT RULES:\n1. BLIND SPOT: You must COMPLETELY IGNORE the background, the hand, the black glove, the ring box (whether it is red, blue, pink, or any other color), the golden crown logo on the box, the background plants, and any text/watermarks. \n2. SOLE FOCUS: Analyze ONLY the physical jewelry piece itself. Describe it as if examining it under a jeweler's loupe.\n3. NO GUESSWORK: Do not guess the price, inventory status, or target audience. Provide technical descriptions only.\n\nEXTRACT THE FOLLOWING DETAILS WITH 100% PRECISION:\n* Category: Identify the exact item type (e.g., Women's Single Ring, Couple Ring Set, Men's Band).\n* Metal Color & Finish: State the visible metal color (e.g., High-polish Yellow Gold, Bright Silver/Platinum tone, Rose Gold, Dual-tone) and finish (e.g., smooth, textured, black enamel/oxidized accents).\n* Primary Motif/Architecture: Describe the overarching shape (e.g., Criss-cross/Infinity bypass, Symmetrical Butterfly, Floral/Sunburst Cluster, Geometric layout, Minimalist Solitaire).\n* Gemstone Anatomy: Detail the exact cuts of the stones (e.g., Round Brilliant, Baguette, Marquise) and their setting style (e.g., Micro-pave, Prong-set center, Channel-set edges, Cluster formation).\n* Band/Shank Style: Describe the band's structure (e.g., Split shank, twisted, plain, engraved patterns, thick/thin).\n\nOUTPUT FORMAT:\nProvide a highly dense, strictly technical paragraph describing the exact structural and visual features of the jewelry based ONLY on the criteria above. Exclude all conversational filler, greetings, or introductory text. Start the description immediately.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        752,
+        -96
+      ],
+      "id": "f8b5f93c-cf18-4852-894e-6b8f098a0b0e",
+      "name": "Analyze image",
+      "credentials": {
+        "openAiApi": {
+          "id": "FjO6OoR3b2sKYBcb",
+          "name": "OpenAI account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "vmi3192761.contaboserver.net",
+            "user-agent": "facebookexternalua",
+            "content-length": "326",
+            "accept": "*/*",
+            "accept-encoding": "deflate, gzip",
+            "content-type": "application/json",
+            "facebook-api-version": "v25.0",
+            "via": "1.1 Caddy",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "vmi3192761.contaboserver.net",
+            "x-forwarded-proto": "https",
+            "x-hub-signature": "sha1=0e127cbfedea59e257e08f53eb5a3860c19a52ec",
+            "x-hub-signature-256": "sha256=cc8bd47a92c5cbd7719b4aca8a2af72317ff984d6654cd3ff7b036a6fa70249d"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "object": "page",
+            "entry": [
+              {
+                "time": 1776242650390,
+                "id": "766682246536100",
+                "messaging": [
+                  {
+                    "sender": {
+                      "id": "26298104343184313"
+                    },
+                    "recipient": {
+                      "id": "766682246536100"
+                    },
+                    "timestamp": 1776242649696,
+                    "message": {
+                      "mid": "m_0PF1exqikAtb6ID5-dcRHtzKwISTPfj4wRz0JuHKoialOEiIGxPfRtvZ1S6UQ_18IAYQTf5aaMX6G7gtE-pSaQ",
+                      "text": "ki ki product ache?"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "webhookUrl": "https://vmi3192761.contaboserver.net/webhook/evalora",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Typing Indicator": {
+      "main": [
+        [
+          {
+            "node": "Select rows from a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Insert rows in a table1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "txt msg",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Download Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Audio": {
+      "main": [
+        [
+          {
+            "node": "Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Image": {
+      "main": [
+        [
+          {
+            "node": "Analyze an image1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "txt msg": {
+      "main": [
+        [
+          {
+            "node": "Insert rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audio to TXT": {
+      "main": [
+        [
+          {
+            "node": "Insert rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Order List": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audio": {
+      "main": [
+        [
+          {
+            "node": "Audio to TXT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out2": {
+      "main": [
+        [
+          {
+            "node": "Download Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Image send": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript4": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select rows from a table": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Typing Indicator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Update rows in a table1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert rows in a table": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Update rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Loop Over Items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Image send",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Text Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Reply": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items2": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert rows in a table1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update rows in a table1": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Analyze an image1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "errorWorkflow": "2njGcXuptd87MDiP",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "1680a256-ca68-4ca6-9933-a6a955b5fa16",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "cda91dc9ca5c8ead4b4d558ffacf246f7fdf384a528c7f269af7419baa8c8713"
+  },
+  "id": "Ex9AXz5TE0RaiJZe",
+  "tags": []
+}

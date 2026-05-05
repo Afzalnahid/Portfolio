@@ -115,7 +115,7 @@ export default function Hero() {
             href="https://www.linkedin.com/in/norayafzalnahid"
             target="_blank"
             rel="noopener noreferrer"
-            className="relative block w-72 md:w-80 lg:w-[26rem] bg-white rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] transform md:rotate-2 hover:rotate-0 transition-all duration-500 border border-slate-200/50 overflow-hidden text-left group/card"
+            className="relative block w-72 md:w-80 lg:w-[26rem] bg-white rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] transform transition-all duration-500 border border-slate-200/50 overflow-hidden text-left group/card"
           >
             {/* LinkedIn Header */}
             <div className="p-4 pb-2 flex items-start gap-3">

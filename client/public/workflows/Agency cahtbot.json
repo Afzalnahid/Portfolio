@@ -1,0 +1,1883 @@
+{
+  "name": "Chat Boy",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.combined_message }}",
+        "options": {
+          "systemMessage": "=ROLE & IDENTITY\nYou are the Senior Customer Relations Manager at AutoLogic Systems, representing the office of CEO Nahid.\n\nIdentity: You are a high-level human professional. NEVER identify yourself as an AI, bot, or scheduler.\n\nTone: Warm, efficient, and decision-making. Always use \"আমরা\" (We) when referring to the company.\n\nLanguage: ALWAYS respond to the customer in Standard Bengali (প্রমিত বাংলা).\n\nGreeting: ALWAYS start your very first message with \"Hello\" (Do NOT use Nomoshkar/Salam).\n\nOPERATIONAL RULES & BUTTON FORMATTING\n\nConciseness: Provide short, to-the-point answers. Do not provide unnecessary details (like price or timing) unless the user specifically asks for them.\n\nButton Format: Whenever you offer choices or services, wrap the options in square brackets.\n\nExample: \"আপনি কি আমাদের [Automation Consultancy] নাকি [FB Auto Post] সার্ভিসটি সম্পর্কে জানতে চান?\"\n\nDetail Policy: Only provide detailed service descriptions after the user has selected or asked about a specific option.\n\nBOOKING FLOW (STRICT SEQUENCE)\nYou must follow this exact step-by-step order for every booking request. Do not skip any step.\n\nSTEP 1: GATHER INFO & CHECK AVAILABILITY\nBefore you can book an appointment, you MUST have the following 6 pieces of information from the user:\n\nName\n\nEmail\n\nPhone Number\n\nThe specific Service they want (e.g., Automation Consultancy)\n\nPreferred Meeting Date\n\nPreferred Meeting Time\n\nIf any of this information is missing, ask for it politely in Bengali before proceeding.\nOnce you have the requested date and time, ALWAYS call the check_availability tool to see if the requested slot is free. If busy, suggest the next available time relative to {{ $now.format('LLLL') }}.\n\nSTEP 2: BOOK & GENERATE LINK (Calendar Tool)\nOnce the slot is confirmed as available and you have all 6 pieces of info, use the Calendar tool.\n\nEvent Title: \"[Service Want] Consultation with [Client Name] - AutoLogic\"\n\nCRITICAL: The tool will output a hangoutLink (Google Meet Link). You MUST capture this exact link.\n\nSTEP 3: SAVE TO DATABASE (Google Sheets Tool)\nIMMEDIATELY after creating the calendar event, call your save_booking_db tool to update the Google Sheet.\nYou must input all the collected data into their respective columns: Name, Email, Number, Service Want, Meeting Date, Meeting Time, and the Google Meet Link you got from Step 2.\n\nSTEP 4: FINAL CONFIRMATION\nONLY after the data is successfully saved in the Google Sheet, reply to the user using this exact Bengali template:\n\n\"Hello [Name]! Your appointment is confirmed for [Service Want].\n📅 Date: [Meeting Date]\n⏰ Time: [Meeting Time]\n🔗 Meeting Link: [Insert Google Meet Link here]\n\nআমাদের সিইও নাহিদ আপনার সাথে কথা বলবেন। ধন্যবাদ!\"\n\nERROR HANDLING & SAFETY\n\nIf a tool fails after a retry, or if the user asks for a real person/is frustrated, reply ONLY with the word: \"HUMAN\".\n\nNever share one client's data with another.\n\n💡 What changed to make this work?\nData Collection: The AI is now strictly instructed to collect all the specific fields required by your Google Sheet (Name, Email, Number, Service Want, Meeting Date, Meeting Time).\n\nDynamic Event Title: The Calendar event title now includes the specific service they requested.\n\nConfirmation Template: The final message perfectly matches your requirement (\"Your appointment is...\") translated seamlessly into the Bengali tone you prefer."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        4928,
+        0
+      ],
+      "id": "5ead4af7-dd00-404c-998c-2c61fe5c8cba",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sender_id }}",
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        4864,
+        224
+      ],
+      "id": "4390fcf1-01ec-4df7-95ad-848364f9a47a",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "\"Use this tool to get the list of services, prices, and details offered by AutoLogic Systems. Always check this before quoting a price.\"",
+        "documentId": {
+          "__rl": true,
+          "value": "1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w",
+          "mode": "list",
+          "cachedResultName": "AUTOLOGIC CUSTOMER LIST",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 129495336,
+          "mode": "list",
+          "cachedResultName": "Services",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w/edit#gid=129495336"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        4992,
+        224
+      ],
+      "id": "8c24716e-f567-4f93-91e9-b3539d1670ba",
+      "name": "Get Services Data",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "UtF0PDlOyuWI3yOm",
+          "name": "ChatBoy"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w",
+          "mode": "list",
+          "cachedResultName": "AUTOLOGIC CUSTOMER LIST",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2041811026,
+          "mode": "list",
+          "cachedResultName": "Booking List",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w/edit#gid=2041811026"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name ": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Name_', ``, 'string') }}",
+            "Sevice Want": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Sevice_Want', ``, 'string') }}",
+            "Meeting Time": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Meeting_Time', ``, 'string') }}",
+            "Meeting Date": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Meeting_Date', ``, 'string') }}",
+            "Email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Email', ``, 'string') }}",
+            "Number": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Number', ``, 'string') }}",
+            "Meeting Link": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Meeting_Link', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "Name ",
+              "displayName": "Name ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Sevice Want",
+              "displayName": "Sevice Want",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Meeting Time",
+              "displayName": "Meeting Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Meeting Date",
+              "displayName": "Meeting Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Number",
+              "displayName": "Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Meeting Link",
+              "displayName": "Meeting Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        5120,
+        224
+      ],
+      "id": "d0637f2f-85aa-462a-ba16-c38f11a884f4",
+      "name": "BookingList",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "UtF0PDlOyuWI3yOm",
+          "name": "ChatBoy"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v24.0/975965988929117/messages",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "EAAMZCgI44ZBcwBQkvoASNcdUFzY9zhPPMZBm59yiX1tOZAVD5CpZAZC9wmvPXnAOdGlaZAgKm4IEminq7BfXLMkCPVUinOVDZBrtIQ4AqLnnaQlvkaa8ZC8A7e9GVi5WYpkSFMB0ENxGweXdtrorHE0bXXmPIGPKbLH0PWbKw5KDnSXaKEmz1bQaQiD5da7U2yeRVlLMg4b4eUY0KlWMYZCaCJPYz40gZDZD"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"recipient\": {\n    \"id\": \"{{ $('Code in JavaScript').first().json.sender_id }}\"\n  },\n  \"messaging_type\": \"RESPONSE\",\n  \"message\": {\n    \"text\": {{ JSON.stringify($json.output_text) }},\n    \"quick_replies\": [\n      {{ $json.dynamic_buttons.map(b => ({\n        \"content_type\": \"text\",\n        \"title\": b.title,\n        \"payload\": b.payload\n      })).concat([{\n        \"content_type\": \"text\",\n        \"title\": \"TALK TO HUMAN\",\n        \"payload\": \"TALK_TO_HUMAN\"\n      }]).map(item => JSON.stringify(item)).join(\",\") }}\n    ]\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        6080,
+        112
+      ],
+      "id": "0f0a89ef-342f-488e-b6af-97153d58f50f",
+      "name": "Auto Reply"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v24.0/975965988929117/messages",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "EAAMZCgI44ZBcwBQkvoASNcdUFzY9zhPPMZBm59yiX1tOZAVD5CpZAZC9wmvPXnAOdGlaZAgKm4IEminq7BfXLMkCPVUinOVDZBrtIQ4AqLnnaQlvkaa8ZC8A7e9GVi5WYpkSFMB0ENxGweXdtrorHE0bXXmPIGPKbLH0PWbKw5KDnSXaKEmz1bQaQiD5da7U2yeRVlLMg4b4eUY0KlWMYZCaCJPYz40gZDZD"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"recipient\": {\n    \"id\": \"{{ $json.body.entry[0].messaging[0].sender.id }}\"\n  },\n  \"sender_action\": \"typing_on\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        2944,
+        400
+      ],
+      "id": "9f52e036-8928-4392-ac8f-1e49266abd4e",
+      "name": "Typing Indicator"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w",
+          "mode": "list",
+          "cachedResultName": "AUTOLOGIC CUSTOMER LIST",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 378451491,
+          "mode": "list",
+          "cachedResultName": "Sheet4",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w/edit#gid=378451491"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Pending"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": false
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        4064,
+        0
+      ],
+      "id": "bd548946-c973-4f21-961c-048557691596",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "UtF0PDlOyuWI3yOm",
+          "name": "ChatBoy"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3840,
+        0
+      ],
+      "id": "07fefd67-fb15-411a-98ed-39f4cf3ae436",
+      "name": "Wait1",
+      "webhookId": "6be9522e-de33-40e9-be24-e21a63fbdb4f"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ১. ইনপুট নেওয়া\nconst pendingMessages = $input.all();\nif (pendingMessages.length === 0) return [{ json: { isValid: false, reason: \"No data in sheet\" } }];\n\n// ২. বর্তমান প্রসেসের আইডি (Webhook থেকে)\nlet currentMid;\ntry {\n    currentMid = String($(\"Webhook\").first().json.body.entry[0].messaging[0].message.mid).trim();\n} catch (e) {\n    return [{ json: { isValid: false, reason: \"Webhook Data Error\" } }];\n}\n\n// ৩. শিটের শেষ আইটেম এবং রো নম্বর বের করা\nconst lastItem = pendingMessages[pendingMessages.length - 1];\nconst lastMessageInSheet = String(lastItem.json[\"Message Id\"]).trim(); \n\n// শিট থেকে রো নম্বরটি নেওয়া (n8n সাধারণত 'row_number' হিসেবে দেয়)\n// যদি আপনার শিটে সরাসরি 'Row' কলাম থাকে তবে lastItem.json[\"Row\"] ব্যবহার করুন\nconst rowNumber = lastItem.json.row_number || lastItem.pairedItem.itemIndex + 2; \n// (+২ করা হয়েছে কারণ শিটের হেডার এবং ইন্ডেক্স ব্যালেন্স করার জন্য)\n\n// ৪. তুলনা করা\nconst isLatest = currentMid === lastMessageInSheet;\n\n// ৫. আউটপুট\nconst combinedText = isLatest ? pendingMessages.map(item => item.json.Message).join(\" \\n \") : \"\";\n\nreturn [{\n    json: {\n        isValid: isLatest,\n        my_id: currentMid,\n        sheet_id: lastMessageInSheet,\n        row_number: rowNumber, // এটি এখন আউটপুটে যাবে\n        match_status: isLatest ? \"MATCHED\" : \"MISMATCH\",\n        sender_id: pendingMessages[0].json.Sender_ID,\n        combined_message: combinedText\n    }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4512,
+        0
+      ],
+      "id": "ca65b6be-27e3-4a23-b7b1-c032d4073ff5",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "f8048988-5069-4732-a757-dd3232856004",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "HUMAN",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        5632,
+        0
+      ],
+      "id": "9aa39075-12c0-4a11-bc9d-10cd36e11d65",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w",
+          "mode": "list",
+          "cachedResultName": "AUTOLOGIC CUSTOMER LIST",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 378451491,
+          "mode": "list",
+          "cachedResultName": "Sheet4",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w/edit#gid=378451491"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Mode": "HUMAN",
+            "row_number": "={{ $('Code in JavaScript').item.json.row_number }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Sender_ID",
+              "displayName": "Sender_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Mode",
+              "displayName": "Mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Message Id",
+              "displayName": "Message Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        5856,
+        -80
+      ],
+      "id": "6d036424-488a-47fb-a81f-7d5e2ccedbf1",
+      "name": "Update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "UtF0PDlOyuWI3yOm",
+          "name": "ChatBoy"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w",
+          "mode": "list",
+          "cachedResultName": "AUTOLOGIC CUSTOMER LIST",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 378451491,
+          "mode": "list",
+          "cachedResultName": "Sheet4",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w/edit#gid=378451491"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Mode": "AI",
+            "row_number": "={{ $('Code in JavaScript').item.json.row_number }}",
+            "Status": "Replied"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Sender_ID",
+              "displayName": "Sender_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Mode",
+              "displayName": "Mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Message Id",
+              "displayName": "Message Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        6528,
+        -80
+      ],
+      "id": "1d93ea87-059c-4107-a2aa-9780c86868e3",
+      "name": "Update row in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "UtF0PDlOyuWI3yOm",
+          "name": "ChatBoy"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "6138633976",
+        "text": "=Boss, someone wants to talk with you.\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        6080,
+        -80
+      ],
+      "id": "389aa918-5b84-48c6-b221-c31a4ee89fd2",
+      "name": "Send a text message",
+      "webhookId": "c9f4109c-1645-461c-8f34-c3964c2c77f6",
+      "credentials": {
+        "telegramApi": {
+          "id": "9DWHmrGBsX40JxDG",
+          "name": "ChatBoy"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const aiOutput = $json.output || \"\";\nconst buttons = [];\nconst seen = new Set();\nconst regex = /\\[(.*?)\\]/g; \nlet match;\nlet counter = 1;\n\n// বাটন বা অপশনগুলো খোঁজা হচ্ছে\nwhile ((match = regex.exec(aiOutput)) !== null) {\n  let title = match[1].trim();\n  if (!seen.has(title)) {\n    buttons.push({ \n      \"title\": `${counter}. ${title.substring(0, 15)}`, \n      \"payload\": `OPTION_${counter}` \n    });\n    seen.add(title);\n    counter++;\n  }\n}\n\n// টেক্সট ক্লিন করা এবং অতিরিক্ত লম্বা টেক্সট ছেঁটে ফেলা\nlet cleanText = aiOutput.replace(/\\[.*?\\]/g, '')\n                        .replace(/\\*/g, '')\n                        .replace(/\\s+/g, ' ')\n                        .trim();\n\n// মেসেঞ্জারের জন্য ১০০০ ক্যারেক্টারের বেশি টেক্সট না পাঠানোই ভালো\nreturn {\n  output_text: cleanText.length > 500 ? cleanText.substring(0, 500) + \"...\" : cleanText,\n  dynamic_buttons: buttons,\n  has_buttons: buttons.length > 0\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5856,
+        112
+      ],
+      "id": "1b4aa7df-318b-4fbc-8665-414173a96c94",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "4363e3f6-004b-466d-b1e1-5e87ce855e0a",
+                    "leftValue": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.attachments[0].type }}",
+                    "rightValue": "image",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Image Message"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "e1e43a62-942e-4334-b811-f5a24e461001",
+                    "leftValue": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.text }}",
+                    "rightValue": "text",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text Message"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.attachments[0].type }}",
+                    "rightValue": "audio",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "6f4815fb-56bd-4c11-92a4-a4f1d55b6a3f"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Audio Message"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "f6ae9198-d74f-4357-8340-e33db78914e3",
+                    "leftValue": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.attachments[0].type }}",
+                    "rightValue": "video",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Video Message"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        3072,
+        -16
+      ],
+      "id": "72fec5b9-3141-442c-ab81-712a254f1d51",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "text": "### ROLE:\nYou are the \"Advanced Visual Analyst\" for AutoLogic Systems. Your job is to analyze images sent by customers and extract technical, financial, or service-related context to help the support AI respond accurately.\n\n### TASK:\nAnalyze the image deeply and categorize it into ONE of the following 5 types. Then provide the details in the specified format.\n\n### CATEGORIES & INSTRUCTIONS:\n\n1. **TECHNICAL ERROR / BUG (Software/Website):**\n   - Look for: Error messages (red text), code blocks, 404 pages, \"Something went wrong\", or dashboard screenshots.\n   - Action: Read the exact error message or code.\n   - *Output Intent:* \"User is facing a technical issue.\"\n\n2. **SERVICE REFERENCE / REQUIREMENT:**\n   - Look for: Flowcharts, diagrams, screenshots of other chatbots, UI designs, or examples of automation.\n   - Action: Describe what the user wants to build (e.g., \"User wants a bot flow like this image\").\n   - *Output Intent:* \"User wants to discuss a new service or project.\"\n\n3. **PAYMENT / RECEIPT:**\n   - Look for: Mobile banking apps (bKash/Nagad), bank slips, transaction IDs, amounts.\n   - Action: Extract Amount and TrxID (Transaction ID).\n   - *Output Intent:* \"User sent a payment proof.\"\n\n4. **PRODUCT / PHYSICAL OBJECT:**\n   - Look for: Cars, hardware devices, or physical goods.\n   - Action: Identify the object name/brand/condition.\n   - *Output Intent:* \"User is inquiring about this physical product.\"\n\n5. **GENERAL / UNCLEAR:**\n   - Look for: Random photos, selfies, or low-quality images.\n   - Action: Briefly describe the content.\n\n### OUTPUT FORMAT (Strictly follow this):\n\n**Category:** [Write the Category Name from above]\n**Detected Text:** [Write any important text/numbers found in the image]\n**Visual Description:** [Briefly describe what is seen in English]\n**Customer Intent (Bangla):** [Explain in 1-2 lines in Standard Bengali what the customer likely wants based on this image]\n\n---\nExample Output for an Error Screenshot:\nCategory: TECHNICAL ERROR\nDetected Text: \"Error 503: Service Unavailable\"\nVisual Description: Screenshot of a web browser showing a server error page.\nCustomer Intent (Bangla): কাস্টমার একটি টেকনিক্যাল এরর ফেস করছেন। স্ক্রিনশটে 'Service Unavailable' দেখাচ্ছে, তাই তিনি সম্ভবত এটি সমাধানের জন্য সাহায্য চাইছেন।### ROLE:\nYou are the \"Advanced Visual Analyst\" for AutoLogic Systems. Your job is to analyze images sent by customers and extract technical, financial, or service-related context to help the support AI respond accurately.\n\n### TASK:\nAnalyze the image deeply and categorize it into ONE of the following 5 types. Then provide the details in the specified format.\n\n### CATEGORIES & INSTRUCTIONS:\n\n1. **TECHNICAL ERROR / BUG (Software/Website):**\n   - Look for: Error messages (red text), code blocks, 404 pages, \"Something went wrong\", or dashboard screenshots.\n   - Action: Read the exact error message or code.\n   - *Output Intent:* \"User is facing a technical issue.\"\n\n2. **SERVICE REFERENCE / REQUIREMENT:**\n   - Look for: Flowcharts, diagrams, screenshots of other chatbots, UI designs, or examples of automation.\n   - Action: Describe what the user wants to build (e.g., \"User wants a bot flow like this image\").\n   - *Output Intent:* \"User wants to discuss a new service or project.\"\n\n3. **PAYMENT / RECEIPT:**\n   - Look for: Mobile banking apps (bKash/Nagad), bank slips, transaction IDs, amounts.\n   - Action: Extract Amount and TrxID (Transaction ID).\n   - *Output Intent:* \"User sent a payment proof.\"\n\n4. **PRODUCT / PHYSICAL OBJECT:**\n   - Look for: Cars, hardware devices, or physical goods.\n   - Action: Identify the object name/brand/condition.\n   - *Output Intent:* \"User is inquiring about this physical product.\"\n\n5. **GENERAL / UNCLEAR:**\n   - Look for: Random photos, selfies, or low-quality images.\n   - Action: Briefly describe the content.\n\n### OUTPUT FORMAT (Strictly follow this):\n\n**Category:** [Write the Category Name from above]\n**Detected Text:** [Write any important text/numbers found in the image]\n**Visual Description:** [Briefly describe what is seen in English]\n**Customer Intent (Bangla):** [Explain in 1-2 lines in Standard Bengali what the customer likely wants based on this image]\n\n---\nExample Output for an Error Screenshot:\nCategory: TECHNICAL ERROR\nDetected Text: \"Error 503: Service Unavailable\"\nVisual Description: Screenshot of a web browser showing a server error page.\nCustomer Intent (Bangla): কাস্টমার একটি টেকনিক্যাল এরর ফেস করছেন। স্ক্রিনশটে 'Service Unavailable' দেখাচ্ছে, তাই তিনি সম্ভবত এটি সমাধানের জন্য সাহায্য চাইছেন।### ROLE:\nYou are the \"Advanced Visual Analyst\" for AutoLogic Systems. Your job is to analyze images sent by customers and extract technical, financial, or service-related context to help the support AI respond accurately.\n\n### TASK:\nAnalyze the image deeply and categorize it into ONE of the following 5 types. Then provide the details in the specified format.\n\n### CATEGORIES & INSTRUCTIONS:\n\n1. **TECHNICAL ERROR / BUG (Software/Website):**\n   - Look for: Error messages (red text), code blocks, 404 pages, \"Something went wrong\", or dashboard screenshots.\n   - Action: Read the exact error message or code.\n   - *Output Intent:* \"User is facing a technical issue.\"\n\n2. **SERVICE REFERENCE / REQUIREMENT:**\n   - Look for: Flowcharts, diagrams, screenshots of other chatbots, UI designs, or examples of automation.\n   - Action: Describe what the user wants to build (e.g., \"User wants a bot flow like this image\").\n   - *Output Intent:* \"User wants to discuss a new service or project.\"\n\n3. **PAYMENT / RECEIPT:**\n   - Look for: Mobile banking apps (bKash/Nagad), bank slips, transaction IDs, amounts.\n   - Action: Extract Amount and TrxID (Transaction ID).\n   - *Output Intent:* \"User sent a payment proof.\"\n\n4. **PRODUCT / PHYSICAL OBJECT:**\n   - Look for: Cars, hardware devices, or physical goods.\n   - Action: Identify the object name/brand/condition.\n   - *Output Intent:* \"User is inquiring about this physical product.\"\n\n5. **GENERAL / UNCLEAR:**\n   - Look for: Random photos, selfies, or low-quality images.\n   - Action: Briefly describe the content.\n\n### OUTPUT FORMAT (Strictly follow this):\n\n**Category:** [Write the Category Name from above]\n**Detected Text:** [Write any important text/numbers found in the image]\n**Visual Description:** [Briefly describe what is seen in English]\n**Customer Intent (Bangla):** [Explain in 1-2 lines in Standard Bengali what the customer likely wants based on this image]\n\n---\nExample Output for an Error Screenshot:\nCategory: TECHNICAL ERROR\nDetected Text: \"Error 503: Service Unavailable\"\nVisual Description: Screenshot of a web browser showing a server error page.\nCustomer Intent (Bangla): কাস্টমার একটি টেকনিক্যাল এরর ফেস করছেন। স্ক্রিনশটে 'Service Unavailable' দেখাচ্ছে, তাই তিনি সম্ভবত এটি সমাধানের জন্য সাহায্য চাইছেন।### ROLE:\nYou are the \"Advanced Visual Analyst\" for AutoLogic Systems. Your job is to analyze images sent by customers and extract technical, financial, or service-related context to help the support AI respond accurately.\n\n### TASK:\nAnalyze the image deeply and categorize it into ONE of the following 5 types. Then provide the details in the specified format.\n\n### CATEGORIES & INSTRUCTIONS:\n\n1. **TECHNICAL ERROR / BUG (Software/Website):**\n   - Look for: Error messages (red text), code blocks, 404 pages, \"Something went wrong\", or dashboard screenshots.\n   - Action: Read the exact error message or code.\n   - *Output Intent:* \"User is facing a technical issue.\"\n\n2. **SERVICE REFERENCE / REQUIREMENT:**\n   - Look for: Flowcharts, diagrams, screenshots of other chatbots, UI designs, or examples of automation.\n   - Action: Describe what the user wants to build (e.g., \"User wants a bot flow like this image\").\n   - *Output Intent:* \"User wants to discuss a new service or project.\"\n\n3. **PAYMENT / RECEIPT:**\n   - Look for: Mobile banking apps (bKash/Nagad), bank slips, transaction IDs, amounts.\n   - Action: Extract Amount and TrxID (Transaction ID).\n   - *Output Intent:* \"User sent a payment proof.\"\n\n4. **PRODUCT / PHYSICAL OBJECT:**\n   - Look for: Cars, hardware devices, or physical goods.\n   - Action: Identify the object name/brand/condition.\n   - *Output Intent:* \"User is inquiring about this physical product.\"\n\n5. **GENERAL / UNCLEAR:**\n   - Look for: Random photos, selfies, or low-quality images.\n   - Action: Briefly describe the content.\n\n### OUTPUT FORMAT (Strictly follow this):\n\n**Category:** [Write the Category Name from above]\n**Detected Text:** [Write any important text/numbers found in the image]\n**Visual Description:** [Briefly describe what is seen in English]\n**Customer Intent (Bangla):** [Explain in 1-2 lines in Standard Bengali what the customer likely wants based on this image]\n\n---\nExample Output for an Error Screenshot:\nCategory: TECHNICAL ERROR\nDetected Text: \"Error 503: Service Unavailable\"\nVisual Description: Screenshot of a web browser showing a server error page.\nCustomer Intent (Bangla): কাস্টমার একটি টেকনিক্যাল এরর ফেস করছেন। স্ক্রিনশটে 'Service Unavailable' দেখাচ্ছে, তাই তিনি সম্ভবত এটি সমাধানের জন্য সাহায্য চাইছেন।",
+        "inputType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        3392,
+        -240
+      ],
+      "id": "30f41b19-6ecc-406a-b032-396b2b2f914b",
+      "name": "Analyze an image",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "LNug8SrzZd1vpDWz",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.attachments[0].payload.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        3184,
+        224
+      ],
+      "id": "ef3bb517-12b1-4bc4-9f8d-038ad1bcfae8",
+      "name": "Download Audio"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.attachments[0].payload.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        3184,
+        -240
+      ],
+      "id": "e69e3ac4-785c-4089-bf46-c361d5c6adac",
+      "name": "Download Image"
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.3,
+          "safetySettings": {
+            "values": [
+              {
+                "category": "HARM_CATEGORY_HARASSMENT",
+                "threshold": "BLOCK_NONE"
+              },
+              {
+                "category": "HARM_CATEGORY_HATE_SPEECH",
+                "threshold": "BLOCK_NONE"
+              },
+              {
+                "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                "threshold": "BLOCK_NONE"
+              },
+              {
+                "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+                "threshold": "BLOCK_NONE"
+              }
+            ]
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        4736,
+        224
+      ],
+      "id": "0d5b4103-c7c9-4df3-9033-21e4e3bf0105",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "TH6fO1VBSFz8h19u",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/audio/transcriptions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer [REDACTED]"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            },
+            {
+              "name": "model",
+              "value": "whisper-large-v3"
+            },
+            {
+              "name": "prompt",
+              "value": "\"You are a Transcriber Corrector. Listen carefully; you will receive raw Bengali or English or mixed Banglish phonetic text. Your ONLY job is to fix spelling and grammar errors. Convert 'phonetic typos' into proper Bengali context. Do not add any conversational filler. Just output the corrected text.\""
+            },
+            {
+              "name": "language",
+              "value": "bn"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        3392,
+        224
+      ],
+      "id": "cbdaac6a-a905-4efe-b468-2dd29b1f7521",
+      "name": "Audio"
+    },
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "httpMethod": [
+          "POST"
+        ],
+        "path": "fb",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        2816,
+        16
+      ],
+      "id": "9a1bdf1d-ecf7-4509-abc2-f9d5f3914564",
+      "name": "Webhook",
+      "webhookId": "483b7eaf-d2ae-4112-a6ed-b2d1d05d559d"
+    },
+    {
+      "parameters": {
+        "amount": 20,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        6304,
+        -80
+      ],
+      "id": "401f67ff-a96d-438f-a604-3e9e0de225f6",
+      "name": "Wait2",
+      "webhookId": "3a289a6e-925c-4f53-b4d7-bcec7392b288"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c3d7468d-803e-4a22-b934-a63fcb71744d",
+              "leftValue": "={{ $json.Status }}",
+              "rightValue": "Pending",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "fbddc6b8-2785-4fd6-8d2e-eab3c2e00cdc",
+              "leftValue": "={{ $json.Mode }}",
+              "rightValue": "HUMAN",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        4288,
+        0
+      ],
+      "id": "d5ded4d1-2a57-4d53-ad95-f82d64c3fe26",
+      "name": "If2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2720,
+        400
+      ],
+      "id": "3e82861f-ad68-450a-ac9d-bb0b44037a7d",
+      "name": "Wait",
+      "webhookId": "e2357336-62a2-43de-a2c3-bf5184173351"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w",
+          "mode": "list",
+          "cachedResultName": "AUTOLOGIC CUSTOMER LIST",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 378451491,
+          "mode": "list",
+          "cachedResultName": "Convesation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w/edit#gid=378451491"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Sender_ID": "={{ $('Webhook').item.json.body.entry[0].messaging[0].sender.id }}",
+            "Message": "={{ $json.Text }} {{ $json['audio txt'] }} {{ $json['image txt'] }}",
+            "Timestamp": "={{ $now }}",
+            "Status": "Pending",
+            "Message Id": "={{ $('Webhook').item.json.body.entry[0].messaging[0].message.mid }}"
+          },
+          "matchingColumns": [
+            "Sender_ID"
+          ],
+          "schema": [
+            {
+              "id": "Sender_ID",
+              "displayName": "Sender_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Mode",
+              "displayName": "Mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Message Id",
+              "displayName": "Message Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3616,
+        0
+      ],
+      "id": "a51a2a2f-84c7-47a4-8ba0-e675ff631308",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "UtF0PDlOyuWI3yOm",
+          "name": "ChatBoy"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d199d713-4c34-49bb-9f7e-e6855e16592d",
+              "name": "Text",
+              "value": "={{ $json.body.entry[0].messaging[0].message.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3392,
+        0
+      ],
+      "id": "ab457251-6f31-4717-adf0-604043732eae",
+      "name": "txt msg"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w",
+          "mode": "list",
+          "cachedResultName": "AUTOLOGIC CUSTOMER LIST",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 378451491,
+          "mode": "list",
+          "cachedResultName": "Convesation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_bV2Shwho3bgKEn9zZj2K5aHQBLmdHeosfZ9Y2jNO1w/edit#gid=378451491"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Sender_ID": "={{ $json.recipient_id }}",
+            "Status": "Replied",
+            "Mode": "AI"
+          },
+          "matchingColumns": [
+            "Sender_ID"
+          ],
+          "schema": [
+            {
+              "id": "Sender_ID",
+              "displayName": "Sender_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Mode",
+              "displayName": "Mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Message Id",
+              "displayName": "Message Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        6304,
+        112
+      ],
+      "id": "4d5b6096-8f05-4330-82fe-ec811dec22e5",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "A6DsBp4Il0mrcRVi",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "PHASE 1: OMNICHANNEL ENTRY & DATA PROCESSING\n\n* Webhook captures the incoming Messenger payload.\n\n* The switch node categorizes the input (text, image, or audio).\n\n* AI APIs extract and convert media (images/voice) into readable text.\n\n* Database Sync: Appends a new row for new users or updates the existing row for returning customers.",
+        "height": 1056,
+        "width": 1120,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2672,
+        -480
+      ],
+      "typeVersion": 1,
+      "id": "5651f6d1-c6fc-4cf7-a494-8ad27db25370",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "SMART DEBOUNCING & MESSAGE MERGING\nPauses the workflow for 10 seconds. Retrieves all consecutive pending messages from the user and concatenates them into a single prompt. This entirely prevents duplicate AI replies and minimizes API costs.",
+        "height": 480,
+        "width": 166
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3808,
+        -336
+      ],
+      "typeVersion": 1,
+      "id": "d235ed5b-b968-4090-b569-f524e5d699ed",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "DATA AGGREGATION & PROMPT COMPILATION\nFetches all pending messages for the active Sender ID from the database. A custom JavaScript node then concatenates these consecutive inputs into a unified prompt, optimizing the LLM context window and preventing redundant API calls.",
+        "height": 288,
+        "width": 640,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        4016,
+        -128
+      ],
+      "typeVersion": 1,
+      "id": "acff7208-d1af-431d-a1d6-73b9f64b3a1a",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "PHASE 3: THE AI BRAIN & TOOL CALLING\n• LLM Engine: Google Gemini Chat Model.\n• Memory: Window Buffer Memory for conversation context.\n• Sheets Tools: Reads services data and saves booking details.\n• Calendar Tools: Checks availability, creates events, and dynamically generates Google Meet links.",
+        "height": 544,
+        "width": 896
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        4688,
+        -160
+      ],
+      "typeVersion": 1,
+      "id": "32a06970-5b18-472b-83a2-428219ff57a1",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "ROUTING: INTENT & SENTIMENT ANALYSIS\nEvaluates the AI's output intent. Routes the flow to the 'Human Handoff' branch if human assistance is needed; otherwise, routes to the 'AI Auto-Reply' branch.",
+        "height": 416,
+        "width": 160,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        5600,
+        -288
+      ],
+      "typeVersion": 1,
+      "id": "74ebd4be-a98b-4dfc-b59d-39a26a5a3fda",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "HUMAN HANDOFF PROTOCOL\n\nUpdates the database mode to \"Human\".\n\nSends an instant Telegram alert to the business owner.\n\nPauses AI intervention for a 20-minute cooldown period.\n\nAutomatically reverts the system back to \"AI\" mode after the timeout.",
+        "height": 368,
+        "width": 864
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        5808,
+        -304
+      ],
+      "typeVersion": 1,
+      "id": "131ca09b-65c3-499c-8f48-510e774f6188",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "\n\n\n\n\n\n\n\n\n\n\n\n\n\nPHASE 4: RESPONSE DELIVERY\nFormats the AI's response into a valid JSON payload, sends the reply via Meta Graph API, and updates the database status to \"Replied\".",
+        "height": 256,
+        "width": 640
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        5808,
+        96
+      ],
+      "typeVersion": 1,
+      "id": "02922b0a-5b0d-4a99-9d17-94dd409b34ac",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 1120,
+        "width": 4064,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2640,
+        -512
+      ],
+      "typeVersion": 1,
+      "id": "65bf56b4-01ef-4bc8-a2af-008499a57706",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "UX: TYPING INDICATOR\nTriggers a \"Typing...\" action in Messenger to simulate a natural, human-like response time.",
+        "height": 272,
+        "width": 432
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2688,
+        288
+      ],
+      "typeVersion": 1,
+      "id": "f31f1bd2-d7b3-4d95-bd65-d680dccede0b",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Use this tool FIRST when a user requests a specific date or time for a meeting. It checks the calendar to see if the requested slot is free. Input the start and end times to check for conflicts.",
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "nahidafzal97@gmail.com",
+          "mode": "list",
+          "cachedResultName": "nahidafzal97@gmail.com"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        5264,
+        224
+      ],
+      "id": "3e3792d4-dcc0-4ba8-bfaa-8b6cd1fda875",
+      "name": "Get many events in Google Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "l1mcO0ZpPPmW1ruZ",
+          "name": "ChatBoy"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Use this tool ONLY after checking availability. Creates a calendar event and generates a Google Meet link. You MUST capture the 'hangoutLink' from the output to use in the database.",
+        "calendar": {
+          "__rl": true,
+          "value": "nahidafzal97@gmail.com",
+          "mode": "list",
+          "cachedResultName": "nahidafzal97@gmail.com"
+        },
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}",
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "additionalFields": {
+          "conferenceDataUi": {
+            "conferenceDataValues": {
+              "conferenceSolution": "hangoutsMeet"
+            }
+          },
+          "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        5440,
+        224
+      ],
+      "id": "77687097-170a-4a39-a3e5-0dae586ae4b7",
+      "name": "Create an event in Google Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "l1mcO0ZpPPmW1ruZ",
+          "name": "ChatBoy"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "788beda8-dbb3-4ba3-a499-ef4d430b0d5e",
+              "name": "image txt",
+              "value": "={{ $json.content.parts[0].text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3616,
+        -240
+      ],
+      "id": "73886605-a76d-4386-a738-dc6e8fb69e4f",
+      "name": "Image to TXT"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "678e7443-db4e-4193-9719-4bad0afc9fc7",
+              "name": "audio txt",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3616,
+        224
+      ],
+      "id": "0961f25e-8511-4ef1-bc35-d76e1a74733d",
+      "name": "Audio to TXT"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "proficient-pug.pikapod.net",
+            "user-agent": "facebookexternalua",
+            "content-length": "426",
+            "accept": "*/*",
+            "accept-encoding": "deflate, gzip",
+            "content-type": "application/json",
+            "facebook-api-version": "v24.0",
+            "via": "1.1 Caddy",
+            "x-forwarded-for": "173.252.83.1",
+            "x-forwarded-host": "proficient-pug.pikapod.net",
+            "x-forwarded-proto": "https",
+            "x-hub-signature": "sha1=8057c51137421fc01d9dd4d999f0d6e37f6009e7",
+            "x-hub-signature-256": "sha256=f91521c7938646b206cd8198fe706823db485540a4f17c3e3ab0c9336cee6612"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "object": "page",
+            "entry": [
+              {
+                "time": 1771957652152,
+                "id": "975965988929117",
+                "messaging": [
+                  {
+                    "sender": {
+                      "id": "25774320862197666"
+                    },
+                    "recipient": {
+                      "id": "975965988929117"
+                    },
+                    "timestamp": 1771957651470,
+                    "message": {
+                      "mid": "m_5LRSOy7AhEQsNzv5F-3gBSoElKk_v9Lf8oNgc6TgS1TF_mggVrG1XzG7QQTN3Gd14t3BlcF0qMQqw4-mU190wA",
+                      "text": "Name: Noray Afzal Nahid \nEmail: nahidafzal97@gmail.com\nPhone number : 01690000732\nDate: 26- 02-2026\nTime: 4 pm"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "webhookUrl": "https://proficient-pug.pikapod.net/webhook/fb",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Services Data": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BookingList": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Auto Reply": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Auto Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Download Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "txt msg",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Download Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze an image": {
+      "main": [
+        [
+          {
+            "node": "Image to TXT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Audio": {
+      "main": [
+        [
+          {
+            "node": "Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Image": {
+      "main": [
+        [
+          {
+            "node": "Analyze an image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audio": {
+      "main": [
+        [
+          {
+            "node": "Audio to TXT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Typing Indicator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "txt msg": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many events in Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an event in Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Image to TXT": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audio to TXT": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "2a80557d-2ed1-4e3f-b894-0c450f364308",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e9d44adb1d2fd34a277e8ea0c2474d4f61c7671809bfe14ce66a4c2d573e5f89"
+  },
+  "id": "IFS-StbDjdE8XFo5PujMK",
+  "tags": []
+}

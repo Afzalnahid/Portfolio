@@ -169,14 +169,14 @@ export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }:
           {/* Top Bar */}
           <div className="h-14 bg-[#111] border-b border-[#222] flex items-center justify-between px-4 z-50">
             <div className="flex items-center gap-4">
-              <button 
-                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded-md cursor-pointer transition-colors shadow-lg active:scale-95 border border-blue-500/50"
+              <div 
+                className="flex items-center gap-2 text-slate-400 hover:text-white cursor-pointer mr-2 pr-4 border-r border-[#222] transition-colors"
                 onClick={onClose}
               >
                 <ArrowLeft size={16} />
-                <span className="text-[13px] font-bold tracking-wide uppercase">Back to Projects</span>
-              </button>
-              <div className="hidden sm:flex items-center gap-2 text-[13px] ml-4 border-l border-[#222] pl-4">
+                <span className="text-[13px] font-medium">Back</span>
+              </div>
+              <div className="flex items-center gap-2 text-[13px]">
                 <Bot size={16} className="text-slate-400" />
                 <span className="text-slate-400">Personal</span>
                 <span className="text-slate-600">/</span>

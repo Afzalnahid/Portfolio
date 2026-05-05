@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Search, Lightbulb, Build, ShieldCheck, Rocket, Repeat } from "lucide-react";
+import { Search, Lightbulb, ShieldCheck, Rocket } from "lucide-react";
 
 const steps = [
   {

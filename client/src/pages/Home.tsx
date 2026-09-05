@@ -4,41 +4,54 @@ import About from "@/components/sections/About";
 import Stats from "@/components/sections/Stats";
 import Showcase from "@/components/sections/Showcase";
 import Process from "@/components/sections/Process";
-import Testimonials from "@/components/sections/Testimonials";
+import Toolkit from "@/components/sections/Toolkit";
 import Contact from "@/components/sections/Contact";
-import AiChat from "@/components/AiChat";
 import NetworkBackground from "@/components/NetworkBackground";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-roboto selection:bg-blue-500/30">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-5 focus:py-3 focus:rounded-full focus:bg-blue-600 focus:text-white focus:text-xs focus:font-bold focus:uppercase focus:tracking-widest"
+      >
+        Skip to content
+      </a>
+
       <NetworkBackground />
       <Navbar />
 
-      <main className="relative z-10">
+      <main id="main" className="relative z-10">
         <Hero />
         <Stats />
         <About />
         <Showcase />
         <Process />
-        <Testimonials />
+        <Toolkit />
         <Contact />
       </main>
 
-      <AiChat />
-
       <footer className="bg-slate-950 border-t border-white/5 py-12 px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
           <div className="text-sm font-bold tracking-widest text-slate-500 uppercase">
-            © 2026 <span className="text-white">Noray Afzal Nahid</span> • AI
+            &copy; {new Date().getFullYear()}{" "}
+            <span className="text-white">Noray Afzal Nahid</span> &bull; AI
             Automation Expert
           </div>
           <div className="flex gap-8 text-[11px] font-bold text-slate-500 uppercase tracking-widest">
-            <a href="#" className="hover:text-white transition-colors">
-              Privacy Policy
+            <a
+              href="mailto:nahidafzal97@gmail.com"
+              className="hover:text-white transition-colors"
+            >
+              Email
             </a>
-            <a href="#" className="hover:text-white transition-colors">
-              Terms of Service
+            <a
+              href="https://www.linkedin.com/in/norayafzalnahid"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              LinkedIn
             </a>
           </div>
         </div>

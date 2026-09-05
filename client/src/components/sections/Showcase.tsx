@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { Bot, Share2, Workflow, ArrowRight, CheckCircle2, Database, Video, Zap, Cpu, Target, Eye } from "lucide-react";
-import { useState } from "react";
-import WorkflowViewer from "../WorkflowViewer";
-import CaseStudyModal from "../CaseStudyModal";
+import { lazy, Suspense, useState } from "react";
+
+// Both modals are heavy (React Flow, an embedded iframe) and only appear after a
+// click, so they are kept out of the first-load bundle.
+const WorkflowViewer = lazy(() => import("../WorkflowViewer"));
+const CaseStudyModal = lazy(() => import("../CaseStudyModal"));
 
 const solutions = [
   {
@@ -108,7 +111,7 @@ const solutions = [
     accent: "bg-rose-500",
     gradient: "from-rose-900/40 via-rose-900/10 to-transparent",
     borderHover: "hover:border-rose-500/50",
-    workflowPath: "workflows/UGC Ads Veo & Sora.json",
+    workflowPath: "/workflows/UGC Ads Veo & Sora.json",
   },
 ];
 
@@ -116,24 +119,30 @@ export default function Showcase() {
   const [selectedWorkflow, setSelectedWorkflow] = useState<any>(null);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [viewerTitle, setViewerTitle] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [loadingPath, setLoadingPath] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   
   const [selectedSolution, setSelectedSolution] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openWorkflow = async (e: React.MouseEvent, path: string, title: string) => {
     e.stopPropagation();
-    setIsLoading(true);
+    setLoadingPath(path);
+    setLoadError(null);
     setViewerTitle(title);
     try {
       const response = await fetch(path);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
       setSelectedWorkflow(data);
       setIsViewerOpen(true);
     } catch (error) {
       console.error("Failed to load workflow:", error);
+      setLoadError(
+        `The "${title}" workflow map could not be loaded. Please try again.`,
+      );
     } finally {
-      setIsLoading(false);
+      setLoadingPath(null);
     }
   };
 
@@ -145,10 +154,10 @@ export default function Showcase() {
   return (
     <section
       id="solutions"
-      className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-slate-950"
+      className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-slate-950"
     >
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col items-center mb-20 text-center">
+        <div className="flex flex-col items-center mb-14 sm:mb-20 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -158,7 +167,7 @@ export default function Showcase() {
             <span className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4 block">
               Product Showcase
             </span>
-            <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tighter uppercase text-white">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-6 tracking-tighter uppercase text-white">
               n8n workflows
             </h2>
             <div className="w-20 h-1.5 bg-blue-500 rounded-full mx-auto mb-6" />
@@ -169,7 +178,7 @@ export default function Showcase() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {solutions.map((solution, idx) => (
             <motion.div
               key={idx}
@@ -218,13 +227,17 @@ export default function Showcase() {
                 <div className="flex gap-3 mt-auto pt-6 border-t border-white/10">
                    <button 
                     onClick={(e) => openWorkflow(e, solution.workflowPath, solution.title)}
-                    disabled={isLoading}
+                    disabled={loadingPath === solution.workflowPath}
                     className="flex-1 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white transition-all active:scale-[0.98] disabled:opacity-50"
                   >
                     <ArrowRight className="w-3 h-3" />
-                    <span>{isLoading ? "..." : "Map"}</span>
+                    <span>{loadingPath === solution.workflowPath ? "Loading" : "Map"}</span>
                   </button>
-                  <button 
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openCaseStudy(solution);
+                    }}
                     className="flex-1 py-3 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/20 rounded-xl flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white transition-all active:scale-[0.98]"
                   >
                     <Eye className="w-3 h-3" />
@@ -237,18 +250,33 @@ export default function Showcase() {
         </div>
       </div>
 
-      <WorkflowViewer 
-        workflowJson={selectedWorkflow}
-        isOpen={isViewerOpen}
-        onClose={() => setIsViewerOpen(false)}
-        title={viewerTitle}
-      />
+      {loadError && (
+        <p
+          role="alert"
+          className="max-w-xl mx-auto mt-10 text-center text-sm text-rose-300 bg-rose-500/10 border border-rose-500/20 rounded-2xl px-6 py-4 relative z-10"
+        >
+          {loadError}
+        </p>
+      )}
 
-      <CaseStudyModal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        solution={selectedSolution}
-      />
+      <Suspense fallback={null}>
+        {isViewerOpen && (
+          <WorkflowViewer
+            workflowJson={selectedWorkflow}
+            isOpen={isViewerOpen}
+            onClose={() => setIsViewerOpen(false)}
+            title={viewerTitle}
+          />
+        )}
+
+        {isModalOpen && (
+          <CaseStudyModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            solution={selectedSolution}
+          />
+        )}
+      </Suspense>
     </section>
   );
 }

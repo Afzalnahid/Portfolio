@@ -5,12 +5,26 @@ declare module "*.jpeg" {
   export default src;
 }
 
+declare module "*.jpg" {
+  const src: string;
+  export default src;
+}
+
 declare module "*.png" {
   const src: string;
   export default src;
 }
 
-declare module "@shared/const" {
-  export const COOKIE_NAME: string;
-  export const ONE_YEAR_MS: number;
+declare module "*.webp" {
+  const src: string;
+  export default src;
+}
+
+interface ImportMetaEnv {
+  readonly VITE_ANALYTICS_ENDPOINT?: string;
+  readonly VITE_ANALYTICS_WEBSITE_ID?: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
 }

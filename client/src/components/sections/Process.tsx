@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Search, Lightbulb, ShieldCheck, Rocket } from "lucide-react";
+import { Search, Lightbulb, ShieldCheck, Rocket, Layers } from "lucide-react";
 
 const steps = [
   {
@@ -39,15 +39,13 @@ const steps = [
   }
 ];
 
-import { Layers } from "lucide-react";
-
 export default function Process() {
   return (
-    <section id="process" className="py-24 bg-slate-950 px-4 sm:px-6 lg:px-8 relative">
+    <section id="process" className="py-20 sm:py-24 bg-slate-950 px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
           <span className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4 block">Execution Roadmap</span>
-          <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter">How I Work</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tighter">How I Work</h2>
           <div className="w-20 h-1.5 bg-blue-500 rounded-full mx-auto mt-6" />
         </div>
 

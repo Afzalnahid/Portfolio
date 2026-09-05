@@ -1,4 +1,6 @@
-import { Mail, Linkedin, Facebook, MessageCircle } from "lucide-react";
+import { Mail, Linkedin, Facebook, MessageCircle, CalendarDays } from "lucide-react";
+
+const BOOKING_URL = "https://calendar.app.google/2kkn9abjZreibAJx6";
 
 const contactLinks = [
   {
@@ -43,13 +45,13 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="flex flex-col items-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-black mb-4 text-center tracking-tighter uppercase">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 text-center tracking-tighter uppercase">
             Let's Connect
           </h2>
           <div className="w-20 h-1.5 bg-white rounded-full" />
@@ -60,6 +62,18 @@ export default function Contact() {
           <span className="text-white font-medium">intelligent automation</span>
           ? Let's discuss your project and build something amazing together.
         </p>
+
+        <div className="flex justify-center mb-14">
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-black uppercase tracking-widest transition-colors shadow-lg shadow-blue-600/25 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-400"
+          >
+            <CalendarDays className="w-4 h-4" />
+            Book a free consultation
+          </a>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {contactLinks.map((link) => (

@@ -1,25 +1,25 @@
-import nahid2 from "@/nahid2.png";
+import nahid2 from "@/nahid2.webp";
 
 export default function About() {
   return (
     <section
       id="about"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/30 relative"
+      className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/30 relative"
     >
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
       <div className="max-w-6xl mx-auto relative">
         <div className="flex flex-col items-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black mb-4 text-center tracking-tighter uppercase">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 text-center tracking-tighter uppercase">
             About Me
           </h2>
           <div className="w-20 h-1.5 bg-blue-600 rounded-full" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           <div className="lg:col-span-5 order-2 lg:order-1 relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
             <div className="relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-800">
-              <img src={nahid2} alt="Noray Afzal Nahid" className="w-full h-auto object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-500" />
+              <img src={nahid2} alt="Noray Afzal Nahid" loading="lazy" width={500} height={500} className="w-full h-auto object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-500" />
             </div>
           </div>
 

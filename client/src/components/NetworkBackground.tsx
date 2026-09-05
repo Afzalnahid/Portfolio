@@ -1,4 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
+
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
+}
+
+const PARTICLE_COUNT = 60;
+const MAX_DISTANCE = 150;
 
 export default function NetworkBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -6,104 +17,106 @@ export default function NetworkBackground() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Visitors who ask their system for less motion get a still canvas.
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
     let particles: Particle[] = [];
-    const particleCount = 60;
-    const maxDistance = 150;
-    let mouse = { x: 0, y: 0 };
+    let frameId = 0;
+    let resizeTimer: number | undefined;
+    let width = 0;
+    let height = 0;
 
-    class Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-
-      constructor() {
-        this.x = Math.random() * canvas!.width;
-        this.y = Math.random() * canvas!.height;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.size = Math.random() * 2;
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0 || this.x > canvas!.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas!.height) this.vy *= -1;
-      }
-
-      draw() {
-        ctx!.beginPath();
-        ctx!.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx!.fillStyle = 'rgba(59, 130, 246, 0.2)';
-        ctx!.fill();
-      }
-    }
-
-    const init = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      particles = [];
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-      }
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
+    const seed = () => {
+      particles = Array.from({ length: PARTICLE_COUNT }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 2,
+      }));
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      for (const p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(59, 130, 246, 0.2)";
+        ctx.fill();
+      }
 
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < maxDistance) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(59, 130, 246, ${0.15 * (1 - dist / maxDistance)})`;
-            ctx.lineWidth = 1;
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
+          const dist = Math.hypot(dx, dy);
+          if (dist >= MAX_DISTANCE) continue;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(59, 130, 246, ${0.15 * (1 - dist / MAX_DISTANCE)})`;
+          ctx.lineWidth = 1;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
         }
       }
-
-      requestAnimationFrame(animate);
     };
 
-    init();
-    animate();
-
-    const handleResize = () => init();
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+    const animate = () => {
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+      }
+      draw();
+      frameId = requestAnimationFrame(animate);
     };
 
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove);
+    resize();
+    seed();
+    if (reduceMotion) draw();
+    else frameId = requestAnimationFrame(animate);
 
+    // Mobile browsers fire `resize` every time the address bar slides, so the
+    // particles are only re-seeded once the resizing has actually settled.
+    const handleResize = () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        resize();
+        seed();
+        if (reduceMotion) draw();
+      }, 200);
+    };
+
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(frameId);
+      window.clearTimeout(resizeTimer);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       className="fixed inset-0 pointer-events-none z-0 opacity-40"
     />
   );

@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Target, Lightbulb, TrendingUp, CheckCircle2, CalendarDays, ExternalLink } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface CaseStudyModalProps {
   isOpen: boolean;
@@ -10,6 +10,22 @@ interface CaseStudyModalProps {
 
 export default function CaseStudyModal({ isOpen, onClose, solution }: CaseStudyModalProps) {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen && !isBookingOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (isBookingOpen) setIsBookingOpen(false);
+      else onClose();
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isOpen, isBookingOpen, onClose]);
 
   if (!solution) return null;
 
@@ -32,13 +48,13 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: CaseStudyM
               className="relative bg-slate-900 border border-white/10 rounded-[2.5rem] overflow-hidden shadow-3xl w-full max-w-4xl max-h-[90vh] flex flex-col"
             >
               {/* Header */}
-              <div className="p-8 border-b border-white/5 flex items-start justify-between">
-                <div className="flex items-center gap-6">
-                  <div className={`w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white`}>
+              <div className="p-6 sm:p-8 border-b border-white/5 flex items-start justify-between gap-4">
+                <div className="flex items-center gap-4 sm:gap-6">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 shrink-0 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white">
                     {solution.icon}
                   </div>
                   <div>
-                    <h3 className="text-3xl font-black text-white uppercase tracking-tighter mb-1">{solution.title}</h3>
+                    <h3 className="text-xl sm:text-3xl font-black text-white uppercase tracking-tighter mb-1">{solution.title}</h3>
                     <p className="text-xs font-bold text-blue-500 uppercase tracking-[0.2em]">{solution.category}</p>
                   </div>
                 </div>
@@ -48,7 +64,7 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: CaseStudyM
               </div>
 
               {/* Content */}
-              <div className="p-8 overflow-y-auto flex-grow space-y-12">
+              <div className="p-6 sm:p-8 overflow-y-auto flex-grow space-y-10 sm:space-y-12">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   <div className="space-y-4">
                     <div className="flex items-center gap-2 text-rose-400 mb-2">
@@ -93,7 +109,7 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: CaseStudyM
               </div>
 
               {/* Footer */}
-              <div className="p-8 border-t border-white/5 bg-white/5 flex justify-end">
+              <div className="p-6 sm:p-8 border-t border-white/5 bg-white/5 flex justify-center sm:justify-end">
                 <button 
                   onClick={() => setIsBookingOpen(true)}
                   className="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white text-xs font-black uppercase tracking-widest rounded-xl transition-all active:scale-95 shadow-lg shadow-blue-600/20"

@@ -151,6 +151,20 @@ export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }:
     }
   }, [isOpen, workflowJson, setNodes, setEdges]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (typeof document === 'undefined') return null;
 
   return createPortal(
@@ -176,7 +190,7 @@ export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }:
                 <ArrowLeft size={16} />
                 <span className="text-[13px] font-medium">Back</span>
               </div>
-              <div className="flex items-center gap-2 text-[13px]">
+              <div className="hidden sm:flex items-center gap-2 text-[13px]">
                 <Bot size={16} className="text-slate-400" />
                 <span className="text-slate-400">Personal</span>
                 <span className="text-slate-600">/</span>
@@ -203,7 +217,7 @@ export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }:
 
           <div className="flex flex-grow">
             {/* Left Sidebar */}
-            <div className="w-14 bg-[#111] border-r border-[#222] flex flex-col items-center py-4 gap-6 z-50">
+            <div className="hidden sm:flex w-14 bg-[#111] border-r border-[#222] flex-col items-center py-4 gap-6 z-50">
               <Home size={20} className="text-slate-500 cursor-pointer hover:text-white" />
               <Layers size={20} className="text-slate-500 cursor-pointer hover:text-white" />
               <SearchIcon size={20} className="text-slate-500 cursor-pointer hover:text-white" />
@@ -212,16 +226,20 @@ export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }:
 
             {/* Canvas Area */}
             <div className="flex-grow relative bg-[#121212] overflow-hidden">
+              {nodes.length > 0 && (
               <ReactFlow
+                key={title}
                 nodes={nodes}
                 edges={edges}
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 nodeTypes={nodeTypes}
                 fitView
+                fitViewOptions={{ padding: 0.12 }}
                 colorMode="dark"
                 minZoom={0.05}
                 maxZoom={2}
+                proOptions={{ hideAttribution: true }}
               >
                 <Background 
                   variant={'dots' as any} 
@@ -254,6 +272,7 @@ export default function WorkflowViewer({ workflowJson, isOpen, onClose, title }:
                    </div>
                 </Panel>
               </ReactFlow>
+              )}
             </div>
           </div>
         </div>

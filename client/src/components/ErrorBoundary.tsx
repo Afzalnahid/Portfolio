@@ -33,18 +33,22 @@ class ErrorBoundary extends Component<Props, State> {
               <AlertTriangle size={40} className="text-red-500" />
             </div>
 
-            <h2 className="text-3xl font-black mb-2 tracking-tighter uppercase">
-              Automation Error
+            <h2 className="text-3xl font-black mb-2 tracking-tighter uppercase text-center">
+              Something went wrong
             </h2>
-            <p className="text-slate-400 mb-8 font-light">
-              An unexpected exception occurred in the system core.
+            <p className="text-slate-400 mb-8 font-light text-center max-w-md">
+              This page hit an unexpected error. Reloading usually fixes it. If it
+              keeps happening, please email nahidafzal97@gmail.com.
             </p>
 
-            <div className="p-6 w-full rounded-2xl bg-black/40 border border-white/5 overflow-auto mb-10 max-h-[300px] scrollbar-hide">
-              <pre className="text-xs text-red-400/80 font-mono whitespace-break-spaces leading-relaxed">
-                {this.state.error?.stack}
-              </pre>
-            </div>
+            {/* The stack trace is a debugging aid, not something a visitor should read. */}
+            {import.meta.env.DEV && (
+              <div className="p-6 w-full rounded-2xl bg-black/40 border border-white/5 overflow-auto mb-10 max-h-[300px] scrollbar-hide">
+                <pre className="text-xs text-red-400/80 font-mono whitespace-break-spaces leading-relaxed">
+                  {this.state.error?.stack}
+                </pre>
+              </div>
+            )}
 
             <button
               onClick={() => window.location.reload()}
@@ -55,7 +59,7 @@ class ErrorBoundary extends Component<Props, State> {
               )}
             >
               <RotateCcw size={16} />
-              Reboot System
+              Reload the page
             </button>
           </div>
         </div>

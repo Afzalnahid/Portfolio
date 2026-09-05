@@ -5,6 +5,27 @@
 
 ---
 
+## 2026-09-06 (session 3) — Deployed, verified live, SEO tags added
+
+The three commits from session 2 were pushed to `main` and Vercel deployed
+them. Verified against **https://nahid-afzal-portfolio.vercel.app/**: the live
+bundle hash matches the local build, there are no console errors, the mobile
+menu works at 375x812 with no horizontal overflow, the workflow map opens with
+31 nodes, and `/workflows/*.json` now serves only node name, type, position and
+connections — no webhook ids, hosts, emails or credentials.
+
+With the real domain finally known, added to `client/index.html`:
+
+- `<link rel="canonical">` and `og:url`
+- absolute URLs for `og:image` and `twitter:image` — social crawlers do not
+  resolve relative image paths, so the previews would still have been blank
+- `og:image:width` / `height` / `alt`
+
+Also added `client/public/robots.txt` and `client/public/sitemap.xml`. The
+`*.txt` ignore rule from session 2 carries a `!client/public/*.txt` exception so
+`robots.txt` is still tracked.
+
+---
 ## 2026-09-06 (session 2) — Improvement pass
 
 Not committed yet. `tsc --noEmit` and `vite build` both pass, and the behaviour
@@ -167,5 +188,7 @@ them.
 - `cb546f6` Vercel install fixed by removing a missing pnpm patch reference
 - `7477a08` Static build replaced with the real source project
 - `a633b17` Initial portfolio deploy
+
+
 
 

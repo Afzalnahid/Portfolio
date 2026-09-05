@@ -11,6 +11,7 @@
 n8n automation consultant, deployed on **Vercel**. No backend, no database,
 no login: a static build.
 
+- Live: **https://nahid-afzal-portfolio.vercel.app/** (Vercel, deploys on push to `main`)
 - Repo: `https://github.com/Afzalnahid/Portfolio` (branch `main`)
 - Local path: `D:\Projects\Portfolio`
 - Private scratch + original workflow exports: `D:\Projects\Portfolio-private`
@@ -93,6 +94,21 @@ segfault on this machine is a known flake — just re-run.
 | case study modal | opens lazily, closes on Escape |
 | public workflow JSONs | no emails, hosts, webhook ids, credentials or instance ids |
 
+## 6b. Verified on the live site, 2026-09-06
+
+Checked against **https://nahid-afzal-portfolio.vercel.app/** after the deploy.
+
+| Check | Result |
+| --- | --- |
+| deployed bundle | `index-Dut6MGBr.js` — the same hash as the local build |
+| console errors | none |
+| `/og-cover.jpg`, `/favicon.png` | 200, correct content types |
+| `/workflows/*.json` | 200, keys are `name`/`nodes`/`connections` only; each node carries `name`/`type`/`position` only; no webhook ids, hosts, emails or credentials |
+| mobile menu at 375x812 | opens, 5 links, locks scroll, closes, releases scroll |
+| horizontal overflow at 375px | none |
+| workflow map on mobile | opens, 31 nodes / 32 edges, n8n chrome correctly hidden |
+| simulated AI chat | gone |
+
 ## 7. Open items
 
 1. **Revoke the old GitHub token** at <https://github.com/settings/tokens>.
@@ -100,10 +116,8 @@ segfault on this machine is a known flake — just re-run.
    revoked. Only the owner can do this.
 2. **Regenerate the n8n webhook URLs** on the instance that appeared in the old
    workflow exports — they remain readable in git history (`lessons.md` L15).
-3. ~~Commit and push.~~ Done 2026-09-06: three commits pushed to `main`
-   (`0210308` security, `4d2d6f7` fixes and weight, `97b7761` docs), which
-   triggers the Vercel deploy. **The live URL has not been checked** — the
-   domain is not recorded anywhere in this repo.
+3. ~~Commit, push and confirm the deploy.~~ Done 2026-09-06 and verified on
+   the live site (see section 6b).
 4. Case-study copy is the same for all five solutions and quotes ROI numbers
    that cannot be verified (`lessons.md` L16).
 5. Real testimonials, if wanted, need quotes the owner has permission to use.
@@ -113,15 +127,11 @@ segfault on this machine is a known flake — just re-run.
 
 ## 8. Unverified — do not state as fact
 
-- Whether the Vercel deploy from `97b7761` actually succeeded, and whether the
-  live page looks right. Nothing was opened after the push.
-- The live domain. No URL is recorded in this repo, which is why `index.html`
-  carries no `canonical` or `og:url`. Add both once the domain is known.
+- Whether the site has been opened on a real phone. The live check used a
+  375x812 emulated viewport, not real iOS or Android hardware.
 - Whether the Google Calendar iframe in `CaseStudyModal` renders — Google often
   blocks that URL shape. The fallback message and the "open in new tab" link
   both work; the iframe itself was not confirmed.
-- Whether the site has been opened on a real phone. Only a 375x812 emulated
-  viewport was tested here — real iOS and Android were not.
 
 ## 9. Session log
 

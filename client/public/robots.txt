@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nahid-afzal-portfolio.vercel.app/sitemap.xml

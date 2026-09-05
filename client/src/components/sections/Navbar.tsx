@@ -6,8 +6,7 @@ const CV_URL = "/Noray-Afzal-Nahid-CV.pdf";
 
 const links = [
   { name: "About", href: "#about" },
-  { name: "Solutions", href: "#solutions" },
-  { name: "Process", href: "#process" },
+  { name: "Work", href: "#work" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -55,12 +54,12 @@ export default function Navbar() {
           <button
             type="button"
             onClick={goHome}
-            className="text-lg font-black tracking-[0.2em] text-white uppercase rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500"
+            className="text-lg font-extrabold tracking-[0.2em] text-white uppercase rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500"
           >
             Nahid<span className="text-[#58a6ff]">.</span>
           </button>
 
-          <div className="hidden md:flex items-center gap-8 lg:gap-10 text-[11px] font-black uppercase tracking-[0.3em]">
+          <div className="hidden md:flex items-center gap-8 lg:gap-10 text-[11px] font-extrabold uppercase tracking-[0.3em]">
             {links.map((item) => (
               <a
                 key={item.name}
@@ -112,7 +111,7 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.04 * i, duration: 0.25 }}
-                  className="py-6 border-b border-white/5 text-2xl font-black uppercase tracking-tight text-white/80 hover:text-white transition-colors"
+                  className="py-6 border-b border-white/5 text-2xl font-extrabold uppercase tracking-tight text-white/80 hover:text-white transition-colors"
                 >
                   {item.name}
                 </motion.a>

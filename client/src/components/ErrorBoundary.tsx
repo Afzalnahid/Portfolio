@@ -33,7 +33,7 @@ class ErrorBoundary extends Component<Props, State> {
               <AlertTriangle size={40} className="text-red-500" />
             </div>
 
-            <h2 className="text-3xl font-black mb-2 tracking-tighter uppercase text-center">
+            <h2 className="text-3xl font-extrabold mb-2 tracking-tighter uppercase text-center">
               Something went wrong
             </h2>
             <p className="text-slate-400 mb-8 font-light text-center max-w-md">

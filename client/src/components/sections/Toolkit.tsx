@@ -54,13 +54,13 @@ export default function Toolkit() {
           <span className="text-blue-500 font-bold tracking-widest uppercase text-xs sm:text-sm mb-4 block">
             The Stack
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tighter">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white">
             What I Build With
           </h2>
           <div className="w-20 h-1.5 bg-blue-500 rounded-full mx-auto mt-6" />
           <p className="text-slate-400 max-w-2xl mx-auto mt-6 font-light text-base sm:text-lg">
-            Not a list of things I have read about — everything here is in the
-            products above or in the workflow maps you can open on this page.
+            Not a list of things I have read about. Everything here is running
+            in one of the products or automations above.
           </p>
         </div>
 
@@ -78,7 +78,7 @@ export default function Toolkit() {
                 <div className="w-11 h-11 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
                   {group.icon}
                 </div>
-                <h3 className="text-xs font-black uppercase tracking-[0.2em]">
+                <h3 className="label">
                   {group.title}
                 </h3>
               </div>

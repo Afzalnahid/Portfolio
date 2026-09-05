@@ -37,7 +37,7 @@ export default function About() {
 
       <div className="max-w-6xl mx-auto relative">
         <div className="flex flex-col items-center mb-14 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 text-center tracking-tighter uppercase">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold mb-4 text-center">
             About Me
           </h2>
           <div className="w-20 h-1.5 bg-blue-600 rounded-full" />

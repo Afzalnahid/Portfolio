@@ -20,7 +20,7 @@ const stats = [
     label: "Automation Workflows",
     value: "5",
     icon: <Workflow className="w-5 h-5 text-rose-400" />,
-    description: "Published below with full node maps",
+    description: "Running unattended in production",
   },
   {
     label: "Messaging Channels",
@@ -34,7 +34,7 @@ export default function Stats() {
   return (
     <section className="py-16 sm:py-20 border-y border-white/5 bg-slate-900/20 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <p className="text-center text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-slate-500 mb-10">
+        <p className="text-center label text-slate-500 mb-10">
           Built in under a year
         </p>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
@@ -50,10 +50,10 @@ export default function Stats() {
               <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500">
                 {stat.icon}
               </div>
-              <div className="text-3xl md:text-4xl font-black text-white mb-1 tracking-tighter tabular-nums">
+              <div className="text-3xl md:text-4xl font-extrabold text-white mb-1 tracking-tighter tabular-nums">
                 {stat.value}
               </div>
-              <div className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-blue-500 mb-2">
+              <div className="label text-blue-500 mb-2">
                 {stat.label}
               </div>
               <p className="text-[10px] text-slate-500 font-medium uppercase tracking-widest leading-relaxed">

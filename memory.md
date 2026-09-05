@@ -27,7 +27,7 @@ no login: a static build.
 | UI primitives | Radix UI / shadcn-style in `client/src/components/ui/` |
 | Animation | Framer Motion |
 | Routing | wouter (`/` and a 404 fallback) |
-| Flow diagram | `@xyflow/react`, lazy-loaded |
+| 3D hero | hand-written canvas 3D — no three.js, no library |
 | Deploy | Vercel, `outputDirectory: client/dist` |
 
 ## 3. Layout of the code
@@ -59,11 +59,18 @@ client/
   `WorkflowViewer`. A failed fetch shows a visible message.
 - **Chat** — the only chat is the real Autologic widget loaded in
   `index.html`. The simulated `AiChat` component was deleted 2026-09-06.
+- **Typography**: Archivo (display) / IBM Plex Sans (body) / IBM Plex Mono
+  (labels via the `.label` utility). Never use `font-black` — weight 900 is not
+  loaded and silently falls back.
+- **Booking**: every entry point calls `useBooking().openBooking()`. Never
+  hard-code the calendar URL in a component again.
 - **Stats** are counted from the CV and the work on the page (1 / 4 / 5 / 4).
   The earlier CV's 10k+ / 500+ / 50+ / 99.9% figures are NOT in the current CV,
   so the site no longer states them — see `lessons.md` L17 before touching this.
 - **Toolkit** is the CV's two skill groups, Full-Stack/Web and AI/Automation.
-- **Showcase** is four applications plus five n8n workflows.
+- **Showcase** leads with getvoicium as a featured block, then three
+  applications as cards, then five n8n automations as a quiet row list.
+  The interactive n8n map viewer was removed on the owner's instruction.
 - Content source of truth is `Noray_Afzal_Nahid_Resumeupdated.pdf` (supplied
   2026-09-06). A copy is served at `client/public/Noray-Afzal-Nahid-CV.pdf`.
 - The site is aimed at **recruiters**: the primary call to action everywhere is

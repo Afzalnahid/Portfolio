@@ -5,6 +5,68 @@
 
 ---
 
+## 2026-09-06 (session 7) — Option B redesign
+
+A design audit was written first (measurements taken from the deployed build),
+then the owner picked Option B: fix the structure, and add one piece of 3D
+rather than several.
+
+### Removed
+- **The n8n map viewer.** It imitated n8n's interface — breadcrumb, "+ Add tag",
+  a "0 / 4" counter, an "Active" badge, "Live Execution Log", a sidebar and a
+  zoom toolbar — and none of those controls did anything (`lessons.md` L22). The
+  owner chose to drop it rather than rebuild it. `@xyflow/react` and the five
+  public workflow JSON files went with it.
+- **"How I Work."** A five-step consulting pitch on a page aimed at recruiters.
+- **The Autologic chat widget**, which on mobile sat where the CV button belongs.
+- **The page-wide particle background**, replaced by one animation in the hero.
+
+### Typography
+Archivo for headings, IBM Plex Sans for reading, IBM Plex Mono for labels and
+data. `font-black` was in use everywhere while only weights 500-800 are loaded,
+so it never rendered as written — swept to `font-extrabold`. Uppercase cut from
+**214 elements to 48**.
+
+### The 3D hero
+`HeroScene.tsx` draws a rotating constellation of connected nodes with a
+hand-written 3D pipeline — rotation, perspective divide, depth fade, painter's
+ordering, pointer parallax — on a 2D canvas. It uses **no 3D library**: three.js
+would have added ~155 kB gzipped to a site that ships 157 kB in total, and
+nothing here needs materials, lighting or model loading (`lessons.md` L23). It
+pauses off screen and when the tab is hidden, and renders one still frame under
+`prefers-reduced-motion`.
+
+### Structure
+getvoicium now leads as a featured block with its own panel; ezpzbd, Champion
+and Nandi follow as three cards; the five automations sit below as a quiet row
+list. Previously all nine had identical weight.
+
+### Universal booking
+`lib/booking.ts` holds the URL, email, WhatsApp number and label. A
+`BookingProvider` renders one dialog, and any button anywhere calls
+`openBooking(subject?)`. Opening it from a case study passes the project name
+through to the dialog header and prefills the email and WhatsApp messages. The
+three direct routes are always visible beneath the embed, so a blocked iframe is
+no longer a dead end.
+
+### Measured before and after
+
+| | Before | After |
+| --- | --- | --- |
+| Page height | 11,052 px | **6,389 px** |
+| Uppercase elements | 214 of 777 | **48 of 533** |
+| Typefaces | 1 | **3, by role** |
+| Weight-900 elements (not loaded) | many | **0** |
+| `client/dist` | 1.10 MB | **0.87 MB** |
+| JS gzipped | 157 kB | **157 kB** |
+| Booking definitions | 4 | **1** |
+
+Verified: type check and build pass; booking opens from the hero, contact and
+any case study, carries the subject through, and keeps its direct routes; no
+console errors; no horizontal overflow at 375px; the hero canvas renders on
+mobile at 240px.
+
+---
 ## 2026-09-06 (session 6) — Label the private client systems
 
 Champion Sales SaaS and Nandi Real Estate ERP are custom software for their
@@ -303,6 +365,7 @@ them.
 - `cb546f6` Vercel install fixed by removing a missing pnpm patch reference
 - `7477a08` Static build replaced with the real source project
 - `a633b17` Initial portfolio deploy
+
 
 
 

@@ -474,3 +474,65 @@ through it in a call. getvoicium and ezpzbd keep their "Live" links.
 **Lesson:** on a portfolio, an unexplained absence is read as a weakness. Naming
 the reason — client system, under NDA, still in development — turns the same
 fact into a normal professional constraint.
+
+---
+
+## L22 — The workflow viewer faked an interface it could not deliver
+**Severity: was the worst thing on the site. Status: REMOVED 2026-09-06.**
+
+The n8n map viewer reproduced n8n's own chrome — a "Personal" breadcrumb,
+"+ Add tag", a "0 / 4" counter, a green **Active** badge, a "Live Execution Log"
+bar, a sidebar and a zoom toolbar. Every one of those was a `<div>` with a hover
+colour and no handler. A technical reviewer clicks the zoom button within
+seconds, finds it dead, and reads the rest of the page with suspicion. The fake
+"Active" badge was worse: it asserted something untrue about a running system.
+
+The owner chose to drop the viewer entirely rather than rebuild it. The five
+automations remain as written case studies, which is what a recruiter reads
+anyway.
+
+**Lesson:** never render a control that does nothing. An interface element is a
+promise; a decorative one is a broken promise the visitor discovers by clicking.
+
+---
+
+## L23 — 3D did not need a 3D library
+**Severity: judgement call worth keeping. Status: shipped 2026-09-06.**
+
+The brief asked for 3D. The obvious route — three.js or React Three Fiber —
+costs about **155 kB gzipped**, on a site that ships 157 kB in total. It would
+have doubled the download for a portfolio whose audience opens links on phones.
+
+What the design actually needed was a rotating constellation of connected points
+with depth: perspective projection, depth fade, painter's-algorithm ordering and
+pointer parallax. That is roughly 150 lines of arithmetic on a 2D canvas, and it
+costs **nothing**. `HeroScene.tsx` does it, pauses when off screen or when the
+tab is hidden, and renders a single still frame under
+`prefers-reduced-motion`.
+
+three.js earns its size when you need materials, lighting, shadows or model
+loading. None of those were in the brief.
+
+**Lesson:** name the effect you actually need before reaching for the library
+that would deliver a hundred effects you don't.
+
+---
+
+## L24 — Uppercase is not emphasis when 28% of the page is uppercase
+**Severity: this was the "not professional" feeling. Status: FIXED 2026-09-06.**
+
+Measured on the live build before the redesign: **214 of 777 elements** were set
+in uppercase, one border-radius appeared on **72** elements, and a single
+typeface (Roboto) set everything. Every block wore the same costume — rounded
+card, icon in a bordered box, uppercase micro-label, small grey paragraph — so
+the eye had nowhere to land.
+
+After: 48 uppercase elements, three typefaces with distinct roles, and the page
+cut from **11,052px to 6,389px**.
+
+A related bug the sweep caught: `font-black` (weight 900) was used throughout
+while only weights 500-800 were loaded, so the browser was faking it or falling
+back.
+
+**Lesson:** emphasis is a scarce resource. Spend it on a few things or it stops
+existing, and check that the weights you write are the weights you loaded.

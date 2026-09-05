@@ -3,10 +3,8 @@ import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import Stats from "@/components/sections/Stats";
 import Showcase from "@/components/sections/Showcase";
-import Process from "@/components/sections/Process";
 import Toolkit from "@/components/sections/Toolkit";
 import Contact from "@/components/sections/Contact";
-import NetworkBackground from "@/components/NetworkBackground";
 
 export default function Home() {
   return (
@@ -18,7 +16,6 @@ export default function Home() {
         Skip to content
       </a>
 
-      <NetworkBackground />
       <Navbar />
 
       <main id="main" className="relative z-10">
@@ -26,14 +23,13 @@ export default function Home() {
         <Stats />
         <About />
         <Showcase />
-        <Process />
         <Toolkit />
         <Contact />
       </main>
 
       <footer className="bg-slate-950 border-t border-white/5 py-12 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
-          <div className="text-sm font-bold tracking-widest text-slate-500 uppercase">
+          <div className="text-sm font-bold tracking-widest text-slate-500">
             &copy; {new Date().getFullYear()}{" "}
             <span className="text-white">Noray Afzal Nahid</span> &bull;
             Full-Stack Developer

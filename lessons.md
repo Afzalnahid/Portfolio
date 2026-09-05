@@ -383,14 +383,17 @@ to rewrite what they say about their own work. Flag it and ask.
 ---
 
 ## L18 — The CV carries an unfilled template placeholder
-**Severity: low, but it is the owner's CV. Status: OPEN (owner to fix).**
+**Severity: low, but it is the owner's CV. Status: site FIXED 2026-09-06, PDF still OPEN.**
+
+The owner confirmed the year is **2026**, and the site now says "2026 — Present"
+for that role. The PDF itself still reads "20XX" and is the owner's to correct.
 
 `Noray_Afzal_Nahid_Resume_1.pdf` dates the freelance role as **"20XX – Present"**.
 That is the template's placeholder, never replaced. A recruiter reading the PDF
 sees it immediately.
 
-The portfolio does not repeat it — the site says "Ongoing" for that role — but
-the PDF itself should be corrected before it goes to anyone else.
+The portfolio does not repeat it — the site carries the real year — but the PDF
+should be corrected before it goes to anyone else.
 
 **Lesson:** worth reading a source document for its own errors, not only for the
 content being lifted out of it.

@@ -17,7 +17,7 @@ const experience = [
     role: "Independent AI Solutions Engineer",
     org: "Freelance & Consulting",
     place: "Cumilla, Bangladesh",
-    period: "Ongoing",
+    period: "2026 — Present",
     points: [
       "Architected a multi-tenant SaaS chatbot platform on Next.js 14 and Supabase — schema, tenant isolation, API endpoints, admin dashboard, embeddable widget and payment integration.",
       "Designed retrieval-augmented agents over pgvector so pricing, stock and policy answers come from live client data rather than model memory.",

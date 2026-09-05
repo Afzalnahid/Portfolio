@@ -5,6 +5,27 @@
 
 ---
 
+## 2026-09-06 (session 6) — Label the private client systems
+
+Champion Sales SaaS and Nandi Real Estate ERP are custom software for their
+clients, reachable only with those clients' credentials. Their cards previously
+just had no link, which to a recruiter reads as an oversight rather than a
+constraint.
+
+- Both cards now carry a "Private" badge next to the title; getvoicium and
+  ezpzbd keep their "Live" links.
+- Their case studies say plainly that the system is the client's own and sits
+  behind a login, with an offer to walk through it in a call.
+- The case-study modal now shows either a "Visit <project>" link or the private
+  note, so the question is answered wherever the reader is.
+- The modal's action was "Book a similar setup" and its booking header said
+  "Schedule a consultation" — client-sales language left over from before the
+  site was aimed at recruiters. Now "Talk about this work" and "Book a call".
+
+Verified: type check and build pass; the four application cards report
+LIVE / LIVE / PRIVATE / PRIVATE, and the Champion modal carries the login note.
+
+---
 ## 2026-09-06 (session 5) — Rebuilt again from the updated CV
 
 The owner supplied a newer, complete CV that describes a noticeably different
@@ -282,6 +303,7 @@ them.
 - `cb546f6` Vercel install fixed by removing a missing pnpm patch reference
 - `7477a08` Static build replaced with the real source project
 - `a633b17` Initial portfolio deploy
+
 
 
 

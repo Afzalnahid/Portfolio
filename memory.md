@@ -125,9 +125,11 @@ Checked against **https://nahid-afzal-portfolio.vercel.app/** after the deploy.
 3. ~~Commit, push and confirm the deploy.~~ Done 2026-09-06 and verified on
    the live site (see section 6b).
 4. Real testimonials, if wanted, need quotes the owner has permission to use.
-5. Champion and Nandi ERP have no public URL, so those cards carry no live
-   link. Add one if that changes.
-6. The Nandi ERP case study says "ongoing" and has no result yet.
+5. Champion and Nandi ERP are the clients' own systems, reachable only with
+   their credentials. Those cards are labelled "Private" on purpose — there is
+   nothing to link and nothing to demo publicly. Do not add a URL for them.
+6. The Nandi ERP case study says "in development"; update it once the system
+   is live.
 7. No analytics is installed. Vercel Analytics is the simplest replacement.
 8. No tests. `parseN8nToReactFlow()` in `WorkflowViewer.tsx` is the one piece of
    real logic worth covering.

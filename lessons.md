@@ -457,3 +457,20 @@ What the graphs actually show, for reference:
 
 **Lesson:** the artifact is on the page and a reviewer can open it. Any claim the
 map contradicts is worse than no claim.
+
+---
+
+## L21 — A project with no link needs to say why
+**Severity: low, but it costs credibility. Status: FIXED 2026-09-06.**
+
+Champion Sales SaaS and Nandi Real Estate ERP are the clients' own systems,
+behind their logins. The cards simply had no link, which reads to a recruiter as
+either an oversight or a project that does not exist.
+
+Both cards now carry a "Private" badge, and their case studies say plainly that
+the system is the client's and sits behind a login, with an offer to walk
+through it in a call. getvoicium and ezpzbd keep their "Live" links.
+
+**Lesson:** on a portfolio, an unexplained absence is read as a weakness. Naming
+the reason — client system, under NDA, still in development — turns the same
+fact into a normal professional constraint.

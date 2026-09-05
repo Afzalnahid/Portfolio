@@ -8,6 +8,8 @@ import {
   CalendarDays,
   ExternalLink,
   Layers,
+  Lock,
+  ExternalLink as LinkIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { Solution } from "./sections/Showcase";
@@ -161,6 +163,24 @@ export default function CaseStudyModal({
                   <p className="text-sm text-slate-400 font-light leading-relaxed">
                     {solution.stack}
                   </p>
+
+                  {solution.liveUrl && (
+                    <a
+                      href={solution.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-400 hover:text-blue-300 transition-colors"
+                    >
+                      Visit {solution.title} <LinkIcon size={13} />
+                    </a>
+                  )}
+
+                  {solution.privateNote && (
+                    <p className="mt-5 inline-flex items-center gap-2 text-xs font-medium text-slate-500">
+                      <Lock size={13} className="shrink-0" />
+                      {solution.privateNote} — no public demo.
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -169,7 +189,7 @@ export default function CaseStudyModal({
                   onClick={() => setIsBookingOpen(true)}
                   className="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white text-xs font-black uppercase tracking-widest rounded-xl transition-colors active:scale-95 shadow-lg shadow-blue-600/20"
                 >
-                  Book a similar setup
+                  Talk about this work
                 </button>
               </div>
             </motion.div>
@@ -203,7 +223,7 @@ export default function CaseStudyModal({
                   </div>
                   <div>
                     <h3 className="text-base sm:text-lg font-black uppercase tracking-tight">
-                      Schedule a consultation
+                      Book a call
                     </h3>
                     <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
                       Pick a time that works for you

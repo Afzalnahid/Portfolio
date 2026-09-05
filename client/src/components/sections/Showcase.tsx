@@ -14,6 +14,7 @@ import {
   MessageSquare,
   Building2,
   ExternalLink,
+  Lock,
 } from "lucide-react";
 import { lazy, Suspense, useState, type ReactNode } from "react";
 
@@ -37,6 +38,8 @@ export interface Solution {
   workflowPath?: string;
   /** Public URL, where one exists. */
   liveUrl?: string;
+  /** Why there is no public link — client systems sit behind a login. */
+  privateNote?: string;
 }
 
 const products: Solution[] = [
@@ -122,8 +125,9 @@ const products: Solution[] = [
       solution:
         "Put the whole loop inside WhatsApp. I built the WhatsApp API integration that sends each rep their daily reminders, captures leads from the replies, and feeds performance data back to head office.",
       result:
-        "The team reports from the app they already use all day, and head office sees lead status and rep ratings without asking for them.",
+        "The team reports from the app they already use all day, and head office sees lead status and rep ratings without asking for them. The product is the client's own system and sits behind their login, so there is no public demo — happy to walk through it in a call.",
     },
+    privateNote: "Client system — access by login only",
     icon: <MessageSquare className="w-7 h-7" />,
     gradient: "from-green-900/40 via-green-900/10 to-transparent",
     borderHover: "hover:border-green-500/50",
@@ -150,8 +154,9 @@ const products: Solution[] = [
       solution:
         "A full-stack ERP built around how the business actually works, started during my time at Autolinium and continuing now.",
       result:
-        "Ongoing. I will update this entry with specifics once the system is live.",
+        "Still in development, and it is the client's internal system behind their own login, so there is nothing public to link. Happy to walk through the architecture in a call.",
     },
+    privateNote: "Client system — access by login only",
     icon: <Building2 className="w-7 h-7" />,
     gradient: "from-orange-900/40 via-orange-900/10 to-transparent",
     borderHover: "hover:border-orange-500/50",
@@ -386,6 +391,14 @@ export default function Showcase() {
             >
               Live <ExternalLink className="w-3 h-3" />
             </a>
+          )}
+          {solution.privateNote && (
+            <span
+              title={solution.privateNote}
+              className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-slate-500"
+            >
+              <Lock className="w-3 h-3" /> Private
+            </span>
           )}
         </div>
 

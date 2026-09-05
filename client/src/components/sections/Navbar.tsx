@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Download } from "lucide-react";
+
+const CV_URL = "/Noray-Afzal-Nahid-CV.pdf";
 
 const links = [
   { name: "About", href: "#about" },
@@ -58,7 +60,7 @@ export default function Navbar() {
             Nahid<span className="text-[#58a6ff]">.</span>
           </button>
 
-          <div className="hidden md:flex items-center gap-10 text-[11px] font-black uppercase tracking-[0.3em]">
+          <div className="hidden md:flex items-center gap-8 lg:gap-10 text-[11px] font-black uppercase tracking-[0.3em]">
             {links.map((item) => (
               <a
                 key={item.name}
@@ -68,6 +70,14 @@ export default function Navbar() {
                 {item.name}
               </a>
             ))}
+            <a
+              href={CV_URL}
+              download
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1b72e8] hover:bg-[#1559b3] text-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-400"
+            >
+              <Download className="w-3 h-3" />
+              CV
+            </a>
           </div>
 
           <button
@@ -110,11 +120,13 @@ export default function Navbar() {
             </nav>
 
             <a
-              href="#contact"
+              href={CV_URL}
+              download
               onClick={() => setIsMenuOpen(false)}
-              className="mt-10 block w-full text-center bg-[#1b72e8] hover:bg-[#1559b3] text-white font-bold py-4 rounded-full uppercase tracking-widest text-xs transition-colors"
+              className="mt-10 flex items-center justify-center gap-2 w-full text-center bg-[#1b72e8] hover:bg-[#1559b3] text-white font-bold py-4 rounded-full uppercase tracking-widest text-xs transition-colors"
             >
-              Get in touch
+              <Download className="w-4 h-4" />
+              Download CV
             </a>
           </motion.div>
         )}

@@ -1,32 +1,32 @@
 import { motion } from "framer-motion";
-import { Zap, Clock, Plug, Target } from "lucide-react";
+import { Rocket, Layers, Workflow, MessagesSquare } from "lucide-react";
 
-// These four figures are the owner's own, taken from his CV. If they change
-// there, change them here — this is the only place the site states them.
+// Every figure here is countable from the CV or from the work shown further
+// down this page. If a project is added, update this too.
 const stats = [
   {
-    label: "Automated Executions",
-    value: "10k+",
-    icon: <Zap className="w-5 h-5 text-blue-400" />,
-    description: "Workflow runs completed",
+    label: "Solo SaaS Platform",
+    value: "1",
+    icon: <Rocket className="w-5 h-5 text-blue-400" />,
+    description: "getvoicium, architecture to deployment",
   },
   {
-    label: "Manual Hours Eliminated",
-    value: "500+",
-    icon: <Clock className="w-5 h-5 text-emerald-400" />,
-    description: "Given back to client teams",
+    label: "Production Applications",
+    value: "4",
+    icon: <Layers className="w-5 h-5 text-emerald-400" />,
+    description: "Shipped inside engineering teams",
   },
   {
-    label: "API Integrations Built",
-    value: "50+",
-    icon: <Plug className="w-5 h-5 text-rose-400" />,
-    description: "Across AI, data and messaging",
+    label: "Automation Workflows",
+    value: "5",
+    icon: <Workflow className="w-5 h-5 text-rose-400" />,
+    description: "Published below with full node maps",
   },
   {
-    label: "Grounded Response Accuracy",
-    value: "99.9%",
-    icon: <Target className="w-5 h-5 text-amber-400" />,
-    description: "Answers drawn from real data",
+    label: "Messaging Channels",
+    value: "4",
+    icon: <MessagesSquare className="w-5 h-5 text-amber-400" />,
+    description: "Facebook, Instagram, WhatsApp, Telegram",
   },
 ];
 
@@ -34,6 +34,9 @@ export default function Stats() {
   return (
     <section className="py-16 sm:py-20 border-y border-white/5 bg-slate-900/20 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <p className="text-center text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-slate-500 mb-10">
+          Built in under a year
+        </p>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
           {stats.map((stat, idx) => (
             <motion.div

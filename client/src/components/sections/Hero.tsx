@@ -1,28 +1,32 @@
 import { Button } from "@/components/ui/button";
-import { Linkedin, Facebook, Mail, MessageCircle, Github } from "lucide-react";
+import {
+  Linkedin,
+  Github,
+  Mail,
+  MessageCircle,
+  Download,
+  MapPin,
+} from "lucide-react";
 import heroImage from "@/heroimage.webp";
 import { motion } from "framer-motion";
 
+export const CV_URL = "/Noray-Afzal-Nahid-CV.pdf";
+
 const socials = [
+  {
+    label: "GitHub",
+    icon: <Github size={14} />,
+    href: "https://github.com/Afzalnahid",
+  },
   {
     label: "LinkedIn",
     icon: <Linkedin size={14} />,
     href: "https://www.linkedin.com/in/norayafzalnahid",
   },
   {
-    label: "Facebook",
-    icon: <Facebook size={14} />,
-    href: "https://www.facebook.com/share/1WyK1mVSVe/",
-  },
-  {
     label: "WhatsApp",
     icon: <MessageCircle size={14} />,
     href: "https://wa.me/8801690000732",
-  },
-  {
-    label: "GitHub",
-    icon: <Github size={14} />,
-    href: "https://github.com/Afzalnahid",
   },
   {
     label: "Email",
@@ -31,13 +35,9 @@ const socials = [
   },
 ];
 
-const scrollTo = (id: string) =>
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-
 export default function Hero() {
   return (
     <section className="relative min-h-[100svh] flex flex-col justify-between overflow-hidden bg-black">
-      {/* Background image. Decorative, so it stays a background rather than an <img>. */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroImage})` }}
@@ -51,14 +51,14 @@ export default function Hero() {
       <div className="relative z-10 h-24" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 flex-grow flex flex-col justify-center">
-        <div className="max-w-2xl space-y-8 md:space-y-10">
+        <div className="max-w-2xl space-y-7 md:space-y-9">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-[11px] sm:text-xs font-black uppercase tracking-[0.3em] text-[#58a6ff]"
           >
-            AI Solutions Engineer &bull; Product Builder &bull; Automation Architect
+            Full-Stack Developer &bull; AI Automation Expert (n8n)
           </motion.p>
 
           <motion.h1
@@ -67,21 +67,20 @@ export default function Hero() {
             transition={{ duration: 0.8 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] text-white uppercase tracking-tighter"
           >
-            I BUILD <br />
-            <span className="text-[#58a6ff]">AI PRODUCTS</span> <br />
-            END TO END
+            I SHIP <br />
+            <span className="text-[#58a6ff]">REAL PRODUCTS</span> <br />
+            NOT DEMOS
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="text-base sm:text-lg text-slate-300 font-light max-w-lg leading-relaxed"
+            className="text-base sm:text-lg text-slate-300 font-light max-w-xl leading-relaxed"
           >
-            From database schema and API architecture through retrieval
-            pipelines and model orchestration, to the interface your customers
-            actually use &mdash; and the automation that keeps it running
-            unattended.
+            In under a year I have built a SaaS platform solo and contributed to
+            four production applications — across Next.js and Node.js, Supabase
+            and PostgreSQL, and AI automation with n8n and LLMs.
           </motion.p>
 
           <motion.div
@@ -91,19 +90,37 @@ export default function Hero() {
             className="flex flex-col sm:flex-row gap-4"
           >
             <Button
-              className="bg-[#1b72e8] hover:bg-[#1559b3] text-white font-bold px-10 py-7 text-sm rounded-full transition-colors uppercase tracking-widest shadow-lg shadow-blue-600/20 active:scale-95"
-              onClick={() => scrollTo("contact")}
+              asChild
+              className="bg-[#1b72e8] hover:bg-[#1559b3] text-white font-bold px-9 py-7 text-sm rounded-full transition-colors uppercase tracking-widest shadow-lg shadow-blue-600/20 active:scale-95"
             >
-              Get in touch
+              <a href={CV_URL} download>
+                <Download className="w-4 h-4" />
+                Download CV
+              </a>
             </Button>
             <Button
               variant="outline"
-              className="bg-white/5 border-white/20 hover:bg-white/10 hover:text-white text-white font-bold px-10 py-7 text-sm rounded-full transition-colors uppercase tracking-widest active:scale-95"
-              onClick={() => scrollTo("solutions")}
+              className="bg-white/5 border-white/20 hover:bg-white/10 hover:text-white text-white font-bold px-9 py-7 text-sm rounded-full transition-colors uppercase tracking-widest active:scale-95"
+              onClick={() =>
+                document
+                  .getElementById("solutions")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
             >
-              See the workflows
+              See my work
             </Button>
           </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.35 }}
+            className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <MapPin className="w-3.5 h-3.5" />
+            Comilla, Bangladesh &bull; open to remote, worldwide
+          </motion.p>
         </div>
       </div>
 

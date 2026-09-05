@@ -10,6 +10,10 @@ import {
   Target,
   Eye,
   Layers,
+  GraduationCap,
+  MessageSquare,
+  Building2,
+  ExternalLink,
 } from "lucide-react";
 import { lazy, Suspense, useState, type ReactNode } from "react";
 
@@ -29,66 +33,156 @@ export interface Solution {
   icon: ReactNode;
   gradient: string;
   borderHover: string;
-  /** Absent for work that is not an n8n graph, which hides the "Map" button. */
+  /** Present only for work that is an n8n graph; drives the "Map" button. */
   workflowPath?: string;
+  /** Public URL, where one exists. */
+  liveUrl?: string;
 }
 
-const solutions: Solution[] = [
+const products: Solution[] = [
   {
-    title: "Multi-Tenant AI Chatbot Platform",
-    category: "SaaS Product",
+    title: "getvoicium",
+    category: "Solo SaaS",
     description:
-      "A self-serve platform that lets small businesses deploy AI customer-service agents to Facebook, Instagram, WhatsApp and their own website — built end to end, from database schema to the embeddable widget.",
-    stack: "Next.js 14 · Supabase pgvector · Gemini · Meta Graph API · Vercel",
+      "A multi-tenant AI chatbot platform that answers customers in Bangla across Facebook, Instagram, WhatsApp and a website widget. Built solo, from architecture to deployment.",
+    stack: "Next.js · Supabase (pgvector) · Google Gemini · RAG · Vercel",
+    liveUrl: "https://getvoicium.com",
     features: [
-      "Per-tenant knowledge bases with vector retrieval",
-      "Database-level isolation on every query",
-      "One-click OAuth channel connection",
-      "Shadow-DOM widget with origin allow-listing",
-      "Broadcast messaging with segment targeting",
-      "Payment-gateway integration",
+      "Per-client knowledge base with RAG retrieval",
+      "Product catalogue",
+      "Broadcast messaging",
+      "Billing and subscriptions",
+      "Embeddable website widget",
+      "Multi-tenant data isolation",
     ],
     details: {
-      realTime:
-        "Businesses connect a channel and go live without touching a token.",
-      bestFor: "Small businesses running ecommerce or a service agency.",
+      realTime: "A business connects a channel and its bot answers in Bangla.",
+      bestFor: "Small businesses selling through Meta channels.",
     },
     caseStudy: {
       problem:
-        "Small businesses want an AI agent on their channels, but every existing route demands developer work: finding page IDs, pasting access tokens, wiring webhooks. Most owners stop at the first configuration screen.",
+        "Bangladeshi businesses answer the same handful of questions all day on Messenger and WhatsApp — price, stock, delivery — usually in Bangla, usually outside office hours. Off-the-shelf chatbots answer in English, from generic knowledge, and need a developer to install.",
       solution:
-        "A full multi-tenant SaaS — schema design, tenant isolation enforced at the database on every query, REST endpoints, an admin dashboard, an embeddable Shadow-DOM widget, and OAuth onboarding that asks the owner for nothing but a click. One codebase serves two business models, ecommerce and service agency.",
+        "A complete multi-tenant SaaS built solo: schema and tenant isolation on Supabase, retrieval over pgvector so each client's own catalogue and policies answer the question, Gemini for the reply, and an embeddable widget alongside the Meta channels. Broadcasts and billing are part of the product, not bolted on.",
       result:
-        "Owners connect Facebook, Instagram, WhatsApp or their website themselves. Answers are grounded in each tenant's own pricing, stock and policy data through pgvector retrieval rather than model memory.",
+        "Owners get a bot that answers from their real data in their customers' language, and set it up themselves rather than hiring someone to wire it.",
     },
     icon: <Layers className="w-7 h-7" />,
     gradient: "from-indigo-900/40 via-indigo-900/10 to-transparent",
     borderHover: "hover:border-indigo-500/50",
   },
   {
-    title: "Multimodal E-Commerce Chatbot",
-    category: "AI & Commerce",
+    title: "ezpzbd",
+    category: "AI EdTech",
     description:
-      "An autonomous 24/7 sales agent on Messenger for premium retail brands. Input routing detects text, image, voice or video and hands each to the right model.",
-    stack:
-      "n8n · Gemini 2.5 Pro · GPT-4o-mini · Whisper-large-v3 (Groq) · Supabase",
+      "An AI tutoring platform for HSC students, with several AI tutors and voice explanations in both Bangla and English. I trained the tutors on the learning content and question data.",
+    stack: "AI tutors · Voice explanation · Board-exam question data",
+    liveUrl: "https://ezpzbd.com",
     features: [
-      "Intelligent input routing",
-      "Vision-language product recognition",
-      "Bengali and Banglish voice transcription",
-      "Supabase RAG for live price and stock",
+      "Multiple subject-specific AI tutors",
+      "Voice explanations in Bangla and English",
+      "Trained on board-exam solutions",
+      "Physics, Chemistry and Math coverage",
     ],
     details: {
-      realTime: "Customers search inventory with a photo or a voice note.",
-      bestFor: "Retailers and premium brands.",
+      realTime: "A student asks a question and hears the method explained.",
+      bestFor: "HSC students preparing for board exams.",
     },
     caseStudy: {
       problem:
-        "Customers send a blurry photo of a product, or a Bengali voice note, and expect a price. A text-only bot cannot read either, so every one of those messages waits for a human.",
+        "HSC students need someone to explain the method, not just supply the answer, and private tutoring is out of reach for most families. A general chatbot does not know the board syllabus or how its questions are marked.",
       solution:
-        "Input routing detects the message type first. Vision-language models identify product motifs and finishes from low-quality photos; Whisper-large-v3 transcribes Bengali and Banglish voice notes; a Supabase RAG layer grounds every price and stock answer in live data. PostgreSQL conversation buffering returns one coherent reply instead of a burst of fragments.",
+        "As part of the engineering team I trained the platform's AI tutors on the learning content and past board-exam question data, so answers follow the syllabus and the expected solution method — with voice explanation in Bangla as well as English.",
       result:
-        "The agent answers photo and voice enquiries unattended and writes the customer's name, phone and delivery address straight into Google Sheets for fulfilment.",
+        "Students get subject tutors for Physics, Chemistry and Math that explain in the language they think in.",
+    },
+    icon: <GraduationCap className="w-7 h-7" />,
+    gradient: "from-cyan-900/40 via-cyan-900/10 to-transparent",
+    borderHover: "hover:border-cyan-500/50",
+  },
+  {
+    title: "Champion Sales SaaS",
+    category: "WhatsApp Automation",
+    description:
+      "A SaaS that runs a sales team and its head office entirely through WhatsApp — daily reminders, lead management and rep performance ratings. I built the WhatsApp API integration.",
+    stack: "WhatsApp Cloud API · Automation workflows · Web dashboard",
+    features: [
+      "Automated daily reminders to reps",
+      "Lead capture and management",
+      "Sales-team performance tracking",
+      "Head-office reporting",
+    ],
+    details: {
+      realTime: "Reps get their prompts where they already are — on WhatsApp.",
+      bestFor: "Field sales teams and their head office.",
+    },
+    caseStudy: {
+      problem:
+        "A field sales team will not open a CRM. Any tool that asks reps to log in somewhere new collects nothing, so head office ends up chasing updates by phone.",
+      solution:
+        "Put the whole loop inside WhatsApp. I built the WhatsApp API integration that sends each rep their daily reminders, captures leads from the replies, and feeds performance data back to head office.",
+      result:
+        "The team reports from the app they already use all day, and head office sees lead status and rep ratings without asking for them.",
+    },
+    icon: <MessageSquare className="w-7 h-7" />,
+    gradient: "from-green-900/40 via-green-900/10 to-transparent",
+    borderHover: "hover:border-green-500/50",
+  },
+  {
+    title: "Nandi Real Estate ERP",
+    category: "Full-Stack ERP · Ongoing",
+    description:
+      "A full-stack ERP system for a real-estate development company, covering the operational side of the business. Currently in development.",
+    stack: "Full-stack web application · Relational database",
+    features: [
+      "Full-stack build",
+      "Operational workflows for property development",
+      "Relational data model",
+      "In active development",
+    ],
+    details: {
+      realTime: "Replaces the spreadsheets a development company runs on.",
+      bestFor: "Real-estate developers.",
+    },
+    caseStudy: {
+      problem:
+        "A property development company's operations spread across spreadsheets and message threads, so no one has a single view of a project's state.",
+      solution:
+        "A full-stack ERP built around how the business actually works, started during my time at Autolinium and continuing now.",
+      result:
+        "Ongoing. I will update this entry with specifics once the system is live.",
+    },
+    icon: <Building2 className="w-7 h-7" />,
+    gradient: "from-orange-900/40 via-orange-900/10 to-transparent",
+    borderHover: "hover:border-orange-500/50",
+  },
+];
+
+const workflows: Solution[] = [
+  {
+    title: "E-Commerce Chatbot",
+    category: "Retail",
+    description:
+      "A Messenger sales agent that answers from live inventory instead of from model memory, and remembers the conversation between messages.",
+    stack:
+      "n8n · Gemini · OpenAI · Supabase vector store · PostgreSQL · Google Sheets",
+    features: [
+      "Supabase vector retrieval for price and stock",
+      "PostgreSQL conversation memory",
+      "Text, image and voice input routed by type",
+      "Order details written to Google Sheets",
+    ],
+    details: {
+      realTime: "Answers product questions and captures the order.",
+      bestFor: "Retailers selling through Messenger.",
+    },
+    caseStudy: {
+      problem:
+        "A bot that answers price and stock from what the model happens to remember will be confidently wrong, and one that treats every message separately loses the thread mid-order.",
+      solution:
+        "Input routing sends text, image and voice each to the right model. A Supabase vector store grounds every price and stock answer in real data, and PostgreSQL-backed chat memory carries the conversation across messages. Confirmed orders are written straight to Google Sheets.",
+      result:
+        "38 nodes handling enquiry to order without a person in the loop. Open the map to trace it.",
     },
     icon: <Workflow className="w-7 h-7" />,
     gradient: "from-emerald-900/40 via-emerald-900/10 to-transparent",
@@ -96,28 +190,28 @@ const solutions: Solution[] = [
     workflowPath: "/workflows/E-commerce chatbot.json",
   },
   {
-    title: "Agency Chatbot & Booking Workflow",
-    category: "Customer Relations",
+    title: "Agency Chatbot & Booking",
+    category: "Service Businesses",
     description:
-      "A client-facing assistant for service businesses that handles enquiries, remembers context across sessions, syncs to the CRM and runs a complete booking sequence.",
-    stack: "n8n · GoHighLevel · Google Calendar · Gemini · Supabase",
+      "An assistant that handles enquiries, keeps context across the conversation, and books the meeting into Google Calendar itself.",
+    stack: "n8n · Gemini · Google Calendar · Google Sheets · Telegram",
     features: [
-      "Automated booking sequence",
-      "Contextual memory across sessions",
-      "CRM synchronisation",
-      "Automatic meeting-link generation",
+      "Conversational memory buffer",
+      "Google Calendar booking as an agent tool",
+      "Enquiry logging to Google Sheets",
+      "Telegram alerts on new bookings",
     ],
     details: {
-      realTime: "Handles Facebook and web enquiries, then books the meeting.",
+      realTime: "Enquiry to a confirmed calendar slot, unattended.",
       bestFor: "Agencies and service businesses.",
     },
     caseStudy: {
       problem:
-        "Enquiries arrive at every hour and each one needs the same sequence: qualify, answer, offer a slot, confirm, add to the CRM. Done by hand it is slow, and the follow-up is the step most often dropped.",
+        "Every enquiry needs the same sequence — qualify, answer, offer a slot, confirm, record it. Done by hand it is slow, and the follow-up is the step that gets dropped.",
       solution:
-        "An n8n assistant with a conversational memory buffer so the thread survives across sessions, GoHighLevel sync so nothing sits outside the CRM, and a booking sequence that checks Google Calendar, generates the meeting link and sends the confirmation itself.",
+        "A Gemini agent with a memory buffer so the thread survives, Google Calendar exposed to it as a tool so it can check and book directly, Sheets for the record and Telegram for the alert.",
       result:
-        "Enquiry to confirmed booking runs unattended, and the client record exists in the CRM before anyone opens it.",
+        "31 nodes turning a message into a booked meeting. Open the map to trace it.",
     },
     icon: <Bot className="w-7 h-7" />,
     gradient: "from-blue-900/40 via-blue-900/10 to-transparent",
@@ -125,28 +219,29 @@ const solutions: Solution[] = [
     workflowPath: "/workflows/Agency cahtbot.json",
   },
   {
-    title: "RAG Chatbot with Knowledgebase",
+    title: "RAG Knowledgebase Chatbot",
     category: "Knowledge Management",
     description:
-      "A document ingestion and semantic retrieval system that gives support teams accurate, source-grounded answers from their own documentation.",
-    stack: "Supabase Vector Store · Gemini / OpenAI · n8n",
+      "A document pipeline and retrieval chatbot: files land in Google Drive, get chunked and embedded into a vector store, and answers come back with the source behind them.",
+    stack:
+      "n8n · Google Drive · OpenAI embeddings · Supabase vector store · PostgreSQL",
     features: [
-      "Document ingestion pipeline",
-      "Semantic search over a vector store",
-      "Answers grounded in proprietary docs",
-      "Reduced hallucination through data grounding",
+      "Google Drive document ingestion",
+      "Text splitting and embedding pipeline",
+      "Supabase vector store retrieval",
+      "Scheduled re-indexing",
     ],
     details: {
-      realTime: "Live technical support drawn from private documentation.",
+      realTime: "Support answers drawn from your own documentation.",
       bestFor: "Support teams and technical SaaS.",
     },
     caseStudy: {
       problem:
-        "A general model answers questions about your product from what it absorbed during training. It sounds confident and is often wrong, which is worse than no answer at all when the subject is your own documentation.",
+        "Ask a general model about your product and it answers from training data. It sounds right and often is not, which is worse than no answer when the subject is your own documentation.",
       solution:
-        "A retrieval-augmented pipeline: documents are chunked and embedded into a Supabase vector store, and every question is answered from the passages that are actually retrieved rather than from model memory.",
+        "Documents are pulled from Google Drive, extracted, split and embedded into a Supabase vector store on a schedule. Questions are answered from the passages actually retrieved, not from model memory.",
       result:
-        "Support answers cite the team's real documentation, and hallucinated answers drop because the model is given the source instead of being asked to recall it.",
+        "34 nodes covering ingestion and retrieval in one graph. Open the map to trace it.",
     },
     icon: <Database className="w-7 h-7" />,
     gradient: "from-amber-900/40 via-amber-900/10 to-transparent",
@@ -154,28 +249,28 @@ const solutions: Solution[] = [
     workflowPath: "/workflows/Rag Chatbot with Knowledgebase Management.json",
   },
   {
-    title: "Autonomous Social Content Engine",
+    title: "Facebook Auto-Posting",
     category: "Content Automation",
     description:
-      "A self-running content pipeline that publishes three times a day, analyses what worked, writes the caption and generates the matching visual.",
-    stack: "n8n · Gemini · Facebook Graph API · Telegram · Google Sheets",
+      "A scheduled pipeline that writes the post with Gemini, publishes it through the Graph API, logs it and reports back on Telegram.",
+    stack: "n8n · Gemini · Facebook Graph API · Google Sheets · Telegram",
     features: [
-      "Engagement analysis before writing",
-      "Bengali caption generation",
-      "A 1080x1080 visual per post",
-      "Topic and style rotation to avoid repetition",
+      "Schedule-triggered, no manual step",
+      "Gemini writes the copy",
+      "Publishes via the Facebook Graph API",
+      "Every post logged, status alerted to Telegram",
     ],
     details: {
-      realTime: "Publishes three times daily without anyone opening the app.",
+      realTime: "Posts go out on schedule whether or not anyone logs in.",
       bestFor: "Creators and small businesses.",
     },
     caseStudy: {
       problem:
-        "Consistent posting is what moves a page, and it is the first thing to slip. Scheduling tools help with the timing but still need someone to write the copy and make the image.",
+        "Consistent posting is what moves a page and it is the first thing to slip. Schedulers fix the timing but still need someone to write the post.",
       solution:
-        "A pipeline that reads recent post engagement, writes Bengali captions in response to it, generates a matching 1080x1080 visual for each post, and rotates topic and visual style so the feed does not repeat itself. Every post is logged centrally with real-time Telegram status alerts.",
+        "A schedule trigger starts the run, a Gemini agent with a memory buffer writes the copy, the Graph API publishes it, Google Sheets keeps the log and Telegram reports whether it worked.",
       result:
-        "Three posts a day publish on their own, and a Telegram message says what went out and whether it succeeded.",
+        "21 nodes publishing without anyone opening the app. Open the map to trace it.",
     },
     icon: <Share2 className="w-7 h-7" />,
     gradient: "from-purple-900/40 via-purple-900/10 to-transparent",
@@ -183,28 +278,28 @@ const solutions: Solution[] = [
     workflowPath: "/workflows/Facebook Autopost with Ai.json",
   },
   {
-    title: "UGC Video Ad Automation",
+    title: "UGC Video Ad Pipeline",
     category: "AI Advertising",
     description:
-      "Converts product data sheets into influencer-style video advertisements with optimised ad copy, taking manual creative production out of the campaign cycle.",
-    stack: "Kie.ai (Veo / Sora) · GPT-4o · HeyGen · Google Sheets API",
+      "Reads product rows from a spreadsheet, writes the ad copy with an LLM, and drives a video-generation API through to a finished UGC-style ad.",
+    stack: "n8n · OpenRouter · OpenAI · Video generation API · Google Sheets",
     features: [
-      "AI video generation",
-      "Ad copy optimisation",
       "Spreadsheet-driven input",
-      "High-engagement UGC formats",
+      "LLM-written ad copy",
+      "Polls the video API until the render is ready",
+      "Scheduled batch runs",
     ],
     details: {
-      realTime: "Turns a product sheet row into a finished video ad.",
+      realTime: "A product row becomes a finished video ad.",
       bestFor: "Marketing agencies and advertisers.",
     },
     caseStudy: {
       problem:
-        "UGC-style video converts, but producing it means briefing a creator, waiting, reviewing and re-shooting. Testing ten variations of an angle is not realistic on that cycle.",
+        "UGC-style video converts, but producing it means briefing a creator and waiting. Testing ten variations of an angle is not realistic on that cycle.",
       solution:
-        "A pipeline that reads product data from Google Sheets, writes and optimises the ad copy with GPT-4o, and generates influencer-style video through Veo, Sora and HeyGen.",
+        "A scheduled graph reads product data from Google Sheets, writes and optimises the copy through OpenRouter and OpenAI, then calls a video-generation API and waits on it until the render is ready.",
       result:
-        "Creative production leaves the campaign cycle, so variations can be generated and tested instead of commissioned one at a time.",
+        "28 nodes turning a spreadsheet into video ads. Open the map to trace it.",
     },
     icon: <Video className="w-7 h-7" />,
     gradient: "from-rose-900/40 via-rose-900/10 to-transparent",
@@ -219,7 +314,6 @@ export default function Showcase() {
   const [viewerTitle, setViewerTitle] = useState("");
   const [loadingPath, setLoadingPath] = useState<string | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
-
   const [selectedSolution, setSelectedSolution] = useState<Solution | null>(
     null,
   );
@@ -254,13 +348,117 @@ export default function Showcase() {
     setIsModalOpen(true);
   };
 
+  const renderCard = (solution: Solution, idx: number) => (
+    <motion.div
+      key={solution.title}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, delay: (idx % 3) * 0.1 }}
+      onClick={() => openCaseStudy(solution)}
+      className={`group relative bg-slate-900/40 backdrop-blur-xl rounded-[2rem] border border-white/5 overflow-hidden transition-all duration-500 ${solution.borderHover} hover:shadow-2xl hover:-translate-y-2 flex flex-col cursor-pointer`}
+    >
+      <div
+        className={`absolute inset-0 bg-gradient-to-b ${solution.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
+      />
+
+      <div className="p-7 sm:p-8 relative z-10 flex flex-col flex-grow">
+        <div className="flex items-center justify-between gap-3 mb-7">
+          <div className="w-14 h-14 shrink-0 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-500">
+            {solution.icon}
+          </div>
+          <span className="px-3 py-1 bg-white/5 rounded-full text-[10px] font-bold uppercase tracking-widest text-slate-300 border border-white/10 text-right">
+            {solution.category}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2 mb-3 flex-wrap">
+          <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight">
+            {solution.title}
+          </h3>
+          {solution.liveUrl && (
+            <a
+              href={solution.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-blue-400 hover:text-blue-300 transition-colors"
+            >
+              Live <ExternalLink className="w-3 h-3" />
+            </a>
+          )}
+        </div>
+
+        <p className="text-sm text-slate-400 font-light leading-relaxed mb-6">
+          {solution.description}
+        </p>
+
+        <p className="text-[10px] font-bold text-slate-500 tracking-wide mb-6 leading-relaxed">
+          {solution.stack}
+        </p>
+
+        <div className="mb-7 space-y-4 bg-white/[0.03] rounded-2xl p-5 border border-white/5 mt-auto">
+          <div className="flex items-start gap-3">
+            <Zap className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
+            <div>
+              <p className="text-[10px] font-black text-slate-500 uppercase tracking-tighter">
+                In practice
+              </p>
+              <p className="text-[11px] text-slate-300 leading-normal">
+                {solution.details.realTime}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <Target className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" />
+            <div>
+              <p className="text-[10px] font-black text-slate-500 uppercase tracking-tighter">
+                Built for
+              </p>
+              <p className="text-[11px] text-slate-300 leading-normal font-medium">
+                {solution.details.bestFor}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex gap-3 pt-6 border-t border-white/10">
+          {solution.workflowPath && (
+            <button
+              onClick={(e) =>
+                openWorkflow(e, solution.workflowPath!, solution.title)
+              }
+              disabled={loadingPath === solution.workflowPath}
+              className="flex-1 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white transition-all active:scale-[0.98] disabled:opacity-50"
+            >
+              <ArrowRight className="w-3 h-3" />
+              <span>
+                {loadingPath === solution.workflowPath ? "Loading" : "Map"}
+              </span>
+            </button>
+          )}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              openCaseStudy(solution);
+            }}
+            className="flex-1 py-3 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/20 rounded-xl flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white transition-all active:scale-[0.98]"
+          >
+            <Eye className="w-3 h-3" />
+            <span>Case study</span>
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+
   return (
     <section
       id="solutions"
       className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-slate-950"
     >
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col items-center mb-14 sm:mb-20 text-center">
+        <div className="flex flex-col items-center mb-14 sm:mb-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -271,109 +469,28 @@ export default function Showcase() {
               Selected Work
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-6 tracking-tighter uppercase text-white">
-              Systems I have shipped
+              Products &amp; Automations
             </h2>
             <div className="w-20 h-1.5 bg-blue-500 rounded-full mx-auto mb-6" />
             <p className="text-slate-400 max-w-2xl font-light text-base sm:text-lg">
-              One SaaS product and five production automations. Open any card for
-              the case study, or open the map to trace the workflow node by node.
+              Four applications and five production workflows. Open any card for
+              the case study, or open a map to trace the workflow node by node.
             </p>
           </motion.div>
         </div>
 
+        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-8">
+          Applications
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-20">
+          {products.map(renderCard)}
+        </div>
+
+        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-8">
+          n8n Automation Workflows
+        </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {solutions.map((solution, idx) => (
-            <motion.div
-              key={solution.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: (idx % 3) * 0.12 }}
-              onClick={() => openCaseStudy(solution)}
-              className={`group relative bg-slate-900/40 backdrop-blur-xl rounded-[2rem] border border-white/5 overflow-hidden transition-all duration-500 ${solution.borderHover} hover:shadow-2xl hover:-translate-y-2 flex flex-col cursor-pointer`}
-            >
-              <div
-                className={`absolute inset-0 bg-gradient-to-b ${solution.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
-              />
-
-              <div className="p-7 sm:p-8 relative z-10 flex flex-col flex-grow">
-                <div className="flex items-center justify-between gap-3 mb-7">
-                  <div className="w-14 h-14 shrink-0 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-500">
-                    {solution.icon}
-                  </div>
-                  <span className="px-3 py-1 bg-white/5 rounded-full text-[10px] font-bold uppercase tracking-widest text-slate-300 border border-white/10 text-right">
-                    {solution.category}
-                  </span>
-                </div>
-
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 leading-tight">
-                  {solution.title}
-                </h3>
-
-                <p className="text-sm text-slate-400 font-light leading-relaxed mb-6">
-                  {solution.description}
-                </p>
-
-                <p className="text-[10px] font-bold text-slate-500 tracking-wide mb-6 leading-relaxed">
-                  {solution.stack}
-                </p>
-
-                <div className="mb-7 space-y-4 bg-white/[0.03] rounded-2xl p-5 border border-white/5 mt-auto">
-                  <div className="flex items-start gap-3">
-                    <Zap className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
-                    <div>
-                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-tighter">
-                        In practice
-                      </p>
-                      <p className="text-[11px] text-slate-300 leading-normal">
-                        {solution.details.realTime}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Target className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" />
-                    <div>
-                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-tighter">
-                        Built for
-                      </p>
-                      <p className="text-[11px] text-slate-300 leading-normal font-medium">
-                        {solution.details.bestFor}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-3 pt-6 border-t border-white/10">
-                  {solution.workflowPath && (
-                    <button
-                      onClick={(e) =>
-                        openWorkflow(e, solution.workflowPath!, solution.title)
-                      }
-                      disabled={loadingPath === solution.workflowPath}
-                      className="flex-1 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white transition-all active:scale-[0.98] disabled:opacity-50"
-                    >
-                      <ArrowRight className="w-3 h-3" />
-                      <span>
-                        {loadingPath === solution.workflowPath
-                          ? "Loading"
-                          : "Map"}
-                      </span>
-                    </button>
-                  )}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openCaseStudy(solution);
-                    }}
-                    className="flex-1 py-3 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/20 rounded-xl flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white transition-all active:scale-[0.98]"
-                  >
-                    <Eye className="w-3 h-3" />
-                    <span>Case study</span>
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+          {workflows.map(renderCard)}
         </div>
       </div>
 

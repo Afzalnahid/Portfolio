@@ -1,0 +1,15 @@
+# Normalise line endings for text, and never touch binaries.
+# The CV PDF is small enough that Git guessed "text" and offered to rewrite its
+# line endings, which would have corrupted the file on checkout.
+* text=auto
+
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.webp  binary
+*.gif   binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary

@@ -376,6 +376,11 @@ They are now restored exactly as he wrote them.
 The testimonials genuinely were invented, and removing those was right. The
 error was treating two different things as one because they sat side by side.
 
+**Update 2026-09-06:** the owner then supplied a newer, complete CV that drops
+all four figures. The site no longer states them — not because I judged them
+unverifiable, but because his own current CV does not claim them. If he wants
+them back, they are his to restore.
+
 **Lesson:** unverifiable is not the same as untrue. When a claim cannot be
 checked from the repository, that is a question for the owner — not a licence
 to rewrite what they say about their own work. Flag it and ask.
@@ -383,7 +388,11 @@ to rewrite what they say about their own work. Flag it and ask.
 ---
 
 ## L18 — The CV carries an unfilled template placeholder
-**Severity: low, but it is the owner's CV. Status: site FIXED 2026-09-06, PDF still OPEN.**
+**Severity: low. Status: RESOLVED 2026-09-06 — superseded by a new CV.**
+
+The owner replaced the whole document with
+`Noray_Afzal_Nahid_Resumeupdated.pdf`, which carries real dates throughout. The
+placeholder is gone with the old file.
 
 The owner confirmed the year is **2026**, and the site now says "2026 — Present"
 for that role. The PDF itself still reads "20XX" and is the owner's to correct.
@@ -397,3 +406,54 @@ should be corrected before it goes to anyone else.
 
 **Lesson:** worth reading a source document for its own errors, not only for the
 content being lifted out of it.
+
+---
+
+## L19 — Two CVs, two different people
+**Severity: important. Status: RESOLVED 2026-09-06 by using the newer one.**
+
+The site was rebuilt from one CV and then rebuilt again a few hours later from a
+newer one, because the two describe noticeably different candidates:
+
+| | First CV | Updated CV |
+| --- | --- | --- |
+| Title | AI Solutions Engineer / Product Builder / Automation Architect | Full-Stack Developer / AI Automation Expert (n8n) |
+| Autolinium | AI Automation Intern, Apr 2026 – Present, Agrabad | Software Developer Intern, Mar – Aug 2026, Remote |
+| Impact figures | 10k+ / 500+ / 50+ / 99.9% | none |
+| Skills | ~60 items over nine groups | ~21 items over two groups |
+| Named projects | generic descriptions | getvoicium, ezpzbd, Champion, Nandi ERP with URLs |
+| Goal | implied consulting | "Seeking a full-time or contract remote role" |
+
+The second is tighter, more concrete and easier to defend in an interview. The
+first claimed tools — Claude, Groq, Whisper, Veo, Sora, HeyGen, Make.com,
+GoHighLevel — that the newer one does not, and that do not all appear in the
+published workflow graphs either.
+
+**Lesson:** ask which document is current before building anything on it, and
+when two versions disagree, the narrower and more specific one is usually the
+one that survives contact with a technical interviewer.
+
+---
+
+## L20 — Describe a workflow from its graph, not from its title
+**Severity: accuracy. Status: applied 2026-09-06.**
+
+The workflow card copy originally described tools that the CV mentioned but the
+graphs do not contain. Before rewriting it, every node type in the five files
+was listed and the copy written from that.
+
+What the graphs actually show, for reference:
+
+- **E-commerce** — Gemini and OpenAI chat, Gemini embeddings, Supabase vector
+  store, PostgreSQL chat memory, Sheets, calculator tool. No Groq or Whisper
+  node, so no Whisper claim.
+- **Agency** — Gemini agent, memory buffer, Google Calendar as a tool, Sheets,
+  Telegram. No GoHighLevel node, so no GoHighLevel claim.
+- **RAG** — Google Drive, file extraction, text splitter, OpenAI embeddings,
+  Supabase vector store, schedule trigger.
+- **Facebook auto-post** — schedule trigger, Gemini agent, Graph API over HTTP,
+  Sheets, Telegram. No image-generation node, so no "generates the visual" claim.
+- **UGC ads** — Sheets, OpenRouter and OpenAI, HTTP with wait-polling.
+
+**Lesson:** the artifact is on the page and a reviewer can open it. Any claim the
+map contradicts is worse than no claim.

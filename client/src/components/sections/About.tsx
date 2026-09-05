@@ -2,46 +2,28 @@ import nahid2 from "@/nahid2.webp";
 
 const experience = [
   {
-    role: "AI Automation Intern",
-    org: "Autolinium Ltd",
-    place: "Software Technology Park, Agrabad, Chittagong",
-    period: "Apr 2026 — Present",
+    role: "Full-Stack Developer",
+    org: "Self-employed",
+    place: "Remote",
+    period: "Aug 2026 — Present",
+    points: [
+      "Building getvoicium, a multi-tenant AI chatbot SaaS, solo — from architecture to deployment — with Next.js, Supabase (pgvector), Google Gemini and RAG.",
+      "Developing full-stack ERP software for Nandi Real Estate and Developers Pvt. Ltd. (ongoing).",
+    ],
+  },
+  {
+    role: "Software Developer Intern (Full-Stack & AI Automation)",
+    org: "Autolinium",
+    place: "Remote",
+    period: "Mar 2026 — Aug 2026",
     href: "https://www.autolinium.com",
     points: [
-      "Build SaaS project workflows and AI-driven automation features inside a production engineering team.",
-      "Migrated complex project datasets into Supabase vector stores, producing grounded AI responses and measurably reducing hallucinated answers.",
-      "Contribute to workflow architecture, integration testing and the deployment of client-facing features.",
+      "Built automation workflows and internal web dashboards for business operations.",
+      "Contributed to ezpzbd.com, an AI-powered EdTech platform tutoring HSC students in Physics, Chemistry and Math — trained the AI tutors on the learning content and question data.",
+      "Delivered a WhatsApp-based sales-management SaaS for Champion — built the WhatsApp API integration for automated daily reminders, lead management and sales-team performance tracking.",
+      "Developed ERP software for Nandi Real Estate and Developers Pvt. Ltd. (full-stack).",
+      "Built Facebook, Instagram, WhatsApp and Telegram chatbots and AI-powered Facebook auto-posting using n8n and LLMs.",
     ],
-  },
-  {
-    role: "Independent AI Solutions Engineer",
-    org: "Freelance & Consulting",
-    place: "Cumilla, Bangladesh",
-    period: "2026 — Present",
-    points: [
-      "Architected a multi-tenant SaaS chatbot platform on Next.js 14 and Supabase — schema, tenant isolation, API endpoints, admin dashboard, embeddable widget and payment integration.",
-      "Designed retrieval-augmented agents over pgvector so pricing, stock and policy answers come from live client data rather than model memory.",
-      "Built multimodal systems handling text, image, voice and video across Messenger, Instagram, WhatsApp and web.",
-      "Engineered one-click OAuth onboarding so non-technical owners connect their own channels without handling tokens or IDs.",
-      "Own the full cycle: discovery, architecture, build, QA, deployment and post-launch monitoring through execution-log analysis.",
-    ],
-  },
-];
-
-const education = [
-  {
-    period: "2020 — 2024",
-    title: "Bachelor of Pharmacy (B.Pharm)",
-    place: "Northern University Bangladesh",
-    accent: "bg-blue-600",
-    accentText: "text-blue-400",
-  },
-  {
-    period: "Graduated 2018",
-    title: "Higher Secondary Certificate, Science",
-    place: "Comilla Govt. College",
-    accent: "bg-slate-700",
-    accentText: "text-slate-500",
   },
 ];
 
@@ -78,32 +60,32 @@ export default function About() {
 
           <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 text-base sm:text-lg text-slate-400 leading-relaxed font-light">
             <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-white first-letter:mr-3 first-letter:float-left">
-              I am an{" "}
-              <span className="text-white font-medium">
-                AI solutions engineer
-              </span>{" "}
-              who designs and ships AI-powered software products end to end —
-              from database schema and API architecture, through retrieval
-              pipelines and model orchestration, to the interfaces clients
-              actually use.
+              I am a{" "}
+              <span className="text-white font-medium">full-stack developer</span>{" "}
+              and AI automation engineer who ships real products. In under a year
+              I have built a SaaS platform solo and contributed to four
+              production applications.
             </p>
             <p>
-              My work spans{" "}
+              That work spans{" "}
               <span className="text-blue-400 font-medium">
-                multi-tenant SaaS
+                web development
               </span>{" "}
-              development,{" "}
+              (Next.js, Node.js),{" "}
               <span className="text-cyan-400 font-medium">
-                retrieval-augmented AI agents
-              </span>
-              , multimodal chatbots across Meta messaging channels, and the{" "}
-              <span className="text-blue-500 font-medium">automation layer</span>{" "}
-              that keeps it all running unattended.
+                backend and database
+              </span>{" "}
+              work (Supabase, PostgreSQL), and{" "}
+              <span className="text-blue-500 font-medium">AI automation</span>{" "}
+              with n8n, LLMs and chatbots.
             </p>
             <p>
-              I am comfortable owning a system from requirement discovery to
-              production monitoring — and just as comfortable translating the
-              architecture into terms a non-technical stakeholder can act on.
+              I build fast with AI-assisted development and turn business
+              problems into working software. I am currently looking for a{" "}
+              <span className="text-white font-medium">
+                full-time or contract remote role
+              </span>
+              .
             </p>
           </div>
         </div>
@@ -120,7 +102,7 @@ export default function About() {
               >
                 <div className="absolute -left-1.5 top-1.5 w-3 h-3 bg-blue-600 rounded-full border-2 border-slate-950" />
                 <p className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-1">
-                  {job.period}
+                  {job.period} &bull; {job.place}
                 </p>
                 <h4 className="text-white font-bold text-lg leading-tight">
                   {job.role}
@@ -138,9 +120,6 @@ export default function About() {
                   ) : (
                     job.org
                   )}
-                  <span className="block text-xs mt-0.5 text-slate-600">
-                    {job.place}
-                  </span>
                 </p>
                 <ul className="space-y-3">
                   {job.points.map((point) => (
@@ -163,25 +142,16 @@ export default function About() {
             <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
               <span className="w-8 h-px bg-blue-500" /> Education
             </h3>
-            <ul className="space-y-6">
-              {education.map((item) => (
-                <li
-                  key={item.title}
-                  className="relative pl-6 border-l border-slate-800"
-                >
-                  <div
-                    className={`absolute -left-1.5 top-1.5 w-3 h-3 ${item.accent} rounded-full border-2 border-slate-950`}
-                  />
-                  <p
-                    className={`text-sm font-bold ${item.accentText} uppercase tracking-widest mb-1`}
-                  >
-                    {item.period}
-                  </p>
-                  <h4 className="text-white font-bold text-lg">{item.title}</h4>
-                  <p className="text-slate-500">{item.place}</p>
-                </li>
-              ))}
-            </ul>
+            <div className="relative pl-6 border-l border-slate-800">
+              <div className="absolute -left-1.5 top-1.5 w-3 h-3 bg-blue-600 rounded-full border-2 border-slate-950" />
+              <p className="text-sm font-bold text-blue-400 uppercase tracking-widest mb-1">
+                2020 — 2024
+              </p>
+              <h4 className="text-white font-bold text-lg">
+                B.Pharm (Bachelor of Pharmacy)
+              </h4>
+              <p className="text-slate-500">Northern University Bangladesh</p>
+            </div>
           </div>
 
           <div>

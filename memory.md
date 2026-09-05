@@ -59,11 +59,15 @@ client/
   `WorkflowViewer`. A failed fetch shows a visible message.
 - **Chat** — the only chat is the real Autologic widget loaded in
   `index.html`. The simulated `AiChat` component was deleted 2026-09-06.
-- **Stats** are the owner's own CV figures (10k+ / 500+ / 50+ / 99.9%). They
-  live only in `Stats.tsx`. Do not rewrite them — see `lessons.md` L17.
-- **Toolkit** is the CV's technical-skills matrix, nine groups.
-- Content source of truth is the owner's CV (`Noray_Afzal_Nahid_Resume_1.pdf`,
-  supplied 2026-09-06, not stored in the repo).
+- **Stats** are counted from the CV and the work on the page (1 / 4 / 5 / 4).
+  The earlier CV's 10k+ / 500+ / 50+ / 99.9% figures are NOT in the current CV,
+  so the site no longer states them — see `lessons.md` L17 before touching this.
+- **Toolkit** is the CV's two skill groups, Full-Stack/Web and AI/Automation.
+- **Showcase** is four applications plus five n8n workflows.
+- Content source of truth is `Noray_Afzal_Nahid_Resumeupdated.pdf` (supplied
+  2026-09-06). A copy is served at `client/public/Noray-Afzal-Nahid-CV.pdf`.
+- The site is aimed at **recruiters**: the primary call to action everywhere is
+  Download CV, and the owner is open to remote work worldwide.
 
 ## 5. Commands
 
@@ -121,10 +125,9 @@ Checked against **https://nahid-afzal-portfolio.vercel.app/** after the deploy.
 3. ~~Commit, push and confirm the deploy.~~ Done 2026-09-06 and verified on
    the live site (see section 6b).
 4. Real testimonials, if wanted, need quotes the owner has permission to use.
-5. The Multi-Tenant SaaS card has no live link. Add one if the platform has a
-   public URL the owner is happy to publish.
-6. The CV itself still says "20XX – Present" for the freelance role
-   (`lessons.md` L18) — the owner should fix the PDF.
+5. Champion and Nandi ERP have no public URL, so those cards carry no live
+   link. Add one if that changes.
+6. The Nandi ERP case study says "ongoing" and has no result yet.
 7. No analytics is installed. Vercel Analytics is the simplest replacement.
 8. No tests. `parseN8nToReactFlow()` in `WorkflowViewer.tsx` is the one piece of
    real logic worth covering.

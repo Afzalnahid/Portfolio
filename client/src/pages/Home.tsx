@@ -35,8 +35,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
           <div className="text-sm font-bold tracking-widest text-slate-500 uppercase">
             &copy; {new Date().getFullYear()}{" "}
-            <span className="text-white">Noray Afzal Nahid</span> &bull; AI
-            Solutions Engineer
+            <span className="text-white">Noray Afzal Nahid</span> &bull;
+            Full-Stack Developer
           </div>
           <div className="flex gap-8 text-[11px] font-bold text-slate-500 uppercase tracking-widest">
             <a

@@ -5,6 +5,58 @@
 
 ---
 
+## 2026-09-06 (session 5) — Rebuilt again from the updated CV
+
+The owner supplied a newer, complete CV that describes a noticeably different
+candidate from the one used in session 4 (see `lessons.md` L19). The site now
+follows the newer document throughout, and is aimed at recruiters rather than
+consulting clients — the CV says he is seeking a full-time or contract remote
+role.
+
+**Positioning.** Full-Stack Developer / AI Automation Expert (n8n), not AI
+Solutions Engineer. Hero, page title, meta description and footer follow.
+
+**Download CV is now the primary action** — in the navbar, the hero, the mobile
+menu and the contact section. The PDF is served from
+`client/public/Noray-Afzal-Nahid-CV.pdf`.
+
+**Showcase is nine cards in two groups.** Four applications from the CV —
+getvoicium (getvoicium.com), ezpzbd (ezpzbd.com), Champion Sales SaaS and Nandi
+Real Estate ERP, with live links where a public URL exists — then the five n8n
+workflows, which keep their node maps.
+
+**Workflow copy rewritten from the graphs themselves.** Every node type in the
+five files was listed first, and claims the graphs do not support were dropped:
+no Whisper on the e-commerce bot, no GoHighLevel on the agency bot, no image
+generation on the auto-poster. Details in `lessons.md` L20.
+
+**Stats replaced.** The 10k+ / 500+ / 50+ / 99.9% figures are not in the current
+CV, so the site no longer states them. They are now 1 solo SaaS, 4 production
+applications, 5 published workflows and 4 messaging channels, under the CV's own
+heading of "built in under a year". **These were the owner's numbers and are his
+to restore if he wants them.**
+
+**Skills cut back** from nine groups to the CV's two, Full-Stack/Web and
+AI/Automation. Claude, Groq, Whisper, Veo, Sora, HeyGen, Make.com, GoHighLevel,
+SSLCommerz and others came from the older CV and are gone.
+
+**About rewritten.** Full-Stack Developer, self-employed since Aug 2026, and
+Software Developer Intern at Autolinium from Mar to Aug 2026 — a past role,
+remote, not the current Chittagong-based one the site was showing. Education is
+B.Pharm only. Languages were kept although the new CV omits them, since the site
+targets remote work.
+
+**Contact rebuilt** around hiring: Download CV and Book a call, "open to remote,
+worldwide", and email / WhatsApp / LinkedIn / GitHub. The stale "Software
+Technology Park, Agrabad" workplace was removed.
+
+Verified: type check and build pass; the CV downloads as `application/pdf`; nine
+cards render with live links on the two that have public URLs and Map buttons on
+the five workflows; a workflow map opens with 38 nodes and closes on Escape; the
+mobile menu carries Download CV; no console errors; no horizontal overflow at
+375px.
+
+---
 ## 2026-09-06 (session 4) — Rebuilt the content from the owner's CV
 
 The owner supplied his resume, which carries far more, and far better, material
@@ -230,6 +282,7 @@ them.
 - `cb546f6` Vercel install fixed by removing a missing pnpm patch reference
 - `7477a08` Static build replaced with the real source project
 - `a633b17` Initial portfolio deploy
+
 
 
 

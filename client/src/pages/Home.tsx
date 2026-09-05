@@ -36,7 +36,7 @@ export default function Home() {
           <div className="text-sm font-bold tracking-widest text-slate-500 uppercase">
             &copy; {new Date().getFullYear()}{" "}
             <span className="text-white">Noray Afzal Nahid</span> &bull; AI
-            Automation Expert
+            Solutions Engineer
           </div>
           <div className="flex gap-8 text-[11px] font-bold text-slate-500 uppercase tracking-widest">
             <a
@@ -52,6 +52,14 @@ export default function Home() {
               className="hover:text-white transition-colors"
             >
               LinkedIn
+            </a>
+            <a
+              href="https://github.com/Afzalnahid"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              GitHub
             </a>
           </div>
         </div>

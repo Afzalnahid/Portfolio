@@ -339,7 +339,9 @@ committed and pushed, rotating the secret is the fix — not deleting the file.
 ---
 
 ## L16 — Case-study copy is identical for all five solutions
-**Severity: content. Status: OPEN (needs the owner's real numbers).**
+**Severity: content. Status: FIXED 2026-09-06** — the owner supplied his CV, so
+every project now has its own problem / what-I-built / result text and its own
+stack line, and a sixth project was added.
 
 `CaseStudyModal.tsx` renders the same three paragraphs no matter which card was
 clicked — the same "The Problem", the same "The Solution", and the same ROI
@@ -356,3 +358,39 @@ to seconds" is stronger than an invented percentage.
 
 **Lesson:** one set of numbers reused across five case studies reads as a
 template, which is the opposite of what a case study is for.
+
+---
+
+## L17 — I assumed the owner's own figures were template placeholders
+**Severity: process. Status: FIXED 2026-09-06, but do not repeat it.**
+
+The Stats section read "10k+ tasks automated", "500+ hours saved",
+"50+ integrations" and "99.9% AI accuracy". Sitting next to three invented
+testimonials, they looked like the same boilerplate, so they were replaced with
+figures counted from the repository.
+
+They were not boilerplate. All four are the owner's own numbers, stated under
+IMPACT on his CV. He stands behind them; it was never my call to soften them.
+They are now restored exactly as he wrote them.
+
+The testimonials genuinely were invented, and removing those was right. The
+error was treating two different things as one because they sat side by side.
+
+**Lesson:** unverifiable is not the same as untrue. When a claim cannot be
+checked from the repository, that is a question for the owner — not a licence
+to rewrite what they say about their own work. Flag it and ask.
+
+---
+
+## L18 — The CV carries an unfilled template placeholder
+**Severity: low, but it is the owner's CV. Status: OPEN (owner to fix).**
+
+`Noray_Afzal_Nahid_Resume_1.pdf` dates the freelance role as **"20XX – Present"**.
+That is the template's placeholder, never replaced. A recruiter reading the PDF
+sees it immediately.
+
+The portfolio does not repeat it — the site says "Ongoing" for that role — but
+the PDF itself should be corrected before it goes to anyone else.
+
+**Lesson:** worth reading a source document for its own errors, not only for the
+content being lifted out of it.

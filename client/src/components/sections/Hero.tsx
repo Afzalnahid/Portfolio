@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Linkedin, Facebook, Mail, MessageCircle } from "lucide-react";
+import { Linkedin, Facebook, Mail, MessageCircle, Github } from "lucide-react";
 import heroImage from "@/heroimage.webp";
 import { motion } from "framer-motion";
 
@@ -18,6 +18,11 @@ const socials = [
     label: "WhatsApp",
     icon: <MessageCircle size={14} />,
     href: "https://wa.me/8801690000732",
+  },
+  {
+    label: "GitHub",
+    icon: <Github size={14} />,
+    href: "https://github.com/Afzalnahid",
   },
   {
     label: "Email",
@@ -53,7 +58,7 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="text-[11px] sm:text-xs font-black uppercase tracking-[0.3em] text-[#58a6ff]"
           >
-            AI Automation &amp; n8n Specialist
+            AI Solutions Engineer &bull; Product Builder &bull; Automation Architect
           </motion.p>
 
           <motion.h1
@@ -62,9 +67,9 @@ export default function Hero() {
             transition={{ duration: 0.8 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] text-white uppercase tracking-tighter"
           >
-            STREAMLINE <br />
-            <span className="text-[#58a6ff]">PROCESSES</span> <br />
-            &amp; EMPOWER GROWTH
+            I BUILD <br />
+            <span className="text-[#58a6ff]">AI PRODUCTS</span> <br />
+            END TO END
           </motion.h1>
 
           <motion.p
@@ -73,8 +78,10 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.15 }}
             className="text-base sm:text-lg text-slate-300 font-light max-w-lg leading-relaxed"
           >
-            I design autonomous n8n workflows and AI chatbots that take the
-            repetitive work off your team&apos;s hands.
+            From database schema and API architecture through retrieval
+            pipelines and model orchestration, to the interface your customers
+            actually use &mdash; and the automation that keeps it running
+            unattended.
           </motion.p>
 
           <motion.div

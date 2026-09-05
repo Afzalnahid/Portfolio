@@ -59,9 +59,11 @@ client/
   `WorkflowViewer`. A failed fetch shows a visible message.
 - **Chat** — the only chat is the real Autologic widget loaded in
   `index.html`. The simulated `AiChat` component was deleted 2026-09-06.
-- **Stats** are counted from the published workflow files (5 / 152 / 9 / 3).
-  Keep them in step if a workflow is added or removed.
-- **Toolkit** replaced a set of invented testimonials.
+- **Stats** are the owner's own CV figures (10k+ / 500+ / 50+ / 99.9%). They
+  live only in `Stats.tsx`. Do not rewrite them — see `lessons.md` L17.
+- **Toolkit** is the CV's technical-skills matrix, nine groups.
+- Content source of truth is the owner's CV (`Noray_Afzal_Nahid_Resume_1.pdf`,
+  supplied 2026-09-06, not stored in the repo).
 
 ## 5. Commands
 
@@ -118,11 +120,13 @@ Checked against **https://nahid-afzal-portfolio.vercel.app/** after the deploy.
    workflow exports — they remain readable in git history (`lessons.md` L15).
 3. ~~Commit, push and confirm the deploy.~~ Done 2026-09-06 and verified on
    the live site (see section 6b).
-4. Case-study copy is the same for all five solutions and quotes ROI numbers
-   that cannot be verified (`lessons.md` L16).
-5. Real testimonials, if wanted, need quotes the owner has permission to use.
-6. No analytics is installed. Vercel Analytics is the simplest replacement.
-7. No tests. `parseN8nToReactFlow()` in `WorkflowViewer.tsx` is the one piece of
+4. Real testimonials, if wanted, need quotes the owner has permission to use.
+5. The Multi-Tenant SaaS card has no live link. Add one if the platform has a
+   public URL the owner is happy to publish.
+6. The CV itself still says "20XX – Present" for the freelance role
+   (`lessons.md` L18) — the owner should fix the PDF.
+7. No analytics is installed. Vercel Analytics is the simplest replacement.
+8. No tests. `parseN8nToReactFlow()` in `WorkflowViewer.tsx` is the one piece of
    real logic worth covering.
 
 ## 8. Unverified — do not state as fact

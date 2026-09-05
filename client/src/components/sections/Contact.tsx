@@ -1,4 +1,4 @@
-import { Mail, Linkedin, Facebook, MessageCircle, CalendarDays } from "lucide-react";
+import { Mail, Linkedin, Facebook, MessageCircle, CalendarDays, Github } from "lucide-react";
 
 const BOOKING_URL = "https://calendar.app.google/2kkn9abjZreibAJx6";
 
@@ -29,6 +29,15 @@ const contactLinks = [
     color: "from-blue-500/10 to-blue-600/5",
     border: "hover:border-blue-400",
     text: "text-blue-400",
+  },
+  {
+    name: "GitHub",
+    value: "github.com/Afzalnahid",
+    href: "https://github.com/Afzalnahid",
+    icon: <Github className="w-6 h-6" />,
+    color: "from-slate-500/10 to-slate-600/5",
+    border: "hover:border-slate-300",
+    text: "text-slate-300",
   },
   {
     name: "Facebook",

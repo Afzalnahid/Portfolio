@@ -5,6 +5,48 @@
 
 ---
 
+## 2026-09-06 (session 4) — Rebuilt the content from the owner's CV
+
+The owner supplied his resume, which carries far more, and far better, material
+than the site was showing. Everything below comes from that document.
+
+**Positioning.** The site sold him as an "AI Automation Expert & n8n
+Specialist". His CV says AI Solutions Engineer, Product Builder, Automation
+Architect — someone who ships products from schema and API design through
+retrieval pipelines to the interface. Hero headline, role line, page title,
+meta description and footer all follow the CV now.
+
+**Stats restored.** Session 2 replaced "10k+ / 500+ / 50+ / 99.9%" with figures
+counted from the repository, on the assumption they were template placeholders.
+They are not — all four are the owner's own numbers under IMPACT on his CV.
+Restored verbatim. Recorded as `lessons.md` L17 so it is not repeated.
+
+**Showcase rebuilt, six projects instead of five.** Added the Multi-Tenant AI
+Chatbot Platform, his largest piece of work and previously absent from the
+site. Each card now carries the CV's own description plus its stack line. Cards
+without an n8n graph simply do not render a "Map" button.
+
+**Case studies are per project.** All five previously shared one block of text
+and one ROI claim. Each project now has its own problem / what-I-built / result,
+written from the CV, plus its feature list and stack.
+
+**About rewritten.** The CV's profile paragraph, then real experience: AI
+Automation Intern at Autolinium Ltd (Apr 2026 – present) and Independent AI
+Solutions Engineer. At the owner's instruction the "CEO & Lead Technical
+Consultant, AutoLogic Systems" line was dropped, since the CV does not carry it.
+
+**Toolkit is now the CV's skills matrix** — nine groups from AI Engineering and
+RAG through Messaging Platforms to DevOps, each with a sentence of context.
+
+**GitHub added** to the hero icons, the contact grid and the footer. The CV
+lists it; the site did not.
+
+Verified: type check and build pass; six cards render with the SaaS card
+correctly showing no Map button; all five workflow maps open with the right
+node counts (38 / 31 / 34 / 21 / 28); case-study modal shows per-project text;
+no console errors; no horizontal overflow at 375px.
+
+---
 ## 2026-09-06 (session 3) — Deployed, verified live, SEO tags added
 
 The three commits from session 2 were pushed to `main` and Vercel deployed
@@ -188,6 +230,7 @@ them.
 - `cb546f6` Vercel install fixed by removing a missing pnpm patch reference
 - `7477a08` Static build replaced with the real source project
 - `a633b17` Initial portfolio deploy
+
 
 
 

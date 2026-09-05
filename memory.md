@@ -100,7 +100,10 @@ segfault on this machine is a known flake — just re-run.
    revoked. Only the owner can do this.
 2. **Regenerate the n8n webhook URLs** on the instance that appeared in the old
    workflow exports — they remain readable in git history (`lessons.md` L15).
-3. Nothing is committed yet. Review, then commit and push to deploy.
+3. ~~Commit and push.~~ Done 2026-09-06: three commits pushed to `main`
+   (`0210308` security, `4d2d6f7` fixes and weight, `97b7761` docs), which
+   triggers the Vercel deploy. **The live URL has not been checked** — the
+   domain is not recorded anywhere in this repo.
 4. Case-study copy is the same for all five solutions and quotes ROI numbers
    that cannot be verified (`lessons.md` L16).
 5. Real testimonials, if wanted, need quotes the owner has permission to use.
@@ -110,8 +113,8 @@ segfault on this machine is a known flake — just re-run.
 
 ## 8. Unverified — do not state as fact
 
-- Whether the live Vercel deployment matches this working tree. Nothing has been
-  pushed yet.
+- Whether the Vercel deploy from `97b7761` actually succeeded, and whether the
+  live page looks right. Nothing was opened after the push.
 - The live domain. No URL is recorded in this repo, which is why `index.html`
   carries no `canonical` or `og:url`. Add both once the domain is known.
 - Whether the Google Calendar iframe in `CaseStudyModal` renders — Google often
@@ -124,6 +127,7 @@ segfault on this machine is a known flake — just re-run.
 
 - **2026-09-06 (session 2)** — Improvement pass across security, broken
   behaviour, design and content. Full detail in `updates.md`. Type check and
-  build pass; behaviour verified in a browser. Not committed.
+  build pass; behaviour verified in a browser. Committed in three parts and
+  pushed to `main`; `package-lock.json` refreshed to match `package.json`.
 - **2026-09-06 (session 1)** — First full read of the repository. Wrote
   `memory.md`, `lessons.md`, `updates.md`. No source file modified.

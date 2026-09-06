@@ -556,3 +556,63 @@ had not named — the hero was impersonal. Build the asked-for thing, show it
 early, and be ready for the real answer to arrive only once something concrete
 is on screen. Nothing was wasted: the 3D was one self-contained file and removing
 it was a two-line change.
+
+---
+
+## L26 — Check whether the exposed thing is still reachable
+**Severity: process. Status: resolved 2026-09-06.**
+
+Two sessions were spent telling the owner to rotate the n8n webhook URLs leaked
+in old commits. Auditing the original exports before repeating the warning a
+third time showed the picture was narrower than stated:
+
+| Workflow | Active | Webhook | Protected |
+| --- | --- | --- | --- |
+| Agency chatbot | yes | 2-character path | no |
+| E-commerce chatbot | yes | 7-character path | no |
+| RAG chatbot | yes | 10-character path | **header auth** |
+| Facebook auto-post | yes | none — schedule trigger | n/a |
+| UGC ads | no | none | n/a |
+
+So three of five were never exposed, and the worst one was weak on its own
+merits: a two-character path is brute-forceable in minutes whether or not it
+ever leaked.
+
+Then the owner said he no longer has that n8n instance at all, which closes the
+question entirely.
+
+**Lesson:** measure the exposure before prescribing the remedy, and check
+whether the system is still live before asking anyone to fix it. A generic
+"rotate your secrets" is cheap to say and can send someone chasing nothing.
+
+---
+
+## L27 — What this assistant can and cannot make
+**Severity: scope. Status: recorded 2026-09-06.**
+
+The owner asked, in good faith, for three things that are not code:
+
+1. Turn his photograph into "a real person face reference, dress reference will
+   be same" — image generation.
+2. A short film of someone entering a dark room, switching on the light and
+   sitting down — video.
+3. A 3D character who walks and sits — a rigged model, made in Blender.
+
+**None of those can be produced here.** This assistant writes code and processes
+files the owner supplies (resize, crop, convert, compress). It has no image,
+video or 3D asset generation.
+
+What it could do was take the *idea* underneath the request — the room lighting
+up — and build that in code against the photograph already in the repository:
+the backdrop, the lamp glow, the light falling across the portrait and the
+caption all come up together about half a second after load, over two seconds.
+Zero added bytes.
+
+The walking and sitting still need footage the owner films himself. A phone
+video of exactly that action, compressed, would be 1-3 MB and would be *him*,
+which beats any 3D stand-in on a hiring page.
+
+**Lesson:** when the request needs an asset rather than code, say so in one
+sentence, then find the part of the idea that *is* code and build that. Do not
+quietly substitute something smaller and call it done, and do not refuse the
+whole thing because one part is out of reach.

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Linkedin, Github, Mail, MessageCircle, Download, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
@@ -17,15 +18,41 @@ const socials = [
 export default function Hero() {
   const { openBooking } = useBooking();
 
+  // The room starts dark and the light comes up a beat after load. The text is
+  // never hidden by this — only the photograph and the room behind it are lit,
+  // so nothing a recruiter needs is waiting on an animation.
+  const [lit, setLit] = useState(false);
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      setLit(true);
+      return;
+    }
+    const timer = window.setTimeout(() => setLit(true), 550);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
     <section className="relative flex flex-col justify-center overflow-hidden bg-slate-950 pt-28 pb-16 sm:pt-32 sm:pb-24">
-      {/* Workplace photograph, held right back so it reads as atmosphere. */}
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-[0.12] grayscale"
+      {/* The room. Almost black until the light is switched on. */}
+      <motion.div
+        className="absolute inset-0 bg-cover bg-center grayscale"
         style={{ backgroundImage: `url(${backdrop})` }}
+        initial={false}
+        animate={{ opacity: lit ? 0.12 : 0.015 }}
+        transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/70 to-slate-950" />
-      <div className="absolute -top-1/4 right-0 w-[760px] h-[760px] max-w-[120vw] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
+
+      {/* The lamp itself: a warm pool of light that blooms when it comes on. */}
+      <motion.div
+        className="absolute -top-1/4 right-0 w-[760px] h-[760px] max-w-[120vw] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(96,165,250,0.16), rgba(37,99,235,0.05) 45%, transparent 70%)" }}
+        initial={false}
+        animate={{ opacity: lit ? 1 : 0, scale: lit ? 1 : 0.75 }}
+        transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+      />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-14 items-center">
@@ -121,30 +148,52 @@ export default function Hero() {
             className="lg:col-span-5 order-first lg:order-last"
           >
             <div className="relative mx-auto w-full max-w-[300px] sm:max-w-[360px] lg:max-w-none">
-              {/* A soft light source behind the frame, not a glowing border. */}
-              <div className="absolute -inset-8 bg-blue-500/12 blur-[70px] rounded-full pointer-events-none" />
+              <motion.div
+                className="absolute -inset-8 bg-blue-500/12 blur-[70px] rounded-full pointer-events-none"
+                initial={false}
+                animate={{ opacity: lit ? 1 : 0 }}
+                transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+              />
 
-              <div className="relative rounded-[1.75rem] overflow-hidden border border-white/12 bg-slate-900 shadow-2xl shadow-black/60">
-                <img
+              <div className="relative rounded-[1.75rem] overflow-hidden border border-white/12 bg-slate-950 shadow-2xl shadow-black/60">
+                <motion.img
                   src={portrait}
                   alt="Noray Afzal Nahid"
                   width={500}
                   height={500}
                   fetchPriority="high"
-                  className="w-full h-full object-cover aspect-[4/5] saturate-[0.9] contrast-[1.05]"
+                  className="w-full h-full object-cover aspect-[4/5]"
+                  initial={false}
+                  animate={{
+                    filter: lit
+                      ? "brightness(1) saturate(0.9) contrast(1.05)"
+                      : "brightness(0.22) saturate(0.25) contrast(1.15)",
+                  }}
+                  transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
                 />
 
-                {/* Scrim so the frame sits in the section instead of on top of it. */}
+                {/* The light falling across him from the lamp's side. */}
+                <motion.div
+                  className="absolute inset-0 pointer-events-none mix-blend-soft-light"
+                  style={{ background: "linear-gradient(200deg, rgba(191,219,254,0.55) 0%, rgba(191,219,254,0.12) 35%, transparent 62%)" }}
+                  initial={false}
+                  animate={{ opacity: lit ? 1 : 0 }}
+                  transition={{ duration: 1.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                />
+
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-slate-950/15 pointer-events-none" />
 
-                <div className="absolute inset-x-0 bottom-0 p-5">
+                <motion.div
+                  className="absolute inset-x-0 bottom-0 p-5"
+                  initial={false}
+                  animate={{ opacity: lit ? 1 : 0.25 }}
+                  transition={{ duration: 1.4, delay: 0.35 }}
+                >
                   <p className="font-display text-base font-semibold text-white leading-tight">
                     Noray Afzal Nahid
                   </p>
-                  <p className="label text-slate-400 mt-1.5">
-                    Comilla, Bangladesh
-                  </p>
-                </div>
+                  <p className="label text-slate-400 mt-1.5">Comilla, Bangladesh</p>
+                </motion.div>
               </div>
             </div>
           </motion.div>

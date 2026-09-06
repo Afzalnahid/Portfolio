@@ -64,6 +64,11 @@ client/
   loaded and silently falls back.
 - **Booking**: every entry point calls `useBooking().openBooking()`. Never
   hard-code the calendar URL in a component again.
+- **Hero** has a lights-on reveal: the room, the lamp glow, the portrait and
+  the caption come up together 550ms after load over ~2s. Text is never hidden
+  by it. Skipped under `prefers-reduced-motion`. The owner rejected an earlier
+  abstract 3D animation (`lessons.md` L25) and wants footage of himself here
+  eventually (`lessons.md` L27).
 - **Stats** are counted from the CV and the work on the page (1 / 4 / 5 / 4).
   The earlier CV's 10k+ / 500+ / 50+ / 99.9% figures are NOT in the current CV,
   so the site no longer states them — see `lessons.md` L17 before touching this.
@@ -127,8 +132,9 @@ Checked against **https://nahid-afzal-portfolio.vercel.app/** after the deploy.
 1. **Revoke the old GitHub token** at <https://github.com/settings/tokens>.
    The remote URL is already clean, but the token itself is still live until
    revoked. Only the owner can do this.
-2. **Regenerate the n8n webhook URLs** on the instance that appeared in the old
-   workflow exports — they remain readable in git history (`lessons.md` L15).
+2. ~~Regenerate the n8n webhook URLs.~~ Closed 2026-09-06: the owner no longer
+   has access to that n8n instance, so there is nothing to rotate. The old
+   exports stay in git history as a record only (`lessons.md` L15).
 3. ~~Commit, push and confirm the deploy.~~ Done 2026-09-06 and verified on
    the live site (see section 6b).
 4. Real testimonials, if wanted, need quotes the owner has permission to use.

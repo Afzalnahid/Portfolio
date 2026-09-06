@@ -5,6 +5,29 @@
 
 ---
 
+## 2026-09-06 (session 9) — Lights-on hero
+
+The owner asked for a 3D sequence: a person walks into a dark room, switches on
+the light, sits down, and the portfolio is revealed. He also asked for his
+photograph to be regenerated as a photorealistic person.
+
+Image generation, video and rigged 3D characters cannot be produced here
+(`lessons.md` L27). What could be built is the part of that idea that is code —
+the room lighting up — using the photograph already in the repository.
+
+- The backdrop sits at 1.5% opacity until the light comes on, then 12%.
+- A warm lamp bloom scales and fades in from the top right.
+- The portrait animates from `brightness(0.22) saturate(0.25)` to full, with a
+  soft-light gradient falling across it from the lamp's side.
+- The name caption comes up last.
+- It starts 550ms after load and runs ~2s. **The headline, buttons and links are
+  never dimmed** — nothing a recruiter needs waits on the animation.
+- Under `prefers-reduced-motion` the lit state renders immediately.
+
+Zero added bytes: the whole effect is animated CSS properties on elements that
+were already there. The walking and sitting still need footage the owner films.
+
+---
 ## 2026-09-06 (session 8) — Portrait hero, 3D removed
 
 The owner saw the 3D constellation live and did not want it. What he wants in
@@ -382,6 +405,7 @@ them.
 - `cb546f6` Vercel install fixed by removing a missing pnpm patch reference
 - `7477a08` Static build replaced with the real source project
 - `a633b17` Initial portfolio deploy
+
 
 
 

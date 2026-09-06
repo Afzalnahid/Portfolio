@@ -36,7 +36,7 @@ class ErrorBoundary extends Component<Props, State> {
             <h2 className="text-3xl font-extrabold mb-2 tracking-tighter uppercase text-center">
               Something went wrong
             </h2>
-            <p className="text-muted mb-8 font-light text-center max-w-md">
+            <p className="text-body mb-8 font-normal text-center max-w-md">
               This page hit an unexpected error. Reloading usually fixes it. If it
               keeps happening, please email nahidafzal97@gmail.com.
             </p>

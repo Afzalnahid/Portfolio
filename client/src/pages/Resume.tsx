@@ -102,7 +102,7 @@ export default function Resume() {
         <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-fg transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium text-body hover:text-fg transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to portfolio
@@ -127,8 +127,8 @@ export default function Resume() {
           </p>
           <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
             {contacts.map((c) => (
-              <li key={c.text} className="flex items-center gap-2.5 text-sm text-muted">
-                <span className="text-muted/60 shrink-0">{c.icon}</span>
+              <li key={c.text} className="flex items-center gap-2.5 text-sm text-body">
+                <span className="text-subtle shrink-0">{c.icon}</span>
                 {c.href ? (
                   <a href={c.href} className="hover:text-fg transition-colors break-all">
                     {c.text}
@@ -142,7 +142,7 @@ export default function Resume() {
         </header>
 
         <Section title="Summary">
-          <p className="text-[15px] text-muted leading-relaxed font-light">
+          <p className="text-[15px] text-body leading-relaxed font-normal">
             Full-stack developer and AI automation engineer who ships real
             products. In under a year I have built a SaaS platform solo and
             contributed to four production applications — spanning web
@@ -159,11 +159,11 @@ export default function Resume() {
               <article key={job.title + job.period}>
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 mb-1">
                   <h3 className="font-display text-base font-bold text-fg">
-                    {job.title} <span className="text-muted font-medium">— {job.org}</span>
+                    {job.title} <span className="text-body font-medium">— {job.org}</span>
                   </h3>
-                  <p className="font-mono text-[11px] text-muted/75">{job.period}</p>
+                  <p className="font-mono text-[11.5px] text-subtle">{job.period}</p>
                 </div>
-                <p className="text-xs text-muted/70 mb-3">{job.place}</p>
+                <p className="text-xs text-subtle mb-3">{job.place}</p>
                 {job.note && (
                   <p className="text-sm text-brand-bright font-medium mb-3 leading-snug">
                     {job.note}
@@ -171,7 +171,7 @@ export default function Resume() {
                 )}
                 <ul className="space-y-2">
                   {job.points.map((point) => (
-                    <li key={point} className="flex gap-3 text-sm text-muted font-light leading-relaxed">
+                    <li key={point} className="flex gap-3 text-sm text-body font-normal leading-relaxed">
                       <span className="mt-[9px] w-1 h-1 rounded-full bg-brand shrink-0" />
                       {point}
                     </li>
@@ -188,10 +188,10 @@ export default function Resume() {
               <article key={p.name}>
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                   <h3 className="font-display text-base font-bold text-fg">{p.name}</h3>
-                  <p className="font-mono text-[11px] text-muted/75">{p.meta}</p>
+                  <p className="font-mono text-[11.5px] text-subtle">{p.meta}</p>
                 </div>
-                <p className="font-mono text-[11px] text-muted/60 mt-1 mb-2">{p.stack}</p>
-                <p className="text-sm text-muted font-light leading-relaxed">{p.text}</p>
+                <p className="font-mono text-[11.5px] text-subtle mt-1 mb-2">{p.stack}</p>
+                <p className="text-sm text-body font-normal leading-relaxed">{p.text}</p>
               </article>
             ))}
           </div>
@@ -202,7 +202,7 @@ export default function Resume() {
             {skills.map((s) => (
               <div key={s.label} className="grid sm:grid-cols-[150px_1fr] gap-1 sm:gap-6">
                 <dt className="font-display text-sm font-bold text-fg">{s.label}</dt>
-                <dd className="text-sm text-muted font-light leading-relaxed">{s.items}</dd>
+                <dd className="text-sm text-body font-normal leading-relaxed">{s.items}</dd>
               </div>
             ))}
           </dl>
@@ -210,11 +210,11 @@ export default function Resume() {
 
         <Section title="Certifications">
           <ul className="space-y-3">
-            <li className="text-sm text-muted font-light leading-relaxed">
+            <li className="text-sm text-body font-normal leading-relaxed">
               <span className="text-fg font-medium">Experience Certificate</span> — Autolinium,
               AI Automation Specialist, five months. Ref AUT/HR/EXP/2026-015, issued 10 September 2026.
             </li>
-            <li className="text-sm text-muted font-light leading-relaxed">
+            <li className="text-sm text-body font-normal leading-relaxed">
               <span className="text-fg font-medium">Certificate of Completion</span> — Autolinium,
               three-month AI Automation internship, April to July 2026.
             </li>
@@ -225,14 +225,14 @@ export default function Resume() {
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <h3 className="font-display text-base font-bold text-fg">
               B.Pharm (Bachelor of Pharmacy)
-              <span className="text-muted font-medium"> — Northern University Bangladesh</span>
+              <span className="text-body font-medium"> — Northern University Bangladesh</span>
             </h3>
-            <p className="font-mono text-[11px] text-muted/75">2020 — 2024</p>
+            <p className="font-mono text-[11.5px] text-subtle">2020 — 2024</p>
           </div>
         </Section>
 
         <Section title="Languages">
-          <p className="text-sm text-muted font-light">
+          <p className="text-sm text-body font-normal">
             Bangla — native &nbsp;·&nbsp; English — professional working proficiency
           </p>
         </Section>

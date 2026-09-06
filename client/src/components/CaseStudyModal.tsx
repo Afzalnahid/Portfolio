@@ -103,13 +103,13 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: Props) {
                       </a>
                     )}
                   </div>
-                  <p className="label text-muted/75 mt-1.5">{solution.category}</p>
+                  <p className="label text-subtle mt-1.5">{solution.category}</p>
                 </div>
               </div>
               <button
                 onClick={onClose}
                 aria-label="Close"
-                className="p-2 shrink-0 rounded-full text-muted hover:text-white hover:bg-white/5 transition-colors"
+                className="p-2 shrink-0 rounded-full text-body hover:text-white hover:bg-white/5 transition-colors"
               >
                 <X size={20} />
               </button>
@@ -123,7 +123,7 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: Props) {
                       {block.icon}
                       <span className="label">{block.label}</span>
                     </p>
-                    <p className="text-[15px] text-fg/75 font-light leading-relaxed">
+                    <p className="text-[15px] text-fg font-normal leading-relaxed">
                       {block.text}
                     </p>
                   </div>
@@ -131,12 +131,12 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: Props) {
               </div>
 
               <div>
-                <p className="label text-muted/75 mb-4">What it does</p>
+                <p className="label text-subtle mb-4">What it does</p>
                 <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
                   {solution.features.map((feature) => (
                     <li
                       key={feature}
-                      className="flex gap-2.5 text-sm text-muted font-light leading-snug"
+                      className="flex gap-2.5 text-sm text-body font-normal leading-snug"
                     >
                       <Check className="w-4 h-4 text-brand shrink-0 mt-0.5" />
                       {feature}
@@ -146,14 +146,14 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: Props) {
               </div>
 
               <div>
-                <p className="label text-muted/75 mb-3 flex items-center gap-2">
+                <p className="label text-subtle mb-3 flex items-center gap-2">
                   <Layers size={13} /> Stack
                 </p>
-                <p className="font-mono text-xs text-muted leading-relaxed">
+                <p className="font-mono text-xs text-body leading-relaxed">
                   {solution.stack}
                 </p>
                 {solution.privateNote && (
-                  <p className="mt-4 inline-flex items-center gap-2 text-xs text-muted/75">
+                  <p className="mt-4 inline-flex items-center gap-2 text-xs text-subtle">
                     <Lock size={13} className="shrink-0" />
                     {solution.privateNote} — no public demo.
                   </p>
@@ -164,7 +164,7 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: Props) {
             <div className="p-6 sm:p-8 border-t border-white/5 bg-white/[0.03] flex flex-col sm:flex-row gap-3 sm:justify-end">
               <button
                 onClick={onClose}
-                className="px-6 py-3 rounded-xl text-sm font-semibold text-fg/80 hover:text-white hover:bg-white/5 transition-colors"
+                className="px-6 py-3 rounded-xl text-sm font-semibold text-fg hover:text-white hover:bg-white/5 transition-colors"
               >
                 Close
               </button>

@@ -66,7 +66,7 @@ export default function Navbar() {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-white/70 hover:text-white transition-colors duration-300 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-bright"
+                className="text-body hover:text-white transition-colors duration-300 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-bright"
               >
                 {item.name}
               </a>

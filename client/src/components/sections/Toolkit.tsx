@@ -58,7 +58,7 @@ export default function Toolkit() {
             What I Build With
           </h2>
           <div className="w-20 h-1.5 bg-brand rounded-full mx-auto mt-6" />
-          <p className="text-muted max-w-2xl mx-auto mt-6 font-light text-base sm:text-lg">
+          <p className="text-body max-w-2xl mx-auto mt-6 font-normal text-base sm:text-lg">
             Not a list of things I have read about. Everything here is running
             in one of the products or automations above.
           </p>
@@ -83,7 +83,7 @@ export default function Toolkit() {
                 </h3>
               </div>
 
-              <p className="text-sm text-muted/75 font-light leading-relaxed mb-7">
+              <p className="text-sm text-subtle font-normal leading-relaxed mb-7">
                 {group.blurb}
               </p>
 
@@ -91,7 +91,7 @@ export default function Toolkit() {
                 {group.items.map((item) => (
                   <li
                     key={item}
-                    className="px-4 py-2 rounded-full bg-surface/60 border border-white/5 text-xs font-medium text-fg/80"
+                    className="px-4 py-2 rounded-full bg-surface/60 border border-white/5 text-xs font-medium text-fg"
                   >
                     {item}
                   </li>

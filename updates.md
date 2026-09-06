@@ -5,6 +5,38 @@
 
 ---
 
+## 2026-09-07 (session 11) — Fix unreadable body text
+
+The owner sent a screenshot of the resume page: the text was barely visible.
+
+**Cause.** Theme B declared `--color-muted` inside `@theme inline`, a block that
+already mapped `--color-muted` to shadcn's near-black `var(--muted)`. The later
+declaration won, so every `text-muted` on the site rendered at about **1.5:1**
+against the ground (`lessons.md` L29). Renamed to `--color-body` and swept 37
+usages.
+
+**My first check was wrong and I reported it as proof.** The contrast script
+matched colours with an `rgb()` regex, so every element returning
+`oklch(0.25 0.02 280)` was silently skipped — exactly the broken ones. It said
+"no failures" while the page was visibly unreadable. The script now resolves any
+colour through a 1x1 canvas and reports how many elements it checked
+(`lessons.md` L30).
+
+Also fixed, in the same pass:
+
+- `text-muted/40|55|60|70|75|80` and `text-fg/75|80|90` removed — opacity was
+  diluting text that had already been given a colour. Genuinely secondary text
+  now uses one `text-subtle` token at 6.5:1.
+- `font-light` replaced with `font-normal`. Weight 300 was never loaded, so it
+  rendered as 400 anyway while reading as washed out.
+- Smallest type sizes nudged from 10px / 10.5px to 11px / 11.5px, and the
+  `.label` utility from 11px to 11.5px.
+
+**Verified with the corrected method:** 29 distinct colour/size pairs on the
+homepage and 11 on the resume, **zero failures**. Lowest is 5.69:1 against a
+4.5 requirement; body text is 10.39:1.
+
+---
 ## 2026-09-06 (session 10) — Rebuild on Theme B, with the certificates
 
 A blueprint was written and approved first: colour B, Autolinium until 10
@@ -450,6 +482,7 @@ them.
 - `cb546f6` Vercel install fixed by removing a missing pnpm patch reference
 - `7477a08` Static build replaced with the real source project
 - `a633b17` Initial portfolio deploy
+
 
 
 

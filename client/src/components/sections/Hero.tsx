@@ -82,7 +82,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.12 }}
-              className="text-lg text-fg/75 font-light max-w-xl leading-relaxed"
+              className="text-lg text-fg font-normal max-w-xl leading-relaxed"
             >
               In under a year I built a multi-tenant SaaS platform on my own and
               shipped four production applications &mdash; Next.js and Node.js,
@@ -119,7 +119,7 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 0.3 }}
               className="flex flex-wrap items-center gap-x-6 gap-y-4 pt-3"
             >
-              <p className="flex items-center gap-2 text-[13px] text-muted">
+              <p className="flex items-center gap-2 text-[13px] text-body">
                 <span className="w-2 h-2 rounded-full bg-brand-bright animate-pulse" />
                 <MapPin className="w-3.5 h-3.5" />
                 Comilla, Bangladesh &middot; open to remote
@@ -132,7 +132,7 @@ export default function Hero() {
                     aria-label={social.label}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 text-muted hover:text-white hover:border-white/25 transition-colors flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-bright"
+                    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 text-body hover:text-white hover:border-white/25 transition-colors flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-bright"
                   >
                     {social.icon}
                   </a>
@@ -193,7 +193,7 @@ export default function Hero() {
                   <p className="font-display text-base font-semibold text-white leading-tight">
                     Noray Afzal Nahid
                   </p>
-                  <p className="label text-muted mt-1.5">Comilla, Bangladesh</p>
+                  <p className="label text-body mt-1.5">Comilla, Bangladesh</p>
                 </motion.div>
               </div>
             </div>

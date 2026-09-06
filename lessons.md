@@ -638,3 +638,53 @@ trusted neither.
 **Lesson:** ask for the paperwork early. A CV is what someone says about
 themselves; a certificate is what an employer signed. When they disagree, the
 signature wins — and the disagreement itself is the damage.
+
+---
+
+## L29 — A token name collision made the whole site unreadable
+**Severity: the site was barely legible. Status: FIXED 2026-09-07.**
+
+Theme B declared `--color-muted: #B2C2BA` inside `@theme inline`. That block
+already contained `--color-muted: var(--muted)` from the shadcn setup, pointing
+at `oklch(0.25 0.02 280)` — a near-black grey. The later declaration won, so
+every `text-muted` on the site rendered at roughly **1.5:1** against the
+ground. The owner spotted it immediately from a screenshot.
+
+The fix was to rename the token to `--color-body`, which collides with nothing,
+and sweep 37 usages.
+
+**Lesson:** when adding design tokens to a file that already has a system in it,
+list the existing names first. A duplicate custom property does not warn — it
+just quietly replaces yours.
+
+---
+
+## L30 — A contrast check that skips what it cannot parse is worse than none
+**Severity: I reported a false pass. Status: fixed, method changed.**
+
+Asked to verify the contrast fix, I ran a script that read
+`getComputedStyle(el).color` and matched it against `/rgba?\(([^)]+)\)/`. Every
+broken element returned `oklch(0.25 0.02 280)`, which that regex does not match,
+so the script returned `null` and **skipped exactly the elements that were
+broken**. It printed "no failures" and I passed that on as proof while the page
+was plainly unreadable in the screenshot beside it.
+
+The working method resolves any CSS colour through a 1x1 canvas — fill, read the
+pixel back — so `oklch`, `color-mix`, named colours and hex all reduce to RGB:
+
+```js
+const cx = document.createElement("canvas").getContext("2d");
+function toRGB(col) {
+  cx.fillStyle = "#000"; cx.fillRect(0, 0, 1, 1);
+  cx.fillStyle = col;    cx.fillRect(0, 0, 1, 1);
+  const d = cx.getImageData(0, 0, 1, 1).data;
+  return { r: d[0], g: d[1], b: d[2] };
+}
+```
+
+It also now reports how many elements it checked, so a suspiciously small count
+is visible instead of silent.
+
+**Lesson:** a verification script must fail loudly on input it cannot handle.
+Silently dropping the unparseable turns a test into a rubber stamp — and the
+user had already seen the truth with their own eyes.

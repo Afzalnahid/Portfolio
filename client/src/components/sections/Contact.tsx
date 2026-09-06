@@ -34,7 +34,7 @@ const links = [
     value: "github.com/Afzalnahid",
     href: "https://github.com/Afzalnahid",
     icon: <Github className="w-5 h-5" />,
-    accent: "text-fg/80",
+    accent: "text-fg",
     external: true,
   },
 ];
@@ -55,7 +55,7 @@ export default function Contact() {
           <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white leading-[1.08] mb-5">
             Looking for a full-time or contract remote role.
           </h2>
-          <p className="text-muted font-light text-base sm:text-lg leading-relaxed">
+          <p className="text-body font-normal text-base sm:text-lg leading-relaxed">
             Full-stack or AI automation. The quickest way to reach me is email
             or WhatsApp.
           </p>
@@ -78,14 +78,14 @@ export default function Contact() {
           </button>
         </div>
 
-        <p className="flex items-center gap-2 text-[13px] text-muted/75 mb-3">
+        <p className="flex items-center gap-2 text-[13px] text-subtle mb-3">
           <Globe className="w-3.5 h-3.5" />
           Comilla, Bangladesh &mdash; open to remote, worldwide
         </p>
 
         {/* The quiet door: clients who want project work still find it, without
             the page sounding undecided about what it is asking for. */}
-        <p className="text-[13px] text-muted/60 mb-14">
+        <p className="text-[13px] text-subtle mb-14">
           Also available for contract and project work.
         </p>
 
@@ -104,8 +104,8 @@ export default function Contact() {
                 {link.icon}
               </span>
               <span className="min-w-0">
-                <span className="label text-muted/55 block mb-1">{link.name}</span>
-                <span className="block text-[15px] font-medium text-fg/90 truncate">
+                <span className="label text-subtle block mb-1">{link.name}</span>
+                <span className="block text-[15px] font-medium text-fg truncate">
                   {link.value}
                 </span>
               </span>

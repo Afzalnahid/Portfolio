@@ -30,11 +30,11 @@ export default function NotFound() {
             404
           </h1>
 
-          <h2 className="text-xl font-bold text-fg/80 mb-6 uppercase tracking-widest">
+          <h2 className="text-xl font-bold text-fg mb-6 uppercase tracking-widest">
             Page Not Found
           </h2>
 
-          <p className="text-muted mb-10 leading-relaxed font-light px-4">
+          <p className="text-body mb-10 leading-relaxed font-normal px-4">
             The page you are looking for doesn't exist or has been moved to a
             new automated workflow.
           </p>

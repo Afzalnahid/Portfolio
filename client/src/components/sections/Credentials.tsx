@@ -87,7 +87,7 @@ export default function Credentials() {
           <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-fg leading-[1.08] mb-5">
             Intern in April. Full-time by July.
           </h2>
-          <p className="text-muted font-light text-base sm:text-lg leading-relaxed">
+          <p className="text-body font-normal text-base sm:text-lg leading-relaxed">
             Autolinium confirmed me into a full-time role three months in, on the
             strength of the internship. Both certificates are below — read them
             rather than take my word for it.
@@ -119,19 +119,19 @@ export default function Credentials() {
                     </span>
                   )}
 
-                  <p className="label text-muted/75 mb-2">
+                  <p className="label text-subtle mb-2">
                     {role.period} &middot; {role.place}
                   </p>
                   <h3 className="font-display text-lg font-bold text-fg leading-tight">
                     {role.title}
                   </h3>
-                  <p className="text-sm text-muted mb-4">{role.org}</p>
+                  <p className="text-sm text-body mb-4">{role.org}</p>
 
                   <ul className="space-y-2.5">
                     {role.points.map((point) => (
                       <li
                         key={point}
-                        className="flex gap-3 text-sm text-muted font-light leading-relaxed"
+                        className="flex gap-3 text-sm text-body font-normal leading-relaxed"
                       >
                         <span className="mt-2 w-1 h-1 rounded-full bg-brand shrink-0" />
                         {point}
@@ -144,7 +144,7 @@ export default function Credentials() {
           </div>
 
           <div className="lg:col-span-5">
-            <p className="label text-muted/75 mb-5">Verified documents</p>
+            <p className="label text-subtle mb-5">Verified documents</p>
             <div className="space-y-4">
               {certificates.map((cert) => (
                 <button
@@ -165,11 +165,11 @@ export default function Credentials() {
                         {cert.title}
                       </span>
                     </span>
-                    <span className="text-xs text-muted mb-2">{cert.issuer}</span>
-                    <span className="font-mono text-[10.5px] text-muted/70 leading-relaxed">
+                    <span className="text-xs text-body mb-2">{cert.issuer}</span>
+                    <span className="font-mono text-[11.5px] text-subtle leading-relaxed">
                       {cert.detail}
                     </span>
-                    <span className="mt-auto pt-3 inline-flex items-center gap-1.5 text-[11px] font-semibold text-muted/75 group-hover:text-brand-bright transition-colors">
+                    <span className="mt-auto pt-3 inline-flex items-center gap-1.5 text-[11px] font-semibold text-subtle group-hover:text-brand-bright transition-colors">
                       View full document <ExternalLink className="w-3 h-3" />
                     </span>
                   </span>
@@ -206,14 +206,14 @@ export default function Credentials() {
                   <p className="font-display text-base font-bold text-fg">
                     {open.title}
                   </p>
-                  <p className="font-mono text-[11px] text-muted/75 mt-1">
+                  <p className="font-mono text-[11.5px] text-subtle mt-1">
                     {open.detail}
                   </p>
                 </div>
                 <button
                   onClick={() => setOpen(null)}
                   aria-label="Close"
-                  className="p-2 rounded-full text-muted hover:text-fg hover:bg-white/5 transition-colors shrink-0"
+                  className="p-2 rounded-full text-body hover:text-fg hover:bg-white/5 transition-colors shrink-0"
                 >
                   <X size={20} />
                 </button>

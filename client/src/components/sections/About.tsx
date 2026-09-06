@@ -12,7 +12,7 @@ export default function About() {
               A pharmacy degree, then a year of shipping software.
             </h2>
 
-            <div className="space-y-5 text-base sm:text-lg text-muted leading-relaxed font-light">
+            <div className="space-y-5 text-base sm:text-lg text-body leading-relaxed font-normal">
               <p>
                 I came to software from outside it. In under a year I have built
                 a{" "}
@@ -37,25 +37,25 @@ export default function About() {
 
           <div className="lg:col-span-5 space-y-10">
             <div>
-              <p className="label text-muted/75 mb-5">Education</p>
+              <p className="label text-subtle mb-5">Education</p>
               <div className="rounded-2xl border border-white/8 bg-surface/40 p-6">
                 <p className="label text-brand-bright mb-2">2020 — 2024</p>
                 <h3 className="font-display text-base font-bold text-fg leading-tight">
                   B.Pharm (Bachelor of Pharmacy)
                 </h3>
-                <p className="text-sm text-muted mt-1">
+                <p className="text-sm text-body mt-1">
                   Northern University Bangladesh
                 </p>
               </div>
             </div>
 
             <div>
-              <p className="label text-muted/75 mb-5">Languages</p>
+              <p className="label text-subtle mb-5">Languages</p>
               <div className="flex flex-wrap gap-2.5">
-                <span className="px-4 py-2 rounded-full bg-surface/60 border border-white/8 text-sm font-medium text-fg/80">
+                <span className="px-4 py-2 rounded-full bg-surface/60 border border-white/8 text-sm font-medium text-fg">
                   Bangla — native
                 </span>
-                <span className="px-4 py-2 rounded-full bg-surface/60 border border-white/8 text-sm font-medium text-fg/80">
+                <span className="px-4 py-2 rounded-full bg-surface/60 border border-white/8 text-sm font-medium text-fg">
                   English — professional
                 </span>
               </div>

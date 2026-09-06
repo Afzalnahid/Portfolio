@@ -61,7 +61,10 @@ client/
 - **Chat** — the only chat is the real Autologic widget loaded in
   `index.html`. The simulated `AiChat` component was deleted 2026-09-06.
 - **Colour**: use the semantic classes only — `bg-ground`, `bg-ground-2`,
-  `bg-surface`, `text-fg`, `text-muted`, `bg-brand`, `text-brand-bright`.
+  `bg-surface`, `text-fg`, `text-body`, `text-subtle`, `bg-brand`,
+  `text-brand-bright`. **Never add a token named after a shadcn one**
+  (`muted`, `accent`, `primary`, `card`, `border`, `ring`…) — the later
+  declaration wins silently and your colour disappears (`lessons.md` L29).
   They are declared in `index.css` under `@theme`. No raw slate/blue classes.
 - **Autolinium dates and titles come from the certificates** in
   `client/public/certificates/`. Intern 10 Apr – 10 Jul 2026, then AI Automation

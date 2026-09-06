@@ -256,7 +256,7 @@ function LinkBadge({ solution }: { solution: Solution }) {
     return (
       <span
         title={solution.privateNote}
-        className="inline-flex items-center gap-1.5 text-xs font-medium text-muted/75"
+        className="inline-flex items-center gap-1.5 text-xs font-medium text-subtle"
       >
         <Lock className="w-3.5 h-3.5" /> Private
       </span>
@@ -276,7 +276,7 @@ export default function Showcase() {
           <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white leading-[1.08] mb-5">
             One product I built alone, and the systems around it.
           </h2>
-          <p className="text-muted font-light text-base sm:text-lg leading-relaxed">
+          <p className="text-body font-normal text-base sm:text-lg leading-relaxed">
             Four applications and five production automations. Open any of them
             for the problem, the build and what came out of it.
           </p>
@@ -297,7 +297,7 @@ export default function Showcase() {
                 <span className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-bright">
                   {featured.icon}
                 </span>
-                <span className="label text-muted/75">{featured.category}</span>
+                <span className="label text-subtle">{featured.category}</span>
               </div>
 
               <div className="flex items-center gap-3 flex-wrap mb-4">
@@ -307,11 +307,11 @@ export default function Showcase() {
                 <LinkBadge solution={featured} />
               </div>
 
-              <p className="text-fg/75 font-light leading-relaxed mb-7 max-w-xl">
+              <p className="text-fg font-normal leading-relaxed mb-7 max-w-xl">
                 {featured.description}
               </p>
 
-              <p className="font-mono text-[11px] text-muted/75 mb-8 leading-relaxed">
+              <p className="font-mono text-[11.5px] text-subtle mb-8 leading-relaxed">
                 {featured.stack}
               </p>
 
@@ -327,10 +327,10 @@ export default function Showcase() {
             {/* Facts panel. Replaced by a real screenshot once one is available. */}
             <div className="lg:col-span-5">
               <div className="h-full rounded-2xl border border-white/10 bg-ground/50 p-6">
-                <p className="label text-muted/55 mb-5">What it does</p>
+                <p className="label text-subtle mb-5">What it does</p>
                 <ul className="space-y-3.5">
                   {featured.features.map((feature) => (
-                    <li key={feature} className="flex gap-3 text-sm text-fg/80 font-light leading-snug">
+                    <li key={feature} className="flex gap-3 text-sm text-fg font-normal leading-snug">
                       <Check className="w-4 h-4 text-brand-bright shrink-0 mt-0.5" />
                       {feature}
                     </li>
@@ -354,10 +354,10 @@ export default function Showcase() {
               className="group rounded-2xl border border-white/8 bg-surface/40 p-7 flex flex-col cursor-pointer hover:border-white/20 hover:bg-surface/70 transition-colors"
             >
               <div className="flex items-center justify-between mb-5">
-                <span className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-fg/80">
+                <span className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-fg">
                   {app.icon}
                 </span>
-                <span className="label text-muted/55 text-right">{app.category}</span>
+                <span className="label text-subtle text-right">{app.category}</span>
               </div>
 
               <div className="flex items-center gap-2.5 flex-wrap mb-3">
@@ -365,11 +365,11 @@ export default function Showcase() {
                 <LinkBadge solution={app} />
               </div>
 
-              <p className="text-sm text-muted font-light leading-relaxed mb-5">
+              <p className="text-sm text-body font-normal leading-relaxed mb-5">
                 {app.description}
               </p>
 
-              <p className="font-mono text-[10.5px] text-muted/55 leading-relaxed mt-auto mb-5">
+              <p className="font-mono text-[11.5px] text-subtle leading-relaxed mt-auto mb-5">
                 {app.stack}
               </p>
 
@@ -386,7 +386,7 @@ export default function Showcase() {
           <h3 className="font-display text-2xl sm:text-3xl font-bold text-white leading-tight mb-4">
             Five production n8n systems
           </h3>
-          <p className="text-muted font-light leading-relaxed">
+          <p className="text-body font-normal leading-relaxed">
             Built during my time at Autolinium and since. Each one runs
             unattended and handles a job a person used to do by hand.
           </p>
@@ -404,22 +404,22 @@ export default function Showcase() {
               className="group w-full text-left grid sm:grid-cols-12 gap-3 sm:gap-6 items-center p-6 sm:p-7 bg-surface/30 hover:bg-surface/70 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-bright"
             >
               <div className="sm:col-span-4 flex items-center gap-4">
-                <span className="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-muted group-hover:text-brand-bright transition-colors">
+                <span className="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-body group-hover:text-brand-bright transition-colors">
                   {flow.icon}
                 </span>
                 <div>
                   <h4 className="font-display text-base font-semibold text-white leading-tight">
                     {flow.title}
                   </h4>
-                  <p className="label text-muted/55 mt-1">{flow.category}</p>
+                  <p className="label text-subtle mt-1">{flow.category}</p>
                 </div>
               </div>
 
-              <p className="sm:col-span-6 text-sm text-muted font-light leading-relaxed">
+              <p className="sm:col-span-6 text-sm text-body font-normal leading-relaxed">
                 {flow.description}
               </p>
 
-              <span className="sm:col-span-2 inline-flex items-center gap-1.5 text-xs font-semibold text-muted/75 group-hover:text-brand-bright transition-colors sm:justify-end">
+              <span className="sm:col-span-2 inline-flex items-center gap-1.5 text-xs font-semibold text-subtle group-hover:text-brand-bright transition-colors sm:justify-end">
                 Case study <ArrowUpRight className="w-3.5 h-3.5" />
               </span>
             </motion.button>

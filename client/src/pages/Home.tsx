@@ -31,12 +31,12 @@ export default function Home() {
 
       <footer className="bg-ground border-t border-white/5 py-12 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
-          <div className="text-sm font-bold tracking-widest text-muted/75">
+          <div className="text-sm font-bold tracking-widest text-subtle">
             &copy; {new Date().getFullYear()}{" "}
             <span className="text-white">Noray Afzal Nahid</span> &bull;
             Full-Stack Developer
           </div>
-          <div className="flex gap-8 text-[11px] font-bold text-muted/75 uppercase tracking-widest">
+          <div className="flex gap-8 text-[11px] font-bold text-subtle uppercase tracking-widest">
             <a
               href="mailto:nahidafzal97@gmail.com"
               className="hover:text-white transition-colors"

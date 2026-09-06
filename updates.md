@@ -5,6 +5,28 @@
 
 ---
 
+## 2026-09-07 (session 14) — Certificate viewer
+
+The owner opened the experience certificate and its own header was sliced off
+the top of the screen.
+
+**Cause.** The panel was a flex column holding a header and then the image
+directly. An image will not shrink inside a flex column, so a 2329px document
+forced the panel past its `max-h-[94vh]` and pushed the header out of view
+(`lessons.md` L33).
+
+- The panel is now header / scrolling body / footer, with `flex-1 min-h-0
+  overflow-auto` on the body — the document scrolls in its own row and the
+  header and footer stay put.
+- A footer bar names the issuer and links "Open full size".
+- Certificates re-rendered at 1800px and 2000px wide (from 1400px) so the small
+  print holds up when opened: 215 kB and 116 kB, loaded only when the lightbox
+  opens.
+
+Verified: panel 729px inside an 800px viewport, header visible, body scrollable,
+image 1800x2329 rendering at 814px.
+
+---
 ## 2026-09-07 (session 13) — The stat captions
 
 The owner sent a crop of "GETVOICIUM, ARCHITECTURE TO DEPLOYMENT" — a sentence
@@ -517,6 +539,7 @@ them.
 - `cb546f6` Vercel install fixed by removing a missing pnpm patch reference
 - `7477a08` Static build replaced with the real source project
 - `a633b17` Initial portfolio deploy
+
 
 
 

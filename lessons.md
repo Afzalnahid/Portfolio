@@ -741,3 +741,34 @@ rule is the length of the string, not the size of the type.
 **Lesson:** a treatment that reads as *styled* on a two-word label reads as
 *damaged* on a sentence. Check what the class is wrapping, not just how it looks
 in isolation.
+
+---
+
+## L33 — An image will not shrink inside a flex column
+**Severity: broke a section the whole site was rebuilt around. Status: FIXED 2026-09-07.**
+
+The certificate lightbox was a `flex flex-col max-h-[94vh]` panel holding a
+header row and then an `<img>`. An image in a flex column takes its intrinsic
+height and refuses to shrink, so a 2329px-tall document forced the panel far
+past 94vh and pushed the header off the top of the screen. The owner saw a
+certificate with its own title sliced in half.
+
+The pattern that works, for any scrollable-document panel:
+
+```
+panel   flex flex-col max-h-[94vh] overflow-hidden
+header  shrink-0
+body    flex-1 min-h-0 overflow-auto     <- min-h-0 is the part people miss
+footer  shrink-0
+```
+
+Without `min-h-0`, a flex child's minimum size is its content, and `flex-1`
+cannot shrink it below that. With it, the row takes the space left over and
+scrolls its own contents.
+
+The certificates were also re-rendered at 1800px and 2000px wide instead of
+1400px, and a footer link opens the full-size file, so the small print in a
+scanned document is actually readable.
+
+**Lesson:** `overflow-auto` on the image does nothing — images do not scroll.
+The scrolling belongs on a wrapper, and that wrapper needs `min-h-0`.

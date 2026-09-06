@@ -189,40 +189,59 @@ export default function Credentials() {
             role="dialog"
             aria-modal="true"
             aria-label={`${open.title} from ${open.issuer}`}
-            className="fixed inset-0 z-[120] flex items-center justify-center p-4 sm:p-8"
+            className="fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-6"
           >
             <div
               className="absolute inset-0 bg-ground/95 backdrop-blur-md"
               onClick={() => setOpen(null)}
             />
+
             <motion.div
               initial={{ scale: 0.97, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.97, opacity: 0 }}
-              className="relative max-w-3xl w-full max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-4xl max-h-[94vh] flex flex-col rounded-2xl border border-white/12 bg-surface overflow-hidden shadow-2xl"
             >
-              <div className="flex items-center justify-between gap-4 mb-4">
-                <div>
-                  <p className="font-display text-base font-bold text-fg">
+              <div className="shrink-0 flex items-start justify-between gap-4 p-4 sm:p-5 border-b border-white/10">
+                <div className="min-w-0">
+                  <p className="font-display text-base font-bold text-fg leading-tight">
                     {open.title}
                   </p>
-                  <p className="font-mono text-[11.5px] text-subtle mt-1">
+                  <p className="font-mono text-[11.5px] text-subtle mt-1.5 break-words">
                     {open.detail}
                   </p>
                 </div>
                 <button
                   onClick={() => setOpen(null)}
                   aria-label="Close"
-                  className="p-2 rounded-full text-body hover:text-fg hover:bg-white/5 transition-colors shrink-0"
+                  className="p-2 shrink-0 rounded-full text-body hover:text-fg hover:bg-white/5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-bright"
                 >
                   <X size={20} />
                 </button>
               </div>
-              <img
-                src={open.full}
-                alt={`${open.title} issued by ${open.issuer}`}
-                className="w-full h-auto rounded-xl border border-white/10 bg-white overflow-y-auto"
-              />
+
+              {/* The document itself, on white, scrolling inside its own row. */}
+              <div className="flex-1 min-h-0 overflow-auto bg-white p-3 sm:p-5">
+                <img
+                  src={open.full}
+                  alt={`${open.title} issued by ${open.issuer}`}
+                  className="w-full h-auto mx-auto max-w-[860px] rounded-md"
+                />
+              </div>
+
+              <div className="shrink-0 flex flex-wrap items-center justify-between gap-3 p-4 sm:p-5 border-t border-white/10">
+                <p className="text-[12.5px] text-subtle">
+                  Issued by {open.issuer}
+                </p>
+                <a
+                  href={open.full}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-brand hover:bg-brand-bright text-ground text-[13px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-bright"
+                >
+                  Open full size <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
             </motion.div>
           </motion.div>
         )}

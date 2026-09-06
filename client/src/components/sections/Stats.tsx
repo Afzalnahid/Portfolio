@@ -56,7 +56,7 @@ export default function Stats() {
               <div className="label text-brand-bright mb-2">
                 {stat.label}
               </div>
-              <p className="text-[11.5px] text-subtle font-medium uppercase tracking-widest leading-relaxed">
+              <p className="text-[13px] text-body font-normal leading-relaxed max-w-[22ch]">
                 {stat.description}
               </p>
             </motion.div>

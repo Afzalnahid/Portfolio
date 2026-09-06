@@ -716,3 +716,28 @@ was wrong for small type, where it was the text.
 background — not against the brightest thing on the page. When someone says text
 looks dim while the numbers say it passes, the numbers are answering a different
 question.
+
+---
+
+## L32 — Uppercase and wide tracking made a sentence unreadable
+**Severity: legibility. Status: FIXED 2026-09-07.**
+
+The owner sent a crop of one line: "GETVOICIUM, ARCHITECTURE TO DEPLOYMENT". It
+was a **sentence** set at 11.5px, uppercase, `tracking-widest`, in the
+secondary colour. Four legibility costs stacked on one short line:
+
+- uppercase removes ascenders and descenders, so the word shapes people actually
+  read by are gone
+- wide tracking breaks the remaining shapes into separate letters
+- 11.5px is below comfortable reading size
+- the secondary colour was the dimmest text on the page
+
+Now: 13px, sentence case, no extra tracking, in the body colour — **14.7:1**.
+
+Uppercase with wide tracking still earns its place on the `.label` utility,
+where the content is one or two words ("Education", "Verified documents"). The
+rule is the length of the string, not the size of the type.
+
+**Lesson:** a treatment that reads as *styled* on a two-word label reads as
+*damaged* on a sentence. Check what the class is wrapping, not just how it looks
+in isolation.

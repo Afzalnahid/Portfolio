@@ -5,6 +5,20 @@
 
 ---
 
+## 2026-09-07 (session 13) — The stat captions
+
+The owner sent a crop of "GETVOICIUM, ARCHITECTURE TO DEPLOYMENT" — a sentence
+set at 11.5px in uppercase with wide tracking, in the dimmest colour on the
+page. Four legibility costs on one line (`lessons.md` L32).
+
+- Stat captions are now 13px, sentence case, no extra tracking, in the body
+  colour: **14.7:1**, up from the secondary colour at 11.5px.
+- `--color-subtle` raised again, `#A8B8B0` to `#C6D3CC` (12.5:1), so the short
+  uppercase labels elsewhere are clearly visible too.
+- Confirmed every other `uppercase` use on the site is a one- or two-word label,
+  which is what the treatment is for.
+
+---
 ## 2026-09-07 (session 12) — Body text brought up to the headline
 
 The contrast fix passed WCAG but the owner still found the text dim beside the
@@ -503,6 +517,7 @@ them.
 - `cb546f6` Vercel install fixed by removing a missing pnpm patch reference
 - `7477a08` Static build replaced with the real source project
 - `a633b17` Initial portfolio deploy
+
 
 
 

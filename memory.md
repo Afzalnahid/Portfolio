@@ -62,7 +62,8 @@ client/
   `index.html`. The simulated `AiChat` component was deleted 2026-09-06.
 - **Colour**: use the semantic classes only — `bg-ground`, `bg-ground-2`,
   `bg-surface`, `text-fg`, `text-body`, `text-subtle`, `bg-brand`,
-  `text-brand-bright`. Values: fg `#F4F7F5`, body `#DEE7E2`, subtle `#A8B8B0`.
+  `text-brand-bright`. Values: fg `#F4F7F5`, body `#DEE7E2`, subtle `#C6D3CC`.
+  Uppercase + `tracking-widest` is for **short labels only** — never a sentence.
   Body text sits close to the headline on purpose — the owner rejected the
   earlier, dimmer values twice. `text-brand` (`#0E9F6E`) is for fills only;
   green **type** uses `text-brand-bright`. **Never add a token named after a

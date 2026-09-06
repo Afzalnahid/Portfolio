@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Linkedin, Github, Mail, MessageCircle, FileText, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import portrait from "@/nahid2.webp";
+import portrait from "@/nahid-hero.webp";
 import backdrop from "@/heroimage.webp";
 import { useBooking } from "@/contexts/BookingContext";
 
@@ -160,8 +160,8 @@ export default function Hero() {
                 <motion.img
                   src={portrait}
                   alt="Noray Afzal Nahid"
-                  width={500}
-                  height={500}
+                  width={900}
+                  height={1125}
                   fetchPriority="high"
                   className="w-full h-full object-cover aspect-[4/5]"
                   initial={false}

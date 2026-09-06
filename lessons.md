@@ -772,3 +772,32 @@ scanned document is actually readable.
 
 **Lesson:** `overflow-auto` on the image does nothing — images do not scroll.
 The scrolling belongs on a wrapper, and that wrapper needs `min-h-0`.
+
+---
+
+## L34 — Two chained sharp resizes: only the last one runs
+**Severity: caught before shipping. Status: noted 2026-09-07.**
+
+Cropping the new hero portrait to 4:5, the first attempt was:
+
+```js
+sharp(src)
+  .resize({ width: m.width, height: targetH, fit: "cover", position: "top" })
+  .resize({ width: 900 })          // <- this replaces the one above
+  .webp({ quality: 86 })
+```
+
+sharp keeps **one** resize operation per pipeline, so the crop was thrown away
+and the output came out at the source's original 3:4. The check that caught it
+was reading the ratio back off the written file — `0.750` where `0.800` was
+expected — not looking at the picture.
+
+The working form does both in one call:
+
+```js
+sharp(src).resize({ width: 900, height: 1125, fit: "cover", position: "top" })
+```
+
+**Lesson:** after any image transform, read the dimensions back off the file on
+disk and assert them. A wrong aspect ratio is easy to miss by eye and obvious to
+a number.

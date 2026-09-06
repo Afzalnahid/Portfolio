@@ -156,10 +156,12 @@ Checked against **https://nahid-afzal-portfolio.vercel.app/** after the deploy.
 3. ~~Commit, push and confirm the deploy.~~ Done 2026-09-06 and verified on
    the live site (see section 6b).
 4. Real testimonials, if wanted, need quotes the owner has permission to use.
-5. **The hero portrait is a placeholder.** It currently reuses
-   `client/src/nahid2.webp`, the old About photo. The owner is sending a new
-   photograph; swap the `portrait` import in `Hero.tsx` and convert the file to
-   WebP at roughly 900x1125 for the 4:5 frame.
+5. ~~The hero portrait is a placeholder.~~ Done 2026-09-07: the owner's own
+   photograph is in as `client/src/nahid-hero.webp`, 900x1125. The original
+   1086x1448 PNG is kept outside the repo at
+   `D:\Projects\Portfolio-private\originals\`. To replace it later, crop to
+   **4:5 in a single sharp `resize`** — chaining two resizes silently discards
+   the first (`lessons.md` L34).
 6. Champion and Nandi ERP are the clients' own systems, reachable only with
    their credentials. Those cards are labelled "Private" on purpose — there is
    nothing to link and nothing to demo publicly. Do not add a URL for them.

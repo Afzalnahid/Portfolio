@@ -5,6 +5,25 @@
 
 ---
 
+## 2026-09-07 (session 15) — The real portrait
+
+The owner supplied his own photograph and it replaces the placeholder.
+
+- Source 1086x1448 (3:4). Cropped to **4:5 keeping the top**, so the face stays
+  where it is and the crop comes off the bottom, where the name caption sits.
+- Output `client/src/nahid-hero.webp`, 900x1125, **51 kB** — sharper than the
+  500px square it replaces and a third of the weight.
+- The 1.7 MB original is kept outside the repository, in
+  `D:\Projects\Portfolio-private\originals\`.
+- `nahid2.webp` deleted; nothing referenced it after About lost its photo.
+
+A first attempt chained two sharp `resize` calls and silently produced 3:4 —
+sharp keeps only the last resize in a pipeline (`lessons.md` L34). Caught by
+reading the ratio back off the written file.
+
+Verified: 900x1125 natural, rendering at 466x583, ratio exactly 0.800.
+
+---
 ## 2026-09-07 (session 14) — Certificate viewer
 
 The owner opened the experience certificate and its own header was sliced off
@@ -539,6 +558,7 @@ them.
 - `cb546f6` Vercel install fixed by removing a missing pnpm patch reference
 - `7477a08` Static build replaced with the real source project
 - `a633b17` Initial portfolio deploy
+
 
 
 

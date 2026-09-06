@@ -51,7 +51,7 @@ export default function Toolkit() {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14 sm:mb-20">
-          <span className="text-brand font-bold tracking-widest uppercase text-xs sm:text-sm mb-4 block">
+          <span className="text-brand-bright font-bold tracking-widest uppercase text-xs sm:text-sm mb-4 block">
             The Stack
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white">

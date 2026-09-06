@@ -89,7 +89,7 @@ const contacts = [
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="resume-section mb-10">
-      <h2 className="label text-brand border-b border-white/10 pb-2 mb-6">{title}</h2>
+      <h2 className="label text-brand-bright border-b border-white/10 pb-2 mb-6">{title}</h2>
       {children}
     </section>
   );

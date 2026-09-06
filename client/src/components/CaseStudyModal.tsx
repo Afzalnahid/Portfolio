@@ -138,7 +138,7 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: Props) {
                       key={feature}
                       className="flex gap-2.5 text-sm text-body font-normal leading-snug"
                     >
-                      <Check className="w-4 h-4 text-brand shrink-0 mt-0.5" />
+                      <Check className="w-4 h-4 text-brand-bright shrink-0 mt-0.5" />
                       {feature}
                     </li>
                   ))}

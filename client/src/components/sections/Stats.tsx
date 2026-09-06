@@ -53,7 +53,7 @@ export default function Stats() {
               <div className="text-3xl md:text-4xl font-extrabold text-white mb-1 tracking-tighter tabular-nums">
                 {stat.value}
               </div>
-              <div className="label text-brand mb-2">
+              <div className="label text-brand-bright mb-2">
                 {stat.label}
               </div>
               <p className="text-[11.5px] text-subtle font-medium uppercase tracking-widest leading-relaxed">

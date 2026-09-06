@@ -272,7 +272,7 @@ export default function Showcase() {
     <section id="work" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-ground">
       <div className="max-w-6xl mx-auto">
         <div className="mb-14 sm:mb-16 max-w-2xl">
-          <p className="label text-brand mb-4">Selected work</p>
+          <p className="label text-brand-bright mb-4">Selected work</p>
           <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white leading-[1.08] mb-5">
             One product I built alone, and the systems around it.
           </h2>
@@ -382,7 +382,7 @@ export default function Showcase() {
 
         {/* ---------- Automation work ---------- */}
         <div className="mb-8 max-w-2xl">
-          <p className="label text-brand mb-4">Automation work</p>
+          <p className="label text-brand-bright mb-4">Automation work</p>
           <h3 className="font-display text-2xl sm:text-3xl font-bold text-white leading-tight mb-4">
             Five production n8n systems
           </h3>

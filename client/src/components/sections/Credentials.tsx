@@ -83,7 +83,7 @@ export default function Credentials() {
     >
       <div className="max-w-6xl mx-auto">
         <div className="mb-14 sm:mb-16 max-w-2xl">
-          <p className="label text-brand mb-4">Experience &amp; credentials</p>
+          <p className="label text-brand-bright mb-4">Experience &amp; credentials</p>
           <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-fg leading-[1.08] mb-5">
             Intern in April. Full-time by July.
           </h2>

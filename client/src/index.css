@@ -15,9 +15,9 @@
   --color-surface: #0F1A17;
   --color-brand: #0E9F6E;
   --color-brand-bright: #4ADE9B;
-  --color-body: #B2C2BA;
-  --color-subtle: #8A9A93;
-  --color-fg: #F2F5F3;
+  --color-body: #DEE7E2;
+  --color-subtle: #A8B8B0;
+  --color-fg: #F4F7F5;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -283,6 +283,7 @@
   .resume-page .label,
   .resume-page .text-brand,
   .resume-page .text-body,
+  .resume-page .text-subtle,
   .resume-page .text-brand-bright {
     color: #0B7F58 !important;
   }

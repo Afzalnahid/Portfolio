@@ -62,7 +62,11 @@ client/
   `index.html`. The simulated `AiChat` component was deleted 2026-09-06.
 - **Colour**: use the semantic classes only — `bg-ground`, `bg-ground-2`,
   `bg-surface`, `text-fg`, `text-body`, `text-subtle`, `bg-brand`,
-  `text-brand-bright`. **Never add a token named after a shadcn one**
+  `text-brand-bright`. Values: fg `#F4F7F5`, body `#DEE7E2`, subtle `#A8B8B0`.
+  Body text sits close to the headline on purpose — the owner rejected the
+  earlier, dimmer values twice. `text-brand` (`#0E9F6E`) is for fills only;
+  green **type** uses `text-brand-bright`. **Never add a token named after a
+  shadcn one**
   (`muted`, `accent`, `primary`, `card`, `border`, `ring`…) — the later
   declaration wins silently and your colour disappears (`lessons.md` L29).
   They are declared in `index.css` under `@theme`. No raw slate/blue classes.

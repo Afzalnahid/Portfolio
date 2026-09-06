@@ -688,3 +688,31 @@ is visible instead of silent.
 **Lesson:** a verification script must fail loudly on input it cannot handle.
 Silently dropping the unparseable turns a test into a rubber stamp — and the
 user had already seen the truth with their own eyes.
+
+---
+
+## L31 — Passing the contrast rule is not the same as looking clear
+**Severity: design. Status: FIXED 2026-09-07.**
+
+After the token collision was fixed, body text measured 10.4:1 — comfortably
+past WCAG AA — and the owner still said it did not read clearly: *"it should be
+more clear like headline"*. He was right. Next to a near-white headline at
+17.9:1, a grey-green at 10.4:1 still registers as *dim*, because the eye judges
+against what is beside it, not against a threshold.
+
+The values that satisfied him:
+
+| Role | Was | Now | Contrast |
+| --- | --- | --- | --- |
+| Headline | `#F2F5F3` | `#F4F7F5` | 17.9:1 |
+| Body | `#B2C2BA` | `#DEE7E2` | 15.3:1 |
+| Secondary | `#8A9A93` | `#A8B8B0` | 9.3:1 |
+| Green labels | `#0E9F6E` | `#4ADE9B` | 11.2:1 |
+
+The deep green is still right for button fills, where the text sits *on* it. It
+was wrong for small type, where it was the text.
+
+**Lesson:** WCAG is a floor, not a target, and it is measured against the
+background — not against the brightest thing on the page. When someone says text
+looks dim while the numbers say it passes, the numbers are answering a different
+question.

@@ -5,6 +5,27 @@
 
 ---
 
+## 2026-09-07 (session 12) — Body text brought up to the headline
+
+The contrast fix passed WCAG but the owner still found the text dim beside the
+headline, and he was right: 10.4:1 next to 17.9:1 still reads as grey
+(`lessons.md` L31).
+
+| Role | Was | Now | Contrast |
+| --- | --- | --- | --- |
+| Headline | `#F2F5F3` | `#F4F7F5` | 17.9:1 |
+| Body | `#B2C2BA` | `#DEE7E2` | 15.3:1 |
+| Secondary | `#8A9A93` | `#A8B8B0` | 9.3:1 |
+| Green labels | `#0E9F6E` | `#4ADE9B` | 11.2:1 |
+
+The deep green stays for button fills, where text sits on top of it; it was only
+wrong as type. Nine label usages switched from `text-brand` to
+`text-brand-bright`.
+
+Verified with the canvas method: 28 colour/size pairs on the homepage, zero
+failures, lowest now 9.3:1 — up from 5.69:1.
+
+---
 ## 2026-09-07 (session 11) — Fix unreadable body text
 
 The owner sent a screenshot of the resume page: the text was barely visible.
@@ -482,6 +503,7 @@ them.
 - `cb546f6` Vercel install fixed by removing a missing pnpm patch reference
 - `7477a08` Static build replaced with the real source project
 - `a633b17` Initial portfolio deploy
+
 
 
 

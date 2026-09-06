@@ -51,7 +51,7 @@ export default function Contact() {
 
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="max-w-2xl mb-10">
-          <p className="label text-brand mb-4">Get in touch</p>
+          <p className="label text-brand-bright mb-4">Get in touch</p>
           <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white leading-[1.08] mb-5">
             Looking for a full-time or contract remote role.
           </h2>

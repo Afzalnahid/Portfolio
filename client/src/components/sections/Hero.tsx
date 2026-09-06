@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Linkedin, Github, Mail, MessageCircle, Download, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
-import HeroScene from "@/components/HeroScene";
-import heroImage from "@/heroimage.webp";
+import portrait from "@/nahid2.webp";
+import backdrop from "@/heroimage.webp";
 import { useBooking } from "@/contexts/BookingContext";
 
 export const CV_URL = "/Noray-Afzal-Nahid-CV.pdf";
@@ -18,17 +18,17 @@ export default function Hero() {
   const { openBooking } = useBooking();
 
   return (
-    <section className="relative flex flex-col justify-center overflow-hidden bg-slate-950 pt-28 pb-14 sm:pt-32 sm:pb-20">
-      {/* The photograph is kept, pushed well back so the constellation reads. */}
+    <section className="relative flex flex-col justify-center overflow-hidden bg-slate-950 pt-28 pb-16 sm:pt-32 sm:pb-24">
+      {/* Workplace photograph, held right back so it reads as atmosphere. */}
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-[0.13] grayscale"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        className="absolute inset-0 bg-cover bg-center opacity-[0.12] grayscale"
+        style={{ backgroundImage: `url(${backdrop})` }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/70 to-slate-950" />
-      <div className="absolute -top-1/3 left-1/2 -translate-x-1/2 w-[900px] h-[900px] max-w-[130vw] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute -top-1/4 right-0 w-[760px] h-[760px] max-w-[120vw] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           <div className="lg:col-span-7 space-y-7">
             <motion.p
               initial={{ opacity: 0, y: 10 }}
@@ -43,7 +43,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="font-display text-[2.6rem] leading-[1.03] sm:text-6xl lg:text-[4.4rem] font-extrabold text-white"
+              className="font-display text-[2.6rem] leading-[1.03] sm:text-6xl lg:text-[4.2rem] font-extrabold text-white"
             >
               I ship real products,
               <br />
@@ -113,13 +113,40 @@ export default function Hero() {
             </motion.div>
           </div>
 
+          {/* Portrait. Swap the import above when a new photograph arrives. */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.1, delay: 0.15 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.15 }}
             className="lg:col-span-5 order-first lg:order-last"
           >
-            <HeroScene className="w-full h-[240px] sm:h-[320px] lg:h-[480px]" />
+            <div className="relative mx-auto w-full max-w-[300px] sm:max-w-[360px] lg:max-w-none">
+              {/* A soft light source behind the frame, not a glowing border. */}
+              <div className="absolute -inset-8 bg-blue-500/12 blur-[70px] rounded-full pointer-events-none" />
+
+              <div className="relative rounded-[1.75rem] overflow-hidden border border-white/12 bg-slate-900 shadow-2xl shadow-black/60">
+                <img
+                  src={portrait}
+                  alt="Noray Afzal Nahid"
+                  width={500}
+                  height={500}
+                  fetchPriority="high"
+                  className="w-full h-full object-cover aspect-[4/5] saturate-[0.9] contrast-[1.05]"
+                />
+
+                {/* Scrim so the frame sits in the section instead of on top of it. */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-slate-950/15 pointer-events-none" />
+
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <p className="font-display text-base font-semibold text-white leading-tight">
+                    Noray Afzal Nahid
+                  </p>
+                  <p className="label text-slate-400 mt-1.5">
+                    Comilla, Bangladesh
+                  </p>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>

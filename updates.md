@@ -5,6 +5,23 @@
 
 ---
 
+## 2026-09-06 (session 8) — Portrait hero, 3D removed
+
+The owner saw the 3D constellation live and did not want it. What he wants in
+that space is a photograph of himself, which he is sending.
+
+- `HeroScene.tsx` deleted. Nothing else depended on it.
+- The hero right column is now a portrait panel: a 4:5 frame with a soft light
+  source behind it, a scrim so it sits inside the section rather than on top of
+  it, and his name and location set into the bottom of the frame.
+- The workplace photograph stays as a faint backdrop.
+- **The portrait is a placeholder** — it reuses the old About photo until the
+  new photograph arrives. Swapping it is a one-line import change.
+- About no longer shows the same photo twice; its text now runs at full measure.
+
+Page height 6,389px to 6,281px, JS 157 kB to 156 kB gzipped.
+
+---
 ## 2026-09-06 (session 7) — Option B redesign
 
 A design audit was written first (measurements taken from the deployed build),
@@ -365,6 +382,7 @@ them.
 - `cb546f6` Vercel install fixed by removing a missing pnpm patch reference
 - `7477a08` Static build replaced with the real source project
 - `a633b17` Initial portfolio deploy
+
 
 
 

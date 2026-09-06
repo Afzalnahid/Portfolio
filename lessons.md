@@ -536,3 +536,23 @@ back.
 
 **Lesson:** emphasis is a scarce resource. Spend it on a few things or it stops
 existing, and check that the weights you write are the weights you loaded.
+
+---
+
+## L25 — The owner did not want the 3D he asked for
+**Severity: none, but worth remembering. Status: reverted 2026-09-06.**
+
+The brief asked for 3D animation. It was built — a rotating node constellation,
+hand-written, costing nothing — and shipped. On seeing it live the owner's
+answer was simply "I don't like the 3D animation", and what he actually wanted
+in that space was **a good photograph of himself**.
+
+The audit had already flagged that the hero said nothing specific about him. A
+portrait answers that better than an abstract graphic does, and on a page aimed
+at recruiters a face is not decoration.
+
+**Lesson:** "add 3D" was a guess at a solution for a problem the owner felt but
+had not named — the hero was impersonal. Build the asked-for thing, show it
+early, and be ready for the real answer to arrive only once something concrete
+is on screen. Nothing was wasted: the 3D was one self-contained file and removing
+it was a two-line change.

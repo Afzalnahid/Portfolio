@@ -1,5 +1,3 @@
-import nahid2 from "@/nahid2.webp";
-
 const experience = [
   {
     role: "Full-Stack Developer",
@@ -43,51 +41,31 @@ export default function About() {
           <div className="w-20 h-1.5 bg-blue-600 rounded-full" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          <div className="lg:col-span-5 order-2 lg:order-1 relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
-            <div className="relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-800">
-              <img
-                src={nahid2}
-                alt="Noray Afzal Nahid"
-                loading="lazy"
-                width={500}
-                height={500}
-                className="w-full h-auto object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-500"
-              />
-            </div>
-          </div>
-
-          <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 text-base sm:text-lg text-slate-400 leading-relaxed font-light">
-            <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-white first-letter:mr-3 first-letter:float-left">
-              I am a{" "}
-              <span className="text-white font-medium">full-stack developer</span>{" "}
-              and AI automation engineer who ships real products. In under a year
-              I have built a SaaS platform solo and contributed to four
-              production applications.
-            </p>
-            <p>
-              That work spans{" "}
-              <span className="text-blue-400 font-medium">
-                web development
-              </span>{" "}
-              (Next.js, Node.js),{" "}
-              <span className="text-cyan-400 font-medium">
-                backend and database
-              </span>{" "}
-              work (Supabase, PostgreSQL), and{" "}
-              <span className="text-blue-500 font-medium">AI automation</span>{" "}
-              with n8n, LLMs and chatbots.
-            </p>
-            <p>
-              I build fast with AI-assisted development and turn business
-              problems into working software. I am currently looking for a{" "}
-              <span className="text-white font-medium">
-                full-time or contract remote role
-              </span>
-              .
-            </p>
-          </div>
+        <div className="max-w-3xl space-y-6 text-base sm:text-lg text-slate-400 leading-relaxed font-light">
+          <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-white first-letter:mr-3 first-letter:float-left first-letter:font-display">
+            I am a{" "}
+            <span className="text-white font-medium">full-stack developer</span>{" "}
+            and AI automation engineer who ships real products. In under a year I
+            have built a SaaS platform solo and contributed to four production
+            applications.
+          </p>
+          <p>
+            That work spans{" "}
+            <span className="text-blue-400 font-medium">web development</span>{" "}
+            (Next.js, Node.js),{" "}
+            <span className="text-cyan-400 font-medium">backend and database</span>{" "}
+            work (Supabase, PostgreSQL), and{" "}
+            <span className="text-blue-500 font-medium">AI automation</span> with
+            n8n, LLMs and chatbots.
+          </p>
+          <p>
+            I build fast with AI-assisted development and turn business problems
+            into working software. I am currently looking for a{" "}
+            <span className="text-white font-medium">
+              full-time or contract remote role
+            </span>
+            .
+          </p>
         </div>
 
         <div className="mt-16 sm:mt-20">

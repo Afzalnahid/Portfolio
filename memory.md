@@ -27,7 +27,7 @@ no login: a static build.
 | UI primitives | Radix UI / shadcn-style in `client/src/components/ui/` |
 | Animation | Framer Motion |
 | Routing | wouter (`/` and a 404 fallback) |
-| 3D hero | hand-written canvas 3D — no three.js, no library |
+| Hero | portrait panel — the owner rejected the 3D animation |
 | Deploy | Vercel, `outputDirectory: client/dist` |
 
 ## 3. Layout of the code
@@ -132,13 +132,17 @@ Checked against **https://nahid-afzal-portfolio.vercel.app/** after the deploy.
 3. ~~Commit, push and confirm the deploy.~~ Done 2026-09-06 and verified on
    the live site (see section 6b).
 4. Real testimonials, if wanted, need quotes the owner has permission to use.
-5. Champion and Nandi ERP are the clients' own systems, reachable only with
+5. **The hero portrait is a placeholder.** It currently reuses
+   `client/src/nahid2.webp`, the old About photo. The owner is sending a new
+   photograph; swap the `portrait` import in `Hero.tsx` and convert the file to
+   WebP at roughly 900x1125 for the 4:5 frame.
+6. Champion and Nandi ERP are the clients' own systems, reachable only with
    their credentials. Those cards are labelled "Private" on purpose — there is
    nothing to link and nothing to demo publicly. Do not add a URL for them.
-6. The Nandi ERP case study says "in development"; update it once the system
+7. The Nandi ERP case study says "in development"; update it once the system
    is live.
-7. No analytics is installed. Vercel Analytics is the simplest replacement.
-8. No tests. `parseN8nToReactFlow()` in `WorkflowViewer.tsx` is the one piece of
+8. No analytics is installed. Vercel Analytics is the simplest replacement.
+9. No tests. `parseN8nToReactFlow()` in `WorkflowViewer.tsx` is the one piece of
    real logic worth covering.
 
 ## 8. Unverified — do not state as fact

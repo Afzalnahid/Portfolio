@@ -47,18 +47,18 @@ export default function Toolkit() {
   return (
     <section
       id="toolkit"
-      className="py-20 sm:py-24 bg-slate-950 relative overflow-hidden"
+      className="py-20 sm:py-24 bg-ground relative overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14 sm:mb-20">
-          <span className="text-blue-500 font-bold tracking-widest uppercase text-xs sm:text-sm mb-4 block">
+          <span className="text-brand font-bold tracking-widest uppercase text-xs sm:text-sm mb-4 block">
             The Stack
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white">
             What I Build With
           </h2>
-          <div className="w-20 h-1.5 bg-blue-500 rounded-full mx-auto mt-6" />
-          <p className="text-slate-400 max-w-2xl mx-auto mt-6 font-light text-base sm:text-lg">
+          <div className="w-20 h-1.5 bg-brand rounded-full mx-auto mt-6" />
+          <p className="text-muted max-w-2xl mx-auto mt-6 font-light text-base sm:text-lg">
             Not a list of things I have read about. Everything here is running
             in one of the products or automations above.
           </p>
@@ -74,8 +74,8 @@ export default function Toolkit() {
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="bg-white/[0.03] backdrop-blur-sm p-8 rounded-[2rem] border border-white/5 hover:border-white/10 transition-colors flex flex-col"
             >
-              <div className="flex items-center gap-4 mb-4 text-blue-400">
-                <div className="w-11 h-11 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+              <div className="flex items-center gap-4 mb-4 text-brand-bright">
+                <div className="w-11 h-11 rounded-2xl bg-brand/10 border border-brand/20 flex items-center justify-center shrink-0">
                   {group.icon}
                 </div>
                 <h3 className="label">
@@ -83,7 +83,7 @@ export default function Toolkit() {
                 </h3>
               </div>
 
-              <p className="text-sm text-slate-500 font-light leading-relaxed mb-7">
+              <p className="text-sm text-muted/75 font-light leading-relaxed mb-7">
                 {group.blurb}
               </p>
 
@@ -91,7 +91,7 @@ export default function Toolkit() {
                 {group.items.map((item) => (
                   <li
                     key={item}
-                    className="px-4 py-2 rounded-full bg-slate-900/60 border border-white/5 text-xs font-medium text-slate-300"
+                    className="px-4 py-2 rounded-full bg-surface/60 border border-white/5 text-xs font-medium text-fg/80"
                   >
                     {item}
                   </li>

@@ -70,7 +70,7 @@ export default function BookingDialog({ isOpen, onClose, subject }: Props) {
           className="fixed inset-0 z-[130] flex items-center justify-center p-4 sm:p-6"
         >
           <div
-            className="absolute inset-0 bg-slate-950/95 backdrop-blur-xl"
+            className="absolute inset-0 bg-ground/95 backdrop-blur-xl"
             onClick={onClose}
           />
 
@@ -78,18 +78,18 @@ export default function BookingDialog({ isOpen, onClose, subject }: Props) {
             initial={{ scale: 0.96, opacity: 0, y: 16 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.96, opacity: 0, y: 16 }}
-            className="relative w-full max-w-4xl h-[85vh] max-h-[760px] flex flex-col bg-slate-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl"
+            className="relative w-full max-w-4xl h-[85vh] max-h-[760px] flex flex-col bg-surface border border-white/10 rounded-3xl overflow-hidden shadow-2xl"
           >
             <div className="flex items-start justify-between gap-4 p-5 sm:p-6 border-b border-white/5">
               <div className="flex items-center gap-4 min-w-0">
-                <div className="w-11 h-11 shrink-0 rounded-xl bg-blue-500/15 border border-blue-500/25 flex items-center justify-center text-blue-400">
+                <div className="w-11 h-11 shrink-0 rounded-xl bg-brand/15 border border-brand/25 flex items-center justify-center text-brand-bright">
                   <CalendarDays size={20} />
                 </div>
                 <div className="min-w-0">
                   <h2 className="font-display text-lg sm:text-xl font-bold text-white leading-tight">
                     {BOOKING.label}
                   </h2>
-                  <p className="text-xs text-slate-400 truncate">
+                  <p className="text-xs text-muted truncate">
                     {subject ? `About ${subject}` : BOOKING.blurb}
                   </p>
                 </div>
@@ -97,13 +97,13 @@ export default function BookingDialog({ isOpen, onClose, subject }: Props) {
               <button
                 onClick={onClose}
                 aria-label="Close"
-                className="p-2 shrink-0 rounded-full text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
+                className="p-2 shrink-0 rounded-full text-muted hover:text-white hover:bg-white/5 transition-colors"
               >
                 <X size={20} />
               </button>
             </div>
 
-            <div className="relative flex-grow bg-slate-950">
+            <div className="relative flex-grow bg-ground">
               {!embedFailed && (
                 <iframe
                   src={BOOKING.calendarUrl}
@@ -116,8 +116,8 @@ export default function BookingDialog({ isOpen, onClose, subject }: Props) {
 
               {embedFailed && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 px-8 text-center">
-                  <CalendarDays size={44} className="text-slate-700" />
-                  <p className="text-sm text-slate-400 font-light max-w-sm leading-relaxed">
+                  <CalendarDays size={44} className="text-muted/40" />
+                  <p className="text-sm text-muted font-light max-w-sm leading-relaxed">
                     Google will not embed the calendar here. Open it in a new tab,
                     or reach me directly — either works.
                   </p>
@@ -133,10 +133,10 @@ export default function BookingDialog({ isOpen, onClose, subject }: Props) {
                   href={route.href}
                   target={route.href.startsWith("mailto:") ? undefined : "_blank"}
                   rel="noopener noreferrer"
-                  className={`flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 ${
+                  className={`flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-bright ${
                     route.primary
-                      ? "bg-blue-600 hover:bg-blue-500 text-white"
-                      : "bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200"
+                      ? "bg-brand hover:bg-brand-bright text-white"
+                      : "bg-white/5 hover:bg-white/10 border border-white/10 text-fg/90"
                   }`}
                 >
                   {route.icon}

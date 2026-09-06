@@ -7,13 +7,13 @@ const stats = [
   {
     label: "Solo SaaS Platform",
     value: "1",
-    icon: <Rocket className="w-5 h-5 text-blue-400" />,
+    icon: <Rocket className="w-5 h-5 text-brand-bright" />,
     description: "getvoicium, architecture to deployment",
   },
   {
     label: "Production Applications",
     value: "4",
-    icon: <Layers className="w-5 h-5 text-emerald-400" />,
+    icon: <Layers className="w-5 h-5 text-brand-bright" />,
     description: "Shipped inside engineering teams",
   },
   {
@@ -32,9 +32,9 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section className="py-16 sm:py-20 border-y border-white/5 bg-slate-900/20 relative overflow-hidden">
+    <section className="py-16 sm:py-20 border-y border-white/5 bg-surface/20 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <p className="text-center label text-slate-500 mb-10">
+        <p className="text-center label text-muted/75 mb-10">
           Built in under a year
         </p>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
@@ -53,10 +53,10 @@ export default function Stats() {
               <div className="text-3xl md:text-4xl font-extrabold text-white mb-1 tracking-tighter tabular-nums">
                 {stat.value}
               </div>
-              <div className="label text-blue-500 mb-2">
+              <div className="label text-brand mb-2">
                 {stat.label}
               </div>
-              <p className="text-[10px] text-slate-500 font-medium uppercase tracking-widest leading-relaxed">
+              <p className="text-[10px] text-muted/75 font-medium uppercase tracking-widest leading-relaxed">
                 {stat.description}
               </p>
             </motion.div>

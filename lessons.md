@@ -616,3 +616,25 @@ which beats any 3D stand-in on a hiring page.
 sentence, then find the part of the idea that *is* code and build that. Do not
 quietly substitute something smaller and call it done, and do not refuse the
 whole thing because one part is out of reach.
+
+---
+
+## L28 — The strongest claim was in a document nobody had read
+**Severity: high value. Status: FIXED 2026-09-06.**
+
+Five sessions were spent polishing a portfolio whose best fact was missing.
+Autolinium's experience certificate says, in the CEO's own words, that Nahid
+joined as an intern and *"on the strength of his performance during the
+three-month training phase, was confirmed into a full-time position."*
+
+That is third-party, signed, reference-numbered evidence that he was worth
+keeping — the one claim a candidate cannot make about themselves. The site said
+"Software Developer Intern" and stopped.
+
+The same document also contradicted the site on the title, the dates, the
+tenure, the location and the languages. A recruiter holding both would have
+trusted neither.
+
+**Lesson:** ask for the paperwork early. A CV is what someone says about
+themselves; a certificate is what an employer signed. When they disagree, the
+signature wins — and the disagreement itself is the damage.

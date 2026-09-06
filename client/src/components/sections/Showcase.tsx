@@ -246,7 +246,7 @@ function LinkBadge({ solution }: { solution: Solution }) {
         target="_blank"
         rel="noopener noreferrer"
         onClick={(e) => e.stopPropagation()}
-        className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors"
+        className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-bright hover:text-brand-bright transition-colors"
       >
         Live <ExternalLink className="w-3.5 h-3.5" />
       </a>
@@ -256,7 +256,7 @@ function LinkBadge({ solution }: { solution: Solution }) {
     return (
       <span
         title={solution.privateNote}
-        className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500"
+        className="inline-flex items-center gap-1.5 text-xs font-medium text-muted/75"
       >
         <Lock className="w-3.5 h-3.5" /> Private
       </span>
@@ -269,14 +269,14 @@ export default function Showcase() {
   const [selected, setSelected] = useState<Solution | null>(null);
 
   return (
-    <section id="work" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-950">
+    <section id="work" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-ground">
       <div className="max-w-6xl mx-auto">
         <div className="mb-14 sm:mb-16 max-w-2xl">
-          <p className="label text-blue-500 mb-4">Selected work</p>
+          <p className="label text-brand mb-4">Selected work</p>
           <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white leading-[1.08] mb-5">
             One product I built alone, and the systems around it.
           </h2>
-          <p className="text-slate-400 font-light text-base sm:text-lg leading-relaxed">
+          <p className="text-muted font-light text-base sm:text-lg leading-relaxed">
             Four applications and five production automations. Open any of them
             for the problem, the build and what came out of it.
           </p>
@@ -288,16 +288,16 @@ export default function Showcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.6 }}
-          className="relative rounded-3xl border border-white/10 bg-gradient-to-br from-indigo-950/60 via-slate-900/60 to-slate-950 overflow-hidden mb-6"
+          className="relative rounded-3xl border border-white/10 bg-gradient-to-br from-surface via-surface/60 to-ground overflow-hidden mb-6"
         >
-          <div className="absolute -top-24 -right-16 w-80 h-80 bg-blue-500/10 blur-[100px] rounded-full pointer-events-none" />
+          <div className="absolute -top-24 -right-16 w-80 h-80 bg-brand/10 blur-[100px] rounded-full pointer-events-none" />
           <div className="relative grid lg:grid-cols-12 gap-8 lg:gap-10 p-7 sm:p-10">
             <div className="lg:col-span-7">
               <div className="flex items-center gap-3 mb-6">
-                <span className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-blue-300">
+                <span className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-bright">
                   {featured.icon}
                 </span>
-                <span className="label text-slate-500">{featured.category}</span>
+                <span className="label text-muted/75">{featured.category}</span>
               </div>
 
               <div className="flex items-center gap-3 flex-wrap mb-4">
@@ -307,17 +307,17 @@ export default function Showcase() {
                 <LinkBadge solution={featured} />
               </div>
 
-              <p className="text-slate-300/90 font-light leading-relaxed mb-7 max-w-xl">
+              <p className="text-fg/75 font-light leading-relaxed mb-7 max-w-xl">
                 {featured.description}
               </p>
 
-              <p className="font-mono text-[11px] text-slate-500 mb-8 leading-relaxed">
+              <p className="font-mono text-[11px] text-muted/75 mb-8 leading-relaxed">
                 {featured.stack}
               </p>
 
               <button
                 onClick={() => setSelected(featured)}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold transition-colors active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-brand hover:bg-brand-bright text-white text-sm font-semibold transition-colors active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-bright"
               >
                 Read the case study
                 <ArrowUpRight className="w-4 h-4" />
@@ -326,12 +326,12 @@ export default function Showcase() {
 
             {/* Facts panel. Replaced by a real screenshot once one is available. */}
             <div className="lg:col-span-5">
-              <div className="h-full rounded-2xl border border-white/10 bg-slate-950/50 p-6">
-                <p className="label text-slate-600 mb-5">What it does</p>
+              <div className="h-full rounded-2xl border border-white/10 bg-ground/50 p-6">
+                <p className="label text-muted/55 mb-5">What it does</p>
                 <ul className="space-y-3.5">
                   {featured.features.map((feature) => (
-                    <li key={feature} className="flex gap-3 text-sm text-slate-300 font-light leading-snug">
-                      <Check className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
+                    <li key={feature} className="flex gap-3 text-sm text-fg/80 font-light leading-snug">
+                      <Check className="w-4 h-4 text-brand-bright shrink-0 mt-0.5" />
                       {feature}
                     </li>
                   ))}
@@ -351,13 +351,13 @@ export default function Showcase() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: idx * 0.08 }}
               onClick={() => setSelected(app)}
-              className="group rounded-2xl border border-white/8 bg-slate-900/40 p-7 flex flex-col cursor-pointer hover:border-white/20 hover:bg-slate-900/70 transition-colors"
+              className="group rounded-2xl border border-white/8 bg-surface/40 p-7 flex flex-col cursor-pointer hover:border-white/20 hover:bg-surface/70 transition-colors"
             >
               <div className="flex items-center justify-between mb-5">
-                <span className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300">
+                <span className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-fg/80">
                   {app.icon}
                 </span>
-                <span className="label text-slate-600 text-right">{app.category}</span>
+                <span className="label text-muted/55 text-right">{app.category}</span>
               </div>
 
               <div className="flex items-center gap-2.5 flex-wrap mb-3">
@@ -365,15 +365,15 @@ export default function Showcase() {
                 <LinkBadge solution={app} />
               </div>
 
-              <p className="text-sm text-slate-400 font-light leading-relaxed mb-5">
+              <p className="text-sm text-muted font-light leading-relaxed mb-5">
                 {app.description}
               </p>
 
-              <p className="font-mono text-[10.5px] text-slate-600 leading-relaxed mt-auto mb-5">
+              <p className="font-mono text-[10.5px] text-muted/55 leading-relaxed mt-auto mb-5">
                 {app.stack}
               </p>
 
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-400 group-hover:text-blue-300 transition-colors">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-bright group-hover:text-brand-bright transition-colors">
                 Case study <ArrowUpRight className="w-3.5 h-3.5" />
               </span>
             </motion.article>
@@ -382,11 +382,11 @@ export default function Showcase() {
 
         {/* ---------- Automation work ---------- */}
         <div className="mb-8 max-w-2xl">
-          <p className="label text-blue-500 mb-4">Automation work</p>
+          <p className="label text-brand mb-4">Automation work</p>
           <h3 className="font-display text-2xl sm:text-3xl font-bold text-white leading-tight mb-4">
             Five production n8n systems
           </h3>
-          <p className="text-slate-400 font-light leading-relaxed">
+          <p className="text-muted font-light leading-relaxed">
             Built during my time at Autolinium and since. Each one runs
             unattended and handles a job a person used to do by hand.
           </p>
@@ -401,25 +401,25 @@ export default function Showcase() {
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.4, delay: idx * 0.05 }}
               onClick={() => setSelected(flow)}
-              className="group w-full text-left grid sm:grid-cols-12 gap-3 sm:gap-6 items-center p-6 sm:p-7 bg-slate-900/30 hover:bg-slate-900/70 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-blue-500"
+              className="group w-full text-left grid sm:grid-cols-12 gap-3 sm:gap-6 items-center p-6 sm:p-7 bg-surface/30 hover:bg-surface/70 transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-bright"
             >
               <div className="sm:col-span-4 flex items-center gap-4">
-                <span className="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 group-hover:text-blue-300 transition-colors">
+                <span className="w-9 h-9 shrink-0 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-muted group-hover:text-brand-bright transition-colors">
                   {flow.icon}
                 </span>
                 <div>
                   <h4 className="font-display text-base font-semibold text-white leading-tight">
                     {flow.title}
                   </h4>
-                  <p className="label text-slate-600 mt-1">{flow.category}</p>
+                  <p className="label text-muted/55 mt-1">{flow.category}</p>
                 </div>
               </div>
 
-              <p className="sm:col-span-6 text-sm text-slate-400 font-light leading-relaxed">
+              <p className="sm:col-span-6 text-sm text-muted font-light leading-relaxed">
                 {flow.description}
               </p>
 
-              <span className="sm:col-span-2 inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 group-hover:text-blue-300 transition-colors sm:justify-end">
+              <span className="sm:col-span-2 inline-flex items-center gap-1.5 text-xs font-semibold text-muted/75 group-hover:text-brand-bright transition-colors sm:justify-end">
                 Case study <ArrowUpRight className="w-3.5 h-3.5" />
               </span>
             </motion.button>

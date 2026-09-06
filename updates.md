@@ -5,6 +5,51 @@
 
 ---
 
+## 2026-09-06 (session 10) — Rebuild on Theme B, with the certificates
+
+A blueprint was written and approved first: colour B, Autolinium until 10
+September, Python left out, certificates shown.
+
+### The certificates changed the content
+Autolinium's experience certificate (ref AUT/HR/EXP/2026-015) states that he
+joined as an intern and was **confirmed into a full-time position on the
+strength of his performance**. The site said "Software Developer Intern" and
+nothing more, and had the title, dates, tenure, location and languages wrong
+against a document an employer can verify (`lessons.md` L28). All corrected.
+
+### New: Experience & credentials section
+A timeline — intern 10 Apr, promoted 11 Jul, specialist to 10 Sep — with a
+"Promoted from intern" badge on the middle entry. Both certificates render as
+images beside it, opening full size in a lightbox. The PDFs were rasterised to
+WebP: 135 kB and 68 kB full, 46 kB and 22 kB as thumbnails.
+
+### New: /resume
+The CV as a real page, lazy-loaded (9.9 kB), with a print stylesheet so
+**Print → Save as PDF** produces a clean A4 document. Every "Download CV" button
+now points here instead of at a PDF that had fallen out of date. It is the
+single source of truth for the CV.
+
+### Theme B
+`#07100E` ground, `#0F1A17` surface, `#0E9F6E` brand, `#4ADE9B` bright,
+`#93A69E` muted, `#F2F5F3` foreground — registered as Tailwind colours in
+`@theme` and swept across every component. No raw `slate-*` or `blue-*` class
+remains outside `components/ui/`.
+
+### Structure
+Order is now Hero → Stats → Work → Credentials → About → Toolkit → Contact.
+Evidence moved above the biography; About shortened to two paragraphs plus
+education and languages, with its experience block absorbed into Credentials so
+the two cannot disagree.
+
+### One audience
+The page leads to an employer. A single quiet line in Contact — "Also available
+for contract and project work" — keeps the freelance door open without the site
+sounding undecided.
+
+Main chunk 494.73 kB (157.11 kB gzipped), resume split into its own 9.9 kB
+chunk. Type check and build pass.
+
+---
 ## 2026-09-06 (session 9) — Lights-on hero
 
 The owner asked for a 3D sequence: a person walks into a dark room, switches on
@@ -405,6 +450,7 @@ them.
 - `cb546f6` Vercel install fixed by removing a missing pnpm patch reference
 - `7477a08` Static build replaced with the real source project
 - `a633b17` Initial portfolio deploy
+
 
 
 

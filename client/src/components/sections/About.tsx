@@ -1,154 +1,68 @@
-const experience = [
-  {
-    role: "Full-Stack Developer",
-    org: "Self-employed",
-    place: "Remote",
-    period: "Aug 2026 — Present",
-    points: [
-      "Building getvoicium, a multi-tenant AI chatbot SaaS, solo — from architecture to deployment — with Next.js, Supabase (pgvector), Google Gemini and RAG.",
-      "Developing full-stack ERP software for Nandi Real Estate and Developers Pvt. Ltd. (ongoing).",
-    ],
-  },
-  {
-    role: "Software Developer Intern (Full-Stack & AI Automation)",
-    org: "Autolinium",
-    place: "Remote",
-    period: "Mar 2026 — Aug 2026",
-    href: "https://www.autolinium.com",
-    points: [
-      "Built automation workflows and internal web dashboards for business operations.",
-      "Contributed to ezpzbd.com, an AI-powered EdTech platform tutoring HSC students in Physics, Chemistry and Math — trained the AI tutors on the learning content and question data.",
-      "Delivered a WhatsApp-based sales-management SaaS for Champion — built the WhatsApp API integration for automated daily reminders, lead management and sales-team performance tracking.",
-      "Developed ERP software for Nandi Real Estate and Developers Pvt. Ltd. (full-stack).",
-      "Built Facebook, Instagram, WhatsApp and Telegram chatbots and AI-powered Facebook auto-posting using n8n and LLMs.",
-    ],
-  },
-];
-
 export default function About() {
   return (
     <section
       id="about"
-      className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/30 relative"
+      className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-ground relative"
     >
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
-
       <div className="max-w-6xl mx-auto relative">
-        <div className="flex flex-col items-center mb-14 sm:mb-16">
-          <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold mb-4 text-center">
-            About Me
-          </h2>
-          <div className="w-20 h-1.5 bg-blue-600 rounded-full" />
-        </div>
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
+          <div className="lg:col-span-7">
+            <p className="label text-brand mb-4">About</p>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-fg leading-[1.1] mb-8">
+              A pharmacy degree, then a year of shipping software.
+            </h2>
 
-        <div className="max-w-3xl space-y-6 text-base sm:text-lg text-slate-400 leading-relaxed font-light">
-          <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-white first-letter:mr-3 first-letter:float-left first-letter:font-display">
-            I am a{" "}
-            <span className="text-white font-medium">full-stack developer</span>{" "}
-            and AI automation engineer who ships real products. In under a year I
-            have built a SaaS platform solo and contributed to four production
-            applications.
-          </p>
-          <p>
-            That work spans{" "}
-            <span className="text-blue-400 font-medium">web development</span>{" "}
-            (Next.js, Node.js),{" "}
-            <span className="text-cyan-400 font-medium">backend and database</span>{" "}
-            work (Supabase, PostgreSQL), and{" "}
-            <span className="text-blue-500 font-medium">AI automation</span> with
-            n8n, LLMs and chatbots.
-          </p>
-          <p>
-            I build fast with AI-assisted development and turn business problems
-            into working software. I am currently looking for a{" "}
-            <span className="text-white font-medium">
-              full-time or contract remote role
-            </span>
-            .
-          </p>
-        </div>
-
-        <div className="mt-16 sm:mt-20">
-          <h3 className="text-2xl font-bold mb-8 text-white flex items-center gap-3">
-            <span className="w-8 h-px bg-blue-500" /> Experience
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {experience.map((job) => (
-              <div
-                key={job.role}
-                className="relative pl-6 border-l border-slate-800"
-              >
-                <div className="absolute -left-1.5 top-1.5 w-3 h-3 bg-blue-600 rounded-full border-2 border-slate-950" />
-                <p className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-1">
-                  {job.period} &bull; {job.place}
-                </p>
-                <h4 className="text-white font-bold text-lg leading-tight">
-                  {job.role}
-                </h4>
-                <p className="text-slate-500 mb-4">
-                  {job.href ? (
-                    <a
-                      href={job.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-slate-300 hover:underline transition-colors"
-                    >
-                      {job.org}
-                    </a>
-                  ) : (
-                    job.org
-                  )}
-                </p>
-                <ul className="space-y-3">
-                  {job.points.map((point) => (
-                    <li
-                      key={point}
-                      className="text-sm text-slate-400 font-light leading-relaxed flex gap-3"
-                    >
-                      <span className="mt-2 w-1 h-1 rounded-full bg-blue-500 shrink-0" />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-16 sm:mt-20 grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div>
-            <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
-              <span className="w-8 h-px bg-blue-500" /> Education
-            </h3>
-            <div className="relative pl-6 border-l border-slate-800">
-              <div className="absolute -left-1.5 top-1.5 w-3 h-3 bg-blue-600 rounded-full border-2 border-slate-950" />
-              <p className="text-sm font-bold text-blue-400 uppercase tracking-widest mb-1">
-                2020 — 2024
+            <div className="space-y-5 text-base sm:text-lg text-muted leading-relaxed font-light">
+              <p>
+                I came to software from outside it. In under a year I have built
+                a{" "}
+                <span className="text-fg font-medium">
+                  multi-tenant SaaS platform on my own
+                </span>{" "}
+                and contributed to four production applications — web
+                development in Next.js and Node.js, backend and database work on
+                Supabase and PostgreSQL, and AI automation with n8n, LLMs and
+                chatbots.
               </p>
-              <h4 className="text-white font-bold text-lg">
-                B.Pharm (Bachelor of Pharmacy)
-              </h4>
-              <p className="text-slate-500">Northern University Bangladesh</p>
+              <p>
+                I build fast with AI-assisted development and turn business
+                problems into working software. What I am looking for now is a{" "}
+                <span className="text-fg font-medium">
+                  full-time or contract remote role
+                </span>{" "}
+                where I can keep doing that on a team.
+              </p>
             </div>
           </div>
 
-          <div>
-            <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
-              <span className="w-8 h-px bg-blue-500" /> Languages
-            </h3>
-            <div className="flex flex-wrap gap-4">
-              <div className="px-4 py-2 bg-slate-800/50 rounded-lg border border-white/5 text-sm font-medium text-slate-300">
-                Bangla — Native
+          <div className="lg:col-span-5 space-y-10">
+            <div>
+              <p className="label text-muted/75 mb-5">Education</p>
+              <div className="rounded-2xl border border-white/8 bg-surface/40 p-6">
+                <p className="label text-brand-bright mb-2">2020 — 2024</p>
+                <h3 className="font-display text-base font-bold text-fg leading-tight">
+                  B.Pharm (Bachelor of Pharmacy)
+                </h3>
+                <p className="text-sm text-muted mt-1">
+                  Northern University Bangladesh
+                </p>
               </div>
-              <div className="px-4 py-2 bg-slate-800/50 rounded-lg border border-white/5 text-sm font-medium text-slate-300">
-                English — Professional working proficiency
+            </div>
+
+            <div>
+              <p className="label text-muted/75 mb-5">Languages</p>
+              <div className="flex flex-wrap gap-2.5">
+                <span className="px-4 py-2 rounded-full bg-surface/60 border border-white/8 text-sm font-medium text-fg/80">
+                  Bangla — native
+                </span>
+                <span className="px-4 py-2 rounded-full bg-surface/60 border border-white/8 text-sm font-medium text-fg/80">
+                  English — professional
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/10 to-transparent" />
     </section>
   );
 }

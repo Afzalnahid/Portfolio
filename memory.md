@@ -27,7 +27,8 @@ no login: a static build.
 | UI primitives | Radix UI / shadcn-style in `client/src/components/ui/` |
 | Animation | Framer Motion |
 | Routing | wouter (`/` and a 404 fallback) |
-| Hero | portrait panel — the owner rejected the 3D animation |
+| Hero | portrait panel with a lights-on reveal |
+| Palette | **Theme B** — deep pine `#07100E` / signal green `#0E9F6E` `#4ADE9B` |
 | Deploy | Vercel, `outputDirectory: client/dist` |
 
 ## 3. Layout of the code
@@ -59,6 +60,15 @@ client/
   `WorkflowViewer`. A failed fetch shows a visible message.
 - **Chat** — the only chat is the real Autologic widget loaded in
   `index.html`. The simulated `AiChat` component was deleted 2026-09-06.
+- **Colour**: use the semantic classes only — `bg-ground`, `bg-ground-2`,
+  `bg-surface`, `text-fg`, `text-muted`, `bg-brand`, `text-brand-bright`.
+  They are declared in `index.css` under `@theme`. No raw slate/blue classes.
+- **Autolinium dates and titles come from the certificates** in
+  `client/public/certificates/`. Intern 10 Apr – 10 Jul 2026, then AI Automation
+  Specialist 11 Jul – 10 Sep 2026. Change `Credentials.tsx` and `Resume.tsx`
+  together or they drift.
+- **Python is deliberately out** — it is on the experience certificate but the
+  owner chose not to claim it.
 - **Typography**: Archivo (display) / IBM Plex Sans (body) / IBM Plex Mono
   (labels via the `.label` utility). Never use `font-black` — weight 900 is not
   loaded and silently falls back.

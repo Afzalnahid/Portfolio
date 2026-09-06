@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Linkedin, Github, Mail, MessageCircle, Download, MapPin } from "lucide-react";
+import { Linkedin, Github, Mail, MessageCircle, FileText, MapPin } from "lucide-react";
+import { Link } from "wouter";
 import { motion } from "framer-motion";
 import portrait from "@/nahid2.webp";
 import backdrop from "@/heroimage.webp";
 import { useBooking } from "@/contexts/BookingContext";
 
-export const CV_URL = "/Noray-Afzal-Nahid-CV.pdf";
+export const CV_URL = "/resume";
 
 const socials = [
   { label: "GitHub", icon: <Github size={15} />, href: "https://github.com/Afzalnahid" },
@@ -34,7 +35,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative flex flex-col justify-center overflow-hidden bg-slate-950 pt-28 pb-16 sm:pt-32 sm:pb-24">
+    <section className="relative flex flex-col justify-center overflow-hidden bg-ground pt-28 pb-16 sm:pt-32 sm:pb-24">
       {/* The room. Almost black until the light is switched on. */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center grayscale"
@@ -43,7 +44,7 @@ export default function Hero() {
         animate={{ opacity: lit ? 0.12 : 0.015 }}
         transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/70 to-slate-950" />
+      <div className="absolute inset-0 bg-gradient-to-b from-ground via-ground/70 to-ground" />
 
       {/* The lamp itself: a warm pool of light that blooms when it comes on. */}
       <motion.div
@@ -61,7 +62,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="label text-[#58a6ff]"
+              className="label text-[#4ADE9B]"
             >
               Full-Stack Developer &middot; AI Automation (n8n)
             </motion.p>
@@ -74,14 +75,14 @@ export default function Hero() {
             >
               I ship real products,
               <br />
-              <span className="text-[#58a6ff]">not demos.</span>
+              <span className="text-[#4ADE9B]">not demos.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.12 }}
-              className="text-lg text-slate-300/90 font-light max-w-xl leading-relaxed"
+              className="text-lg text-fg/75 font-light max-w-xl leading-relaxed"
             >
               In under a year I built a multi-tenant SaaS platform on my own and
               shipped four production applications &mdash; Next.js and Node.js,
@@ -96,12 +97,12 @@ export default function Hero() {
             >
               <Button
                 asChild
-                className="h-14 px-8 rounded-xl bg-[#1b72e8] hover:bg-[#1559b3] text-white text-[15px] font-semibold shadow-lg shadow-blue-600/20 active:scale-[0.98] transition"
+                className="h-14 px-8 rounded-xl bg-brand hover:bg-brand-bright text-ground text-[15px] font-semibold shadow-lg shadow-brand/20 active:scale-[0.98] transition"
               >
-                <a href={CV_URL} download>
-                  <Download className="w-4 h-4" />
-                  Download CV
-                </a>
+                <Link href={CV_URL}>
+                  <FileText className="w-4 h-4" />
+                  View CV
+                </Link>
               </Button>
               <Button
                 variant="outline"
@@ -118,8 +119,8 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 0.3 }}
               className="flex flex-wrap items-center gap-x-6 gap-y-4 pt-3"
             >
-              <p className="flex items-center gap-2 text-[13px] text-slate-400">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <p className="flex items-center gap-2 text-[13px] text-muted">
+                <span className="w-2 h-2 rounded-full bg-brand-bright animate-pulse" />
                 <MapPin className="w-3.5 h-3.5" />
                 Comilla, Bangladesh &middot; open to remote
               </p>
@@ -131,7 +132,7 @@ export default function Hero() {
                     aria-label={social.label}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:border-white/25 transition-colors flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 text-muted hover:text-white hover:border-white/25 transition-colors flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-bright"
                   >
                     {social.icon}
                   </a>
@@ -149,13 +150,13 @@ export default function Hero() {
           >
             <div className="relative mx-auto w-full max-w-[300px] sm:max-w-[360px] lg:max-w-none">
               <motion.div
-                className="absolute -inset-8 bg-blue-500/12 blur-[70px] rounded-full pointer-events-none"
+                className="absolute -inset-8 bg-brand/12 blur-[70px] rounded-full pointer-events-none"
                 initial={false}
                 animate={{ opacity: lit ? 1 : 0 }}
                 transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
               />
 
-              <div className="relative rounded-[1.75rem] overflow-hidden border border-white/12 bg-slate-950 shadow-2xl shadow-black/60">
+              <div className="relative rounded-[1.75rem] overflow-hidden border border-white/12 bg-ground shadow-2xl shadow-black/60">
                 <motion.img
                   src={portrait}
                   alt="Noray Afzal Nahid"
@@ -181,7 +182,7 @@ export default function Hero() {
                   transition={{ duration: 1.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-slate-950/15 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ground/75 via-transparent to-ground/15 pointer-events-none" />
 
                 <motion.div
                   className="absolute inset-x-0 bottom-0 p-5"
@@ -192,7 +193,7 @@ export default function Hero() {
                   <p className="font-display text-base font-semibold text-white leading-tight">
                     Noray Afzal Nahid
                   </p>
-                  <p className="label text-slate-400 mt-1.5">Comilla, Bangladesh</p>
+                  <p className="label text-muted mt-1.5">Comilla, Bangladesh</p>
                 </motion.div>
               </div>
             </div>

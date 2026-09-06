@@ -49,13 +49,13 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: Props) {
       label: "What I built",
       text: solution.caseStudy.solution,
       icon: <Hammer size={16} />,
-      tone: "text-emerald-400",
+      tone: "text-brand-bright",
     },
     {
       label: "The result",
       text: solution.caseStudy.result,
       icon: <TrendingUp size={16} />,
-      tone: "text-blue-400",
+      tone: "text-brand-bright",
     },
   ];
 
@@ -72,7 +72,7 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: Props) {
           className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6"
         >
           <div
-            className="absolute inset-0 bg-slate-950/92 backdrop-blur-md"
+            className="absolute inset-0 bg-ground/92 backdrop-blur-md"
             onClick={onClose}
           />
 
@@ -80,11 +80,11 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: Props) {
             initial={{ scale: 0.96, opacity: 0, y: 16 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.96, opacity: 0, y: 16 }}
-            className="relative w-full max-w-3xl max-h-[88vh] flex flex-col bg-slate-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl"
+            className="relative w-full max-w-3xl max-h-[88vh] flex flex-col bg-surface border border-white/10 rounded-3xl overflow-hidden shadow-2xl"
           >
             <div className="flex items-start justify-between gap-4 p-6 sm:p-8 border-b border-white/5">
               <div className="flex items-center gap-4 sm:gap-5 min-w-0">
-                <span className="w-12 h-12 shrink-0 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-blue-300">
+                <span className="w-12 h-12 shrink-0 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-bright">
                   {solution.icon}
                 </span>
                 <div className="min-w-0">
@@ -97,19 +97,19 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: Props) {
                         href={solution.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-blue-400 hover:text-blue-300"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-brand-bright hover:text-brand-bright"
                       >
                         Live <ExternalLink className="w-3.5 h-3.5" />
                       </a>
                     )}
                   </div>
-                  <p className="label text-slate-500 mt-1.5">{solution.category}</p>
+                  <p className="label text-muted/75 mt-1.5">{solution.category}</p>
                 </div>
               </div>
               <button
                 onClick={onClose}
                 aria-label="Close"
-                className="p-2 shrink-0 rounded-full text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
+                className="p-2 shrink-0 rounded-full text-muted hover:text-white hover:bg-white/5 transition-colors"
               >
                 <X size={20} />
               </button>
@@ -123,7 +123,7 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: Props) {
                       {block.icon}
                       <span className="label">{block.label}</span>
                     </p>
-                    <p className="text-[15px] text-slate-300/90 font-light leading-relaxed">
+                    <p className="text-[15px] text-fg/75 font-light leading-relaxed">
                       {block.text}
                     </p>
                   </div>
@@ -131,14 +131,14 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: Props) {
               </div>
 
               <div>
-                <p className="label text-slate-500 mb-4">What it does</p>
+                <p className="label text-muted/75 mb-4">What it does</p>
                 <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
                   {solution.features.map((feature) => (
                     <li
                       key={feature}
-                      className="flex gap-2.5 text-sm text-slate-400 font-light leading-snug"
+                      className="flex gap-2.5 text-sm text-muted font-light leading-snug"
                     >
-                      <Check className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
+                      <Check className="w-4 h-4 text-brand shrink-0 mt-0.5" />
                       {feature}
                     </li>
                   ))}
@@ -146,14 +146,14 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: Props) {
               </div>
 
               <div>
-                <p className="label text-slate-500 mb-3 flex items-center gap-2">
+                <p className="label text-muted/75 mb-3 flex items-center gap-2">
                   <Layers size={13} /> Stack
                 </p>
-                <p className="font-mono text-xs text-slate-400 leading-relaxed">
+                <p className="font-mono text-xs text-muted leading-relaxed">
                   {solution.stack}
                 </p>
                 {solution.privateNote && (
-                  <p className="mt-4 inline-flex items-center gap-2 text-xs text-slate-500">
+                  <p className="mt-4 inline-flex items-center gap-2 text-xs text-muted/75">
                     <Lock size={13} className="shrink-0" />
                     {solution.privateNote} — no public demo.
                   </p>
@@ -164,13 +164,13 @@ export default function CaseStudyModal({ isOpen, onClose, solution }: Props) {
             <div className="p-6 sm:p-8 border-t border-white/5 bg-white/[0.03] flex flex-col sm:flex-row gap-3 sm:justify-end">
               <button
                 onClick={onClose}
-                className="px-6 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-colors"
+                className="px-6 py-3 rounded-xl text-sm font-semibold text-fg/80 hover:text-white hover:bg-white/5 transition-colors"
               >
                 Close
               </button>
               <button
                 onClick={() => openBooking(solution.title)}
-                className="px-7 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold transition-colors active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+                className="px-7 py-3 rounded-xl bg-brand hover:bg-brand-bright text-white text-sm font-semibold transition-colors active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-bright"
               >
                 Talk about this work
               </button>

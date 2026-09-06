@@ -1,4 +1,5 @@
-import { Mail, Linkedin, Github, MessageCircle, Download, Globe, CalendarDays } from "lucide-react";
+import { Mail, Linkedin, Github, MessageCircle, FileText, Globe, CalendarDays } from "lucide-react";
+import { Link } from "wouter";
 import { CV_URL } from "./Hero";
 import { BOOKING } from "@/lib/booking";
 import { useBooking } from "@/contexts/BookingContext";
@@ -9,7 +10,7 @@ const links = [
     value: BOOKING.email,
     href: `mailto:${BOOKING.email}`,
     icon: <Mail className="w-5 h-5" />,
-    accent: "text-cyan-300",
+    accent: "text-brand-bright",
     external: false,
   },
   {
@@ -17,7 +18,7 @@ const links = [
     value: "+880 1690-000732",
     href: `https://wa.me/${BOOKING.whatsapp}`,
     icon: <MessageCircle className="w-5 h-5" />,
-    accent: "text-emerald-300",
+    accent: "text-brand-bright",
     external: true,
   },
   {
@@ -25,7 +26,7 @@ const links = [
     value: "in/norayafzalnahid",
     href: "https://www.linkedin.com/in/norayafzalnahid",
     icon: <Linkedin className="w-5 h-5" />,
-    accent: "text-blue-300",
+    accent: "text-brand-bright",
     external: true,
   },
   {
@@ -33,7 +34,7 @@ const links = [
     value: "github.com/Afzalnahid",
     href: "https://github.com/Afzalnahid",
     icon: <Github className="w-5 h-5" />,
-    accent: "text-slate-300",
+    accent: "text-fg/80",
     external: true,
   },
 ];
@@ -46,41 +47,46 @@ export default function Contact() {
       id="contact"
       className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
     >
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[820px] h-[520px] max-w-[130vw] bg-blue-500/[0.07] blur-[130px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[820px] h-[520px] max-w-[130vw] bg-brand/[0.07] blur-[130px] rounded-full pointer-events-none" />
 
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="max-w-2xl mb-10">
-          <p className="label text-blue-500 mb-4">Get in touch</p>
+          <p className="label text-brand mb-4">Get in touch</p>
           <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white leading-[1.08] mb-5">
             Looking for a full-time or contract remote role.
           </h2>
-          <p className="text-slate-400 font-light text-base sm:text-lg leading-relaxed">
-            Full-stack or AI automation. Open to project work too — the quickest
-            way to reach me is email or WhatsApp.
+          <p className="text-muted font-light text-base sm:text-lg leading-relaxed">
+            Full-stack or AI automation. The quickest way to reach me is email
+            or WhatsApp.
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3.5 mb-6">
-          <a
+          <Link
             href={CV_URL}
-            download
-            className="inline-flex items-center justify-center gap-2.5 px-8 h-14 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-[15px] font-semibold transition-colors shadow-lg shadow-blue-600/20 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+            className="inline-flex items-center justify-center gap-2.5 px-8 h-14 rounded-xl bg-brand hover:bg-brand-bright text-ground text-[15px] font-semibold transition-colors shadow-lg shadow-brand/20 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-bright"
           >
-            <Download className="w-4 h-4" />
-            Download CV
-          </a>
+            <FileText className="w-4 h-4" />
+            View CV
+          </Link>
           <button
             onClick={() => openBooking()}
-            className="inline-flex items-center justify-center gap-2.5 px-8 h-14 rounded-xl bg-white/5 border border-white/15 hover:bg-white/10 text-white text-[15px] font-semibold transition-colors active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+            className="inline-flex items-center justify-center gap-2.5 px-8 h-14 rounded-xl bg-white/5 border border-white/15 hover:bg-white/10 text-white text-[15px] font-semibold transition-colors active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-bright"
           >
             <CalendarDays className="w-4 h-4" />
             {BOOKING.label}
           </button>
         </div>
 
-        <p className="flex items-center gap-2 text-[13px] text-slate-500 mb-14">
+        <p className="flex items-center gap-2 text-[13px] text-muted/75 mb-3">
           <Globe className="w-3.5 h-3.5" />
           Comilla, Bangladesh &mdash; open to remote, worldwide
+        </p>
+
+        {/* The quiet door: clients who want project work still find it, without
+            the page sounding undecided about what it is asking for. */}
+        <p className="text-[13px] text-muted/60 mb-14">
+          Also available for contract and project work.
         </p>
 
         <div className="grid sm:grid-cols-2 gap-3">
@@ -90,7 +96,7 @@ export default function Contact() {
               href={link.href}
               target={link.external ? "_blank" : undefined}
               rel={link.external ? "noopener noreferrer" : undefined}
-              className="group flex items-center gap-5 p-6 rounded-2xl border border-white/8 bg-slate-900/40 hover:border-white/20 hover:bg-slate-900/70 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+              className="group flex items-center gap-5 p-6 rounded-2xl border border-white/8 bg-surface/40 hover:border-white/20 hover:bg-surface/70 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-bright"
             >
               <span
                 className={`w-11 h-11 shrink-0 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center ${link.accent} group-hover:scale-105 transition-transform`}
@@ -98,8 +104,8 @@ export default function Contact() {
                 {link.icon}
               </span>
               <span className="min-w-0">
-                <span className="label text-slate-600 block mb-1">{link.name}</span>
-                <span className="block text-[15px] font-medium text-slate-200 truncate">
+                <span className="label text-muted/55 block mb-1">{link.name}</span>
+                <span className="block text-[15px] font-medium text-fg/90 truncate">
                   {link.value}
                 </span>
               </span>

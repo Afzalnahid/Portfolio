@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X, FileText } from "lucide-react";
+import { Link } from "wouter";
 
-const CV_URL = "/Noray-Afzal-Nahid-CV.pdf";
+const CV_URL = "/resume";
 
 const links = [
   { name: "About", href: "#about" },
   { name: "Work", href: "#work" },
+  { name: "Experience", href: "#experience" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -46,7 +48,7 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
           isScrolled || isMenuOpen
-            ? "bg-slate-950/85 backdrop-blur-xl border-b border-white/5 py-3"
+            ? "bg-ground/85 backdrop-blur-xl border-b border-white/5 py-3"
             : "bg-transparent py-5"
         }`}
       >
@@ -54,9 +56,9 @@ export default function Navbar() {
           <button
             type="button"
             onClick={goHome}
-            className="text-lg font-extrabold tracking-[0.2em] text-white uppercase rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500"
+            className="text-lg font-extrabold tracking-[0.2em] text-white uppercase rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-bright"
           >
-            Nahid<span className="text-[#58a6ff]">.</span>
+            Nahid<span className="text-[#4ADE9B]">.</span>
           </button>
 
           <div className="hidden md:flex items-center gap-8 lg:gap-10 text-[11px] font-extrabold uppercase tracking-[0.3em]">
@@ -64,19 +66,18 @@ export default function Navbar() {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-white/70 hover:text-white transition-colors duration-300 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500"
+                className="text-white/70 hover:text-white transition-colors duration-300 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-bright"
               >
                 {item.name}
               </a>
             ))}
-            <a
+            <Link
               href={CV_URL}
-              download
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1b72e8] hover:bg-[#1559b3] text-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-400"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand hover:bg-brand-bright text-ground transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-bright"
             >
-              <Download className="w-3 h-3" />
+              <FileText className="w-3 h-3" />
               CV
-            </a>
+            </Link>
           </div>
 
           <button
@@ -85,7 +86,7 @@ export default function Navbar() {
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className="md:hidden w-11 h-11 -mr-2 flex items-center justify-center text-white rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+            className="md:hidden w-11 h-11 -mr-2 flex items-center justify-center text-white rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-bright"
           >
             {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -100,7 +101,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden fixed inset-0 z-40 bg-slate-950/95 backdrop-blur-xl pt-24 px-6"
+            className="md:hidden fixed inset-0 z-40 bg-ground/95 backdrop-blur-xl pt-24 px-6"
           >
             <nav className="flex flex-col">
               {links.map((item, i) => (
@@ -118,15 +119,14 @@ export default function Navbar() {
               ))}
             </nav>
 
-            <a
+            <Link
               href={CV_URL}
-              download
               onClick={() => setIsMenuOpen(false)}
-              className="mt-10 flex items-center justify-center gap-2 w-full text-center bg-[#1b72e8] hover:bg-[#1559b3] text-white font-bold py-4 rounded-full uppercase tracking-widest text-xs transition-colors"
+              className="mt-10 flex items-center justify-center gap-2 w-full text-center bg-brand hover:bg-brand-bright text-ground font-semibold py-4 rounded-full text-sm transition-colors"
             >
-              <Download className="w-4 h-4" />
-              Download CV
-            </a>
+              <FileText className="w-4 h-4" />
+              View CV
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>

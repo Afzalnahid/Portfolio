@@ -8,7 +8,7 @@ const stats = [
     label: "Solo SaaS Platform",
     value: "1",
     icon: <Rocket className="w-5 h-5 text-brand-bright" />,
-    description: "getvoicium, architecture to deployment",
+    description: "TellMore AI, architecture to deployment",
   },
   {
     label: "Production Applications",

@@ -12,7 +12,7 @@ const roles = [
     period: "Aug 2026 — Present",
     place: "Remote",
     points: [
-      "Building getvoicium, a multi-tenant AI chatbot SaaS, solo — from architecture to deployment — with Next.js, Supabase (pgvector), Google Gemini and RAG.",
+      "Building TellMore AI, a multi-tenant AI sales assistant SaaS, solo, from architecture to deployment, with Next.js, PostgreSQL (pgvector), OpenAI and Gemini, self-hosted on a VPS. Meta Tech Provider; live with paying businesses.",
       "Developing full-stack ERP software for Nandi Real Estate and Developers Pvt. Ltd.",
     ],
   },

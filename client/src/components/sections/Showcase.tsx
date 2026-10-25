@@ -32,12 +32,12 @@ export interface Solution {
 
 /** The one piece of work that should be read before anything else. */
 const featured: Solution = {
-  title: "getvoicium",
+  title: "TellMore AI",
   category: "Solo SaaS",
   description:
-    "A multi-tenant AI chatbot platform that answers customers in Bangla across Facebook, Instagram, WhatsApp and a website widget. I built it alone — schema, API, dashboard, widget, billing and deployment.",
-  stack: "Next.js · Supabase (pgvector) · Google Gemini · RAG · Vercel",
-  liveUrl: "https://getvoicium.com",
+    "A multi-tenant AI sales assistant that answers customers in Bangla, Banglish and English across Facebook, Instagram, WhatsApp and a website widget, then hands hard chats to the business's own sales team. I built it alone: schema, API, dashboard, widget, billing, Android apps and deployment. Meta Tech Provider, business verified by Meta, live with paying businesses.",
+  stack: "Next.js · PostgreSQL (pgvector) · OpenAI / Gemini · RAG · self-hosted VPS",
+  liveUrl: "https://www.tellmoreai.com",
   features: [
     "Per-client knowledge base with RAG retrieval",
     "Tenant isolation enforced at the database",
@@ -50,9 +50,9 @@ const featured: Solution = {
     problem:
       "Bangladeshi businesses answer the same questions all day on Messenger and WhatsApp — price, stock, delivery — usually in Bangla, usually after hours. Off-the-shelf bots answer in English, from generic knowledge, and need a developer to install.",
     solution:
-      "A complete multi-tenant SaaS built solo: schema and tenant isolation on Supabase, retrieval over pgvector so each client's own catalogue answers the question, Gemini for the reply, and an embeddable widget alongside the Meta channels. Broadcasts and billing are part of the product, not bolted on.",
+      "A complete multi-tenant SaaS built solo: tenant isolation enforced in PostgreSQL, retrieval over pgvector so each client's own catalogue answers the question, OpenAI or Gemini for the reply (one provider at a time, enforced by the database), voice notes and product photos understood, and an embeddable widget alongside the Meta channels. It runs on its own VPS with an auto-deploy that builds, health-checks and rolls back.",
     result:
-      "Owners get a bot that answers from their real data in their customers' language, and connect it themselves instead of hiring someone to wire it up.",
+      "Owners get an assistant that answers from their real data in their customers' language, and connect it themselves in one click instead of hiring someone to wire it up.",
   },
   icon: <Layers className="w-6 h-6" />,
 };

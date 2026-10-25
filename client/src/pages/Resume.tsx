@@ -10,7 +10,7 @@ const experience = [
     period: "Aug 2026 — Present",
     place: "Remote",
     points: [
-      "Building getvoicium, a multi-tenant AI chatbot SaaS, solo — from architecture to deployment — with Next.js, Supabase (pgvector), Google Gemini and RAG.",
+      "Building TellMore AI, a multi-tenant AI sales assistant SaaS, solo, from architecture to deployment, with Next.js, PostgreSQL (pgvector), OpenAI and Gemini, self-hosted on a VPS. Meta Tech Provider; live with paying businesses.",
       "Developing full-stack ERP software for Nandi Real Estate and Developers Pvt. Ltd. (ongoing).",
     ],
   },
@@ -41,9 +41,9 @@ const experience = [
 
 const projects = [
   {
-    name: "getvoicium",
-    meta: "Solo SaaS · getvoicium.com",
-    stack: "Next.js · Supabase (pgvector) · Google Gemini · RAG",
+    name: "TellMore AI",
+    meta: "Solo SaaS · tellmoreai.com",
+    stack: "Next.js · PostgreSQL (pgvector) · OpenAI / Gemini · RAG · self-hosted VPS",
     text: "Multi-tenant AI chatbot platform answering customers in Bangla across Facebook, Instagram, WhatsApp and a website widget. Per-client knowledge base with RAG retrieval, product catalogue, broadcasts and billing.",
   },
   {
@@ -81,7 +81,7 @@ const contacts = [
   { icon: <Phone className="w-3.5 h-3.5" />, text: "+880 1690-000732", href: "tel:+8801690000732" },
   { icon: <Mail className="w-3.5 h-3.5" />, text: "nahidafzal97@gmail.com", href: "mailto:nahidafzal97@gmail.com" },
   { icon: <MapPin className="w-3.5 h-3.5" />, text: "Comilla, Bangladesh — open to remote", href: null },
-  { icon: <Globe className="w-3.5 h-3.5" />, text: "nahid-afzal-portfolio.vercel.app", href: "https://nahid-afzal-portfolio.vercel.app" },
+  { icon: <Globe className="w-3.5 h-3.5" />, text: "nahid.tellmoreai.com", href: "https://nahid.tellmoreai.com" },
   { icon: <Github className="w-3.5 h-3.5" />, text: "github.com/Afzalnahid", href: "https://github.com/Afzalnahid" },
   { icon: <Linkedin className="w-3.5 h-3.5" />, text: "linkedin.com/in/norayafzalnahid", href: "https://www.linkedin.com/in/norayafzalnahid" },
 ];

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nahid-afzal-portfolio.vercel.app/sitemap.xml
+Sitemap: https://nahid.tellmoreai.com/sitemap.xml

@@ -5,7 +5,7 @@ import { Rocket, Layers, Workflow, MessagesSquare } from "lucide-react";
 // down this page. If a project is added, update this too.
 const stats = [
   {
-    label: "Solo SaaS Platform",
+    label: "Co-Founded SaaS Platform",
     value: "1",
     icon: <Rocket className="w-5 h-5 text-brand-bright" />,
     description: "TellMore AI, architecture to deployment",

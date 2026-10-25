@@ -33,7 +33,7 @@ export interface Solution {
 /** The one piece of work that should be read before anything else. */
 const featured: Solution = {
   title: "TellMore AI",
-  category: "Solo SaaS",
+  category: "Co-founded SaaS",
   description:
     "A multi-tenant AI sales assistant that answers customers in Bangla, Banglish and English across Facebook, Instagram, WhatsApp and a website widget, then hands hard chats to the business's own sales team. I built it alone: schema, API, dashboard, widget, billing, Android apps and deployment. Meta Tech Provider, business verified by Meta, live with paying businesses.",
   stack: "Next.js · PostgreSQL (pgvector) · OpenAI / Gemini · RAG · self-hosted VPS",

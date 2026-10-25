@@ -42,7 +42,7 @@ const experience = [
 const projects = [
   {
     name: "TellMore AI",
-    meta: "Solo SaaS · tellmoreai.com",
+    meta: "Co-Founder & Developer · tellmoreai.com",
     stack: "Next.js · PostgreSQL (pgvector) · OpenAI / Gemini · RAG · self-hosted VPS",
     text: "Multi-tenant AI chatbot platform answering customers in Bangla across Facebook, Instagram, WhatsApp and a website widget. Per-client knowledge base with RAG retrieval, product catalogue, broadcasts and billing.",
   },

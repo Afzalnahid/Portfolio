@@ -14,9 +14,8 @@ no login: a static build.
 - Live: **https://nahid.tellmoreai.com/** (since 2026-10-25). The old
   `nahid-afzal-portfolio.vercel.app` answers 402 Payment Required (checked
   2026-11-08), so it must not be linked anywhere. LinkedIn's contact-info website
-  was switched to the new address on 2026-11-08; the GitHub profile website and
-  this repo's GitHub "homepage" still point at old Vercel addresses until the
-  owner signs in to GitHub in Chrome.
+  was switched to the new address on 2026-11-08, and so were the GitHub profile
+  website and this repo's GitHub "homepage" (checked through the GitHub API).
 - Repo: `https://github.com/Afzalnahid/Portfolio` (branch `main`)
 - Local path: `D:\Projects\Portfolio`
 - Private scratch + original workflow exports: `D:\Projects\Portfolio-private`

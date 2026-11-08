@@ -118,6 +118,16 @@ homepage and 11 on the resume, **zero failures**. Lowest is 5.69:1 against a
 A blueprint was written and approved first: colour B, Autolinium until 10
 September, Python left out, certificates shown.
 
+### 2026-11-08 — "Signal" motion pass (GSAP) and the new hero photo
+- GSAP 3.15 + @gsap/react added; ScrollTrigger and SplitText (all free since 3.13).
+- Hero: headline words rise from a mask, green underline draws under "not demos.",
+  portrait tilts to the mouse (mouse only) and drifts on scroll.
+- Page: reading-progress bar, section headings rise line by line, Stats count up,
+  Experience timeline line fills with scroll and its dots light, Toolkit chips arrive
+  in turn, CTAs are magnetic (mouse only). All off under prefers-reduced-motion.
+- Hero photo replaced with the owner's new office photo, in a square frame.
+- Live on nahid.tellmoreai.com (the previous build is kept on the VPS).
+
 ### The certificates changed the content
 Autolinium's experience certificate (ref AUT/HR/EXP/2026-015) states that he
 joined as an intern and was **confirmed into a full-time position on the

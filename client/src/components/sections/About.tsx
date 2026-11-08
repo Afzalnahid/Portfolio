@@ -8,7 +8,7 @@ export default function About() {
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
           <div className="lg:col-span-7">
             <p className="label text-brand-bright mb-4">About</p>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-fg leading-[1.1] mb-8">
+            <h2 data-split-heading className="font-display text-3xl sm:text-4xl font-bold text-fg leading-[1.1] mb-8">
               A pharmacy degree, then a year of shipping software.
             </h2>
 

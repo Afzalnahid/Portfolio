@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Linkedin, Github, Mail, MessageCircle, FileText, MapPin } from "lucide-react";
 import { Link } from "wouter";
@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import portrait from "@/nahid-hero.webp";
 import backdrop from "@/heroimage.webp";
 import { useBooking } from "@/contexts/BookingContext";
+import { gsap, SplitText, useGSAP, MOTION_OK, FINE_POINTER, EASE_OUT } from "@/lib/motion";
 
 export const CV_URL = "/resume";
 
@@ -34,8 +35,57 @@ export default function Hero() {
     return () => window.clearTimeout(timer);
   }, []);
 
+  // GSAP (the "Signal" pass, 2026-11-08): the headline's words rise out of a
+  // mask and a green line draws under "not demos."; the portrait leans towards
+  // the mouse and drifts a little slower than the page on scroll. All of it is
+  // skipped under prefers-reduced-motion, and the words are never hidden by
+  // anything but GSAP itself.
+  const section = useRef<HTMLElement>(null);
+  const headline = useRef<HTMLHeadingElement>(null);
+  const underline = useRef<HTMLSpanElement>(null);
+  const portraitWrap = useRef<HTMLDivElement>(null);
+  const card = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add(MOTION_OK, () => {
+      const split = SplitText.create(headline.current, { type: "words", mask: "words" });
+      gsap.set(underline.current, { "--u": 0 });
+      gsap.timeline({ delay: 0.1 })
+        .from(split.words, { yPercent: 110, duration: 0.9, ease: EASE_OUT, stagger: 0.07 })
+        .to(underline.current, { "--u": 1, duration: 0.7, ease: "power2.inOut" }, "-=0.35");
+
+      gsap.to(portraitWrap.current, {
+        yPercent: 7,
+        ease: "none",
+        scrollTrigger: { trigger: section.current, start: "top top", end: "bottom top", scrub: true },
+      });
+      return () => split.revert();
+    });
+
+    mm.add(FINE_POINTER, () => {
+      const el = section.current;
+      if (!el || !card.current) return;
+      const rotY = gsap.quickTo(card.current, "rotationY", { duration: 0.7, ease: EASE_OUT });
+      const rotX = gsap.quickTo(card.current, "rotationX", { duration: 0.7, ease: EASE_OUT });
+      const move = (e: PointerEvent) => {
+        const r = el.getBoundingClientRect();
+        rotY(((e.clientX - r.left) / r.width - 0.5) * 10);
+        rotX(-((e.clientY - r.top) / r.height - 0.5) * 7);
+      };
+      const leave = () => { rotY(0); rotX(0); };
+      el.addEventListener("pointermove", move);
+      el.addEventListener("pointerleave", leave);
+      return () => {
+        el.removeEventListener("pointermove", move);
+        el.removeEventListener("pointerleave", leave);
+      };
+    });
+  }, { scope: section });
+
   return (
-    <section className="relative flex flex-col justify-center overflow-hidden bg-ground pt-28 pb-16 sm:pt-32 sm:pb-24">
+    <section ref={section} className="relative flex flex-col justify-center overflow-hidden bg-ground pt-28 pb-16 sm:pt-32 sm:pb-24">
       {/* The room. Almost black until the light is switched on. */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center grayscale"
@@ -67,16 +117,14 @@ export default function Hero() {
               Full-Stack Developer &middot; AI Automation (n8n)
             </motion.p>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
+            <h1
+              ref={headline}
               className="font-display text-[2.6rem] leading-[1.03] sm:text-6xl lg:text-[4.2rem] font-extrabold text-white"
             >
               I ship real products,
               <br />
-              <span className="text-[#4ADE9B]">not demos.</span>
-            </motion.h1>
+              <span ref={underline} className="signal-underline text-[#4ADE9B]">not demos.</span>
+            </h1>
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
@@ -95,6 +143,7 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="flex flex-col sm:flex-row gap-3.5 pt-1"
             >
+              <span data-magnetic className="flex flex-col">
               <Button
                 asChild
                 className="h-14 px-8 rounded-xl bg-brand hover:bg-brand-bright text-ground text-[15px] font-semibold shadow-lg shadow-brand/20 active:scale-[0.98] transition"
@@ -104,6 +153,8 @@ export default function Hero() {
                   View CV
                 </Link>
               </Button>
+              </span>
+              <span data-magnetic className="flex flex-col">
               <Button
                 variant="outline"
                 onClick={() => openBooking()}
@@ -111,6 +162,7 @@ export default function Hero() {
               >
                 Book a call
               </Button>
+              </span>
             </motion.div>
 
             <motion.div
@@ -148,7 +200,7 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.15 }}
             className="lg:col-span-5 order-first lg:order-last"
           >
-            <div className="relative mx-auto w-full max-w-[300px] sm:max-w-[360px] lg:max-w-none">
+            <div ref={portraitWrap} className="relative mx-auto w-full max-w-[300px] sm:max-w-[360px] lg:max-w-none" style={{ perspective: "1000px" }}>
               <motion.div
                 className="absolute -inset-8 bg-brand/12 blur-[70px] rounded-full pointer-events-none"
                 initial={false}
@@ -156,14 +208,14 @@ export default function Hero() {
                 transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
               />
 
-              <div className="relative rounded-[1.75rem] overflow-hidden border border-white/12 bg-ground shadow-2xl shadow-black/60">
+              <div ref={card} className="relative rounded-[1.75rem] overflow-hidden border border-white/12 bg-ground shadow-2xl shadow-black/60 will-change-transform">
                 <motion.img
                   src={portrait}
                   alt="Noray Afzal Nahid"
-                  width={900}
-                  height={1125}
+                  width={400}
+                  height={400}
                   fetchPriority="high"
-                  className="w-full h-full object-cover aspect-[4/5]"
+                  className="w-full h-full object-cover aspect-square"
                   initial={false}
                   animate={{
                     filter: lit

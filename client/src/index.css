@@ -303,3 +303,24 @@
     content: "";
   }
 }
+
+/* "Signal" underline under the hero's "not demos." (Hero.tsx). GSAP draws it by
+   tweening --u from 0 to 1; without GSAP, or under reduced motion, --u stays 1
+   and the line is simply there. */
+.signal-underline {
+  position: relative;
+  display: inline-block;
+}
+.signal-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0.12em;
+  bottom: -0.02em;
+  height: 0.07em;
+  border-radius: 999px;
+  background: #4ADE9B;
+  box-shadow: 0 0 14px rgba(74, 222, 155, 0.45);
+  transform: scaleX(var(--u, 1));
+  transform-origin: left center;
+}

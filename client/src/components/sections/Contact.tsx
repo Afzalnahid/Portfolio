@@ -52,7 +52,7 @@ export default function Contact() {
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="max-w-2xl mb-10">
           <p className="label text-brand-bright mb-4">Get in touch</p>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white leading-[1.08] mb-5">
+          <h2 data-split-heading className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white leading-[1.08] mb-5">
             Looking for a full-time or contract remote role.
           </h2>
           <p className="text-body font-normal text-base sm:text-lg leading-relaxed">
@@ -64,6 +64,7 @@ export default function Contact() {
         <div className="flex flex-col sm:flex-row gap-3.5 mb-6">
           <Link
             href={CV_URL}
+            data-magnetic
             className="inline-flex items-center justify-center gap-2.5 px-8 h-14 rounded-xl bg-brand hover:bg-brand-bright text-ground text-[15px] font-semibold transition-colors shadow-lg shadow-brand/20 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-bright"
           >
             <FileText className="w-4 h-4" />
@@ -71,6 +72,7 @@ export default function Contact() {
           </Link>
           <button
             onClick={() => openBooking()}
+            data-magnetic
             className="inline-flex items-center justify-center gap-2.5 px-8 h-14 rounded-xl bg-white/5 border border-white/15 hover:bg-white/10 text-white text-[15px] font-semibold transition-colors active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-bright"
           >
             <CalendarDays className="w-4 h-4" />

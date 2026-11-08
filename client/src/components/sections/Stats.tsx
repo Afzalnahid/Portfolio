@@ -51,7 +51,7 @@ export default function Stats() {
                 {stat.icon}
               </div>
               <div className="text-3xl md:text-4xl font-extrabold text-white mb-1 tracking-tighter tabular-nums">
-                {stat.value}
+                <span data-count={stat.value}>{stat.value}</span>
               </div>
               <div className="label text-brand-bright mb-2">
                 {stat.label}

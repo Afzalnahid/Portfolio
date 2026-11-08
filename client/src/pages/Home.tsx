@@ -6,6 +6,7 @@ import Showcase from "@/components/sections/Showcase";
 import Credentials from "@/components/sections/Credentials";
 import Toolkit from "@/components/sections/Toolkit";
 import Contact from "@/components/sections/Contact";
+import PageMotion from "@/components/motion/PageMotion";
 
 export default function Home() {
   return (
@@ -28,6 +29,8 @@ export default function Home() {
         <Toolkit />
         <Contact />
       </main>
+
+      <PageMotion />
 
       <footer className="bg-ground border-t border-white/5 py-12 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">

@@ -84,7 +84,7 @@ export default function Credentials() {
       <div className="max-w-6xl mx-auto">
         <div className="mb-14 sm:mb-16 max-w-2xl">
           <p className="label text-brand-bright mb-4">Experience &amp; credentials</p>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-fg leading-[1.08] mb-5">
+          <h2 data-split-heading className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-fg leading-[1.08] mb-5">
             Intern in April. Full-time by July.
           </h2>
           <p className="text-body font-normal text-base sm:text-lg leading-relaxed">
@@ -96,7 +96,13 @@ export default function Credentials() {
 
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-14">
           <div className="lg:col-span-7">
-            <ol className="relative">
+            <ol data-signal className="relative">
+              <span
+                data-signal-line
+                aria-hidden="true"
+                className="absolute left-0 top-1 w-px bg-brand-bright origin-top pointer-events-none"
+                style={{ boxShadow: "0 0 8px rgba(74,222,155,0.6)" }}
+              />
               {roles.map((role, idx) => (
                 <motion.li
                   key={role.title + role.period}
@@ -107,6 +113,7 @@ export default function Credentials() {
                   className="relative pl-8 pb-10 last:pb-0 border-l border-white/10 last:border-l-transparent"
                 >
                   <span
+                    data-signal-dot
                     className={`absolute -left-[7px] top-1 w-3.5 h-3.5 rounded-full border-2 border-ground-2 ${
                       role.promoted ? "bg-brand-bright" : "bg-brand/50"
                     }`}

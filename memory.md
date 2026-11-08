@@ -29,7 +29,7 @@ no login: a static build.
 | Build tool | Vite 7 (`root: "client"`) |
 | Styling | Tailwind CSS 4, OKLCH tokens in `client/src/index.css` |
 | UI primitives | Radix UI / shadcn-style in `client/src/components/ui/` |
-| Animation | Framer Motion |
+| Animation | Framer Motion (entrances) + **GSAP 3.15** (ScrollTrigger, SplitText, @gsap/react) for the "Signal" pass, 2026-11-08 |
 | Routing | wouter (`/` and a 404 fallback) |
 | Hero | portrait panel with a lights-on reveal |
 | Palette | **Theme B** — deep pine `#07100E` / signal green `#0E9F6E` `#4ADE9B` |
@@ -102,6 +102,32 @@ client/
   2026-09-06). A copy is served at `client/public/Noray-Afzal-Nahid-CV.pdf`.
 - The site is aimed at **recruiters**: the primary call to action everywhere is
   Download CV, and the owner is open to remote work worldwide.
+
+## 4b. Motion ("Signal", 2026-11-08, owner chose the full plan)
+
+All GSAP lives in `client/src/lib/motion.ts` (registers the plugins; import gsap
+from there) and `components/motion/PageMotion.tsx` (page-wide, driven by data
+attributes, so sections stay plain markup): `data-split-heading` (h2 lines rise
+from a mask), `data-draw`, `data-count` (Stats figures count up to their own
+text), `data-signal` + `data-signal-line` / `data-signal-dot` (Experience
+timeline line fills with scroll, dots light), `data-chips` (Toolkit, started by
+the card), `data-magnetic` (CTAs lean to the mouse; never on an element with a
+CSS transform transition, wrap it). Plus a 2px green reading-progress bar.
+Hero.tsx has its own: headline words rise from a mask, a green underline draws
+under "not demos." (CSS var `--u` on `.signal-underline`, 1 without JS), the
+portrait card tilts to the mouse and drifts on scroll. Everything is gated by
+gsap.matchMedia: reduced motion = no motion, tilt/magnet = `pointer: fine` only.
+No Three.js on purpose (lessons L23, L25: the owner rejected abstract 3D; a 3D
+library would cost ~155 kB). Bundle: 157 -> 209 kB gzip.
+
+**Hero photo (owner, 2026-11-08):** the new office photo the owner sent,
+400x400, shown in a SQUARE frame (`aspect-square`; the old 4:5 frame cropped
+and blew it up). A larger original (1000px+) would look sharper on big screens.
+
+Dev preview from the autologic session: launch config "portfolio" in
+autologic-chatbot/.claude/launch.json (vite with the absolute client root).
+Deploy: vite build, tar client/dist, untar into /srv/portfolio on the VPS (the
+build before this pass is kept as /srv/portfolio.bak-20261108-1210).
 
 ## 5. Commands
 

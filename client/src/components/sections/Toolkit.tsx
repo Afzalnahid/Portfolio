@@ -54,10 +54,10 @@ export default function Toolkit() {
           <span className="text-brand-bright font-bold tracking-widest uppercase text-xs sm:text-sm mb-4 block">
             The Stack
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white">
+          <h2 data-split-heading className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white">
             What I Build With
           </h2>
-          <div className="w-20 h-1.5 bg-brand rounded-full mx-auto mt-6" />
+          <div data-draw className="w-20 h-1.5 bg-brand rounded-full mx-auto mt-6" />
           <p className="text-body max-w-2xl mx-auto mt-6 font-normal text-base sm:text-lg">
             Not a list of things I have read about. Everything here is running
             in one of the products or automations above.
@@ -87,7 +87,7 @@ export default function Toolkit() {
                 {group.blurb}
               </p>
 
-              <ul className="flex flex-wrap gap-2.5 mt-auto">
+              <ul data-chips className="flex flex-wrap gap-2.5 mt-auto">
                 {group.items.map((item) => (
                   <li
                     key={item}

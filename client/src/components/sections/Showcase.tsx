@@ -273,7 +273,7 @@ export default function Showcase() {
       <div className="max-w-6xl mx-auto">
         <div className="mb-14 sm:mb-16 max-w-2xl">
           <p className="label text-brand-bright mb-4">Selected work</p>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white leading-[1.08] mb-5">
+          <h2 data-split-heading className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-bold text-white leading-[1.08] mb-5">
             One product I built alone, and the systems around it.
           </h2>
           <p className="text-body font-normal text-base sm:text-lg leading-relaxed">

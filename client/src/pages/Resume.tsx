@@ -5,7 +5,7 @@ import { ArrowLeft, Printer, Mail, Phone, Globe, Github, Linkedin, MapPin } from
 // the same dates from the Autolinium certificates — keep the two in step.
 const experience = [
   {
-    title: "Full-Stack Developer",
+    title: "AI Automation & Product Engineer",
     org: "Self-employed",
     period: "Aug 2026 — Present",
     place: "Remote",
@@ -123,7 +123,7 @@ export default function Resume() {
             Noray Afzal Nahid
           </h1>
           <p className="text-lg text-brand-bright font-medium mb-6">
-            Full-Stack Developer &middot; AI Automation Specialist
+            AI Automation &amp; Product Engineer
           </p>
           <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
             {contacts.map((c) => (
@@ -143,7 +143,7 @@ export default function Resume() {
 
         <Section title="Summary">
           <p className="text-[15px] text-body leading-relaxed font-normal">
-            Full-stack developer and AI automation engineer who ships real
+            AI automation and product engineer who ships real
             products. In under a year I have built a SaaS platform solo and
             contributed to four production applications — spanning web
             development (Next.js, Node.js), backend and database work (Supabase,

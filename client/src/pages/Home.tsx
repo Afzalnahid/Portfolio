@@ -37,7 +37,7 @@ export default function Home() {
           <div className="text-sm font-bold tracking-widest text-subtle">
             &copy; {new Date().getFullYear()}{" "}
             <span className="text-white">Noray Afzal Nahid</span> &bull;
-            Full-Stack Developer
+            AI Automation &amp; Product Engineer
           </div>
           <div className="flex gap-8 text-[11px] font-bold text-subtle uppercase tracking-widest">
             <a

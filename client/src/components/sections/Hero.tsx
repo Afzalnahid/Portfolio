@@ -114,7 +114,7 @@ export default function Hero() {
               transition={{ duration: 0.5 }}
               className="label text-[#4ADE9B]"
             >
-              Full-Stack Developer &middot; AI Automation (n8n)
+              AI Automation &amp; Product Engineer &middot; n8n, LLMs, Next.js
             </motion.p>
 
             <h1

@@ -8,7 +8,7 @@ import { X, BadgeCheck, ArrowUp, ExternalLink } from "lucide-react";
 const roles = [
   {
     org: "Self-employed",
-    title: "Full-Stack Developer",
+    title: "AI Automation & Product Engineer",
     period: "Aug 2026 — Present",
     place: "Remote",
     points: [

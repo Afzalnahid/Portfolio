@@ -129,6 +129,16 @@ autologic-chatbot/.claude/launch.json (vite with the absolute client root).
 Deploy: vite build, tar client/dist, untar into /srv/portfolio on the VPS (the
 build before this pass is kept as /srv/portfolio.bak-20261108-1210).
 
+**Back to Vercel (owner, 2026-11-08: "it needs to run on Vercel, not the VPS").** The Vercel team
+nahidafzal97-8778s-projects (Hobby) is PAUSED since 2026-10-19 for Fluid Active CPU (the TellMore app, not
+the portfolio, used it up); Vercel says the pause ends 2026-11-18. Owner chose to wait (no Pro). Done today:
+the dead "tellmoreai" Vercel project (TellMore runs on the VPS) is PAUSED and its builds are skipped
+(Ignored Build Step = exit 0) so it cannot pause the team again. The Vercel project "portfolio" (repo
+Afzalnahid/Portfolio, vercel.json builds client/dist) still exists. ON/AFTER 2026-11-18: check the team is
+unpaused, redeploy portfolio from main, add nahid.tellmoreai.com to that project, change the Hostinger DNS
+record nahid (A 187.127.99.170 now) to what Vercel asks for, check https + /resume + CV, then remove the
+Caddy block and /srv/portfolio. Until then the site stays on the VPS.
+
 ## 5. Commands
 
 ```bash

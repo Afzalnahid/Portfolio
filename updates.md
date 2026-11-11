@@ -5,6 +5,39 @@
 
 ---
 
+## 2026-11-11 — Work samples: real screens, the Android app, videos
+
+Owner: "my works are not shown, no work sample is here; show them more
+attractively and professionally." Selected work now shows the work itself:
+
+- **TellMore AI**: the real dashboard in tabs (Home, Inbox, Orders, Catalog,
+  Website) inside a browser frame, plus the phone inbox. Taken from the app's
+  own local screenshot studio (`/shots` in autologic-chatbot, sample shop
+  "Nokshi Threads"), so no customer's data is shown. Click = full size
+  (Lightbox, Escape closes, focus returns).
+- **New: TellMore AI for Android** block, three phone frames (launch, home, inbox).
+- **New: Video, made in code** block: the product film (2.5 min) and the
+  whiteboard explainer (1 min), played only when pressed, with sound
+  (`preload` none until then). 540x960 H.264, 4.5 MB and 0.75 MB.
+- **ezpzbd** card: a screenshot of the public site. **Champion** and
+  **Nandi ERP**: a designed "Client system · demo on a call" cover, never a
+  fake screen (L21, L22).
+- **Five automations**: each row shows its real steps as chips, read from the
+  original n8n graphs (L20). Note: the Facebook graph DOES hold an
+  "AI Image Generator" HTTP node; the chips leave it out like the copy does.
+- New `components/work/Frames.tsx` (BrowserFrame, PhoneFrame, Zoomable,
+  ScreenTabs, Lightbox, PhoneVideo, PrivateCover, FlowChips).
+- Assets in `client/public/work/` (WebP 800/1600 wide, 3 to 81 kB each);
+  the PNG originals are in `D:\Projects\Portfolio-private\shots\`.
+
+Checked: tsc clean, vite build ok (main JS 212 kB gzip, was 209), dev server:
+8/8 images load, tabs switch, lightbox opens and closes on Escape, the video
+plays (61 s, no error), 375px wide = no side scroll. Headless Chrome full-page
+captures show some images blank (it shoots before lazy images decode); a real
+browser loads them all.
+
+---
+
 ## 2026-09-07 (session 15) — The real portrait
 
 The owner supplied his own photograph and it replaces the placeholder.

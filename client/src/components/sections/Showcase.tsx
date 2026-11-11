@@ -14,9 +14,33 @@ import {
   ArrowUpRight,
   Check,
 } from "lucide-react";
-import { lazy, Suspense, useState, type ReactNode } from "react";
+import { lazy, Suspense, useCallback, useState, type ReactNode } from "react";
+import { Smartphone, Film } from "lucide-react";
+import {
+  BrowserFrame,
+  FlowChips,
+  Lightbox,
+  PhoneFrame,
+  PhoneVideo,
+  PrivateCover,
+  ScreenTabs,
+  Zoomable,
+  type Shot,
+} from "../work/Frames";
 
 const CaseStudyModal = lazy(() => import("../CaseStudyModal"));
+
+// Real screens (client/public/work, made 2026-11-11). TellMore AI's are the
+// real dashboard on its sample shop "Nokshi Threads", never a customer's data.
+const W = (n: string) => ({ src: `/work/${n}-800.webp`, src2x: `/work/${n}-1600.webp` });
+const TM_SCREENS: Shot[] = [
+  { ...W("tm-overview-dark"), label: "Home", alt: "TellMore AI dashboard home: today's conversations, share handled by AI, orders, package usage and the chats that need a person" },
+  { ...W("tm-inbox-dark"), label: "Inbox", alt: "TellMore AI inbox: one list for Messenger, Instagram, WhatsApp and the website, with the AI's replies, a product card and the customer's history" },
+  { ...W("tm-orders-dark"), label: "Orders", alt: "TellMore AI orders: orders the AI took in chat, with status, delivery and courier" },
+  { ...W("tm-inventory-dark"), label: "Catalog", alt: "TellMore AI catalog: the products the AI answers price and stock questions from" },
+  { ...W("tm-landing"), label: "Website", alt: "tellmoreai.com, the public website" },
+];
+const P = (n: string, alt: string): Shot => ({ src: `/work/${n}.webp`, alt });
 
 export interface Solution {
   title: string;
@@ -28,6 +52,10 @@ export interface Solution {
   icon: ReactNode;
   liveUrl?: string;
   privateNote?: string;
+  /** A real screenshot for the card (public products only). */
+  cover?: Shot;
+  /** The real steps of an automation, read from its n8n graph. */
+  flow?: string[];
 }
 
 /** The one piece of work that should be read before anything else. */
@@ -65,6 +93,7 @@ const applications: Solution[] = [
       "An AI tutoring platform for HSC students with several subject tutors and voice explanations in Bangla and English. I trained the tutors on the learning content and board-exam question data.",
     stack: "AI tutors · Voice explanation · Board-exam data",
     liveUrl: "https://ezpzbd.com",
+    cover: { ...W("ezpzbd-home"), alt: "ezpzbd.com, the EzPz Academy website" },
     features: [
       "Multiple subject-specific AI tutors",
       "Voice explanations in Bangla and English",
@@ -136,6 +165,7 @@ const automations: Solution[] = [
     description:
       "A Messenger sales agent that answers from live inventory rather than model memory, routes text, image and voice input, and writes confirmed orders to Google Sheets.",
     stack: "n8n · Gemini · OpenAI · Supabase vector store · PostgreSQL",
+    flow: ["Messenger webhook", "Text / image / voice", "Gemini + OpenAI agent", "Supabase vectors", "Postgres memory", "Order to Sheets", "Reply"],
     features: [
       "Supabase vector retrieval for price and stock",
       "PostgreSQL conversation memory",
@@ -158,6 +188,7 @@ const automations: Solution[] = [
     description:
       "Handles enquiries, keeps context across the conversation, and books the meeting into Google Calendar itself.",
     stack: "n8n · Gemini · Google Calendar · Google Sheets · Telegram",
+    flow: ["Webhook", "Text / image / voice", "Gemini agent + memory", "Google Calendar", "Sheets", "Telegram alert"],
     features: [
       "Conversational memory buffer",
       "Google Calendar booking as an agent tool",
@@ -179,6 +210,7 @@ const automations: Solution[] = [
     description:
       "Files land in Google Drive, get chunked and embedded into a vector store, and answers come back grounded in the source.",
     stack: "n8n · Google Drive · OpenAI embeddings · Supabase · PostgreSQL",
+    flow: ["Google Drive", "Extract text", "Split + embed", "Supabase vectors", "AI agent", "Answer"],
     features: [
       "Google Drive document ingestion",
       "Text splitting and embedding pipeline",
@@ -200,6 +232,7 @@ const automations: Solution[] = [
     description:
       "A scheduled pipeline that writes the post with Gemini, publishes through the Graph API, logs it and reports status to Telegram.",
     stack: "n8n · Gemini · Facebook Graph API · Google Sheets · Telegram",
+    flow: ["Schedule", "Sheets input", "Gemini writes", "Graph API post", "Sheets log", "Telegram"],
     features: [
       "Schedule-triggered, no manual step",
       "Gemini writes the copy",
@@ -221,6 +254,7 @@ const automations: Solution[] = [
     description:
       "Reads product rows from a spreadsheet, writes the ad copy with an LLM, and drives a video-generation API through to a finished ad.",
     stack: "n8n · OpenRouter · OpenAI · Video generation API · Google Sheets",
+    flow: ["Schedule", "Sheets rows", "Image analysis", "LLM writes prompts", "Video API", "Wait + poll", "Sheets update"],
     features: [
       "Spreadsheet-driven input",
       "LLM-written ad copy",
@@ -267,6 +301,8 @@ function LinkBadge({ solution }: { solution: Solution }) {
 
 export default function Showcase() {
   const [selected, setSelected] = useState<Solution | null>(null);
+  const [zoom, setZoom] = useState<Shot | null>(null);
+  const closeZoom = useCallback(() => setZoom(null), []);
 
   return (
     <section id="work" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-ground">
@@ -277,8 +313,9 @@ export default function Showcase() {
             One product I built alone, and the systems around it.
           </h2>
           <p className="text-body font-normal text-base sm:text-lg leading-relaxed">
-            Four applications and five production automations. Open any of them
-            for the problem, the build and what came out of it.
+            Real screens from the products, the Android app, videos made in
+            code and five production automations. Open any of them for the
+            problem, the build and what came out of it.
           </p>
         </div>
 
@@ -311,6 +348,15 @@ export default function Showcase() {
                 {featured.description}
               </p>
 
+              <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-3 mb-7 max-w-xl" aria-label="What it does">
+                {featured.features.map((feature) => (
+                  <li key={feature} className="flex gap-2.5 text-sm text-fg font-normal leading-snug">
+                    <Check className="w-4 h-4 text-brand-bright shrink-0 mt-0.5" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+
               <p className="font-mono text-[11.5px] text-subtle mb-8 leading-relaxed">
                 {featured.stack}
               </p>
@@ -324,19 +370,94 @@ export default function Showcase() {
               </button>
             </div>
 
-            {/* Facts panel. Replaced by a real screenshot once one is available. */}
+            {/* The app as it looks on a phone. */}
+            <div className="hidden lg:flex lg:col-span-5 items-center justify-center">
+              <PhoneFrame className="w-[240px] rotate-[3deg]">
+                <Zoomable shot={P("tm-phone-inbox", "TellMore AI inbox on a phone")} onOpen={setZoom} ratio="1 / 2" sizes="240px" />
+              </PhoneFrame>
+            </div>
+          </div>
+
+          {/* The real product, screen by screen. */}
+          <div className="relative px-4 sm:px-10 pb-7 sm:pb-10">
+            <ScreenTabs shots={TM_SCREENS} url="tellmoreai.com/dashboard" onOpen={setZoom} />
+            <p className="mt-3 text-xs text-subtle">
+              Real screens of the live product, shown on its built-in sample shop. Click a screen to see it full size.
+            </p>
+          </div>
+        </motion.article>
+
+        {/* ---------- The Android app ---------- */}
+        <motion.article
+          initial={{ opacity: 0, y: 26 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6 }}
+          className="relative rounded-3xl border border-white/10 bg-surface/40 overflow-hidden mb-6"
+        >
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 p-7 sm:p-10 items-center">
             <div className="lg:col-span-5">
-              <div className="h-full rounded-2xl border border-white/10 bg-ground/50 p-6">
-                <p className="label text-subtle mb-5">What it does</p>
-                <ul className="space-y-3.5">
-                  {featured.features.map((feature) => (
-                    <li key={feature} className="flex gap-3 text-sm text-fg font-normal leading-snug">
-                      <Check className="w-4 h-4 text-brand-bright shrink-0 mt-0.5" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+              <div className="flex items-center gap-3 mb-5">
+                <span className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-bright">
+                  <Smartphone className="w-6 h-6" />
+                </span>
+                <span className="label text-subtle">Android app</span>
               </div>
+              <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mb-4">TellMore AI for Android</h3>
+              <p className="text-fg font-normal leading-relaxed mb-5">
+                The same product as a native Android app, so a shop owner answers customers from the phone:
+                push notifications, voice notes, the phone's gallery and camera inside the chat, light and
+                dark with the phone, and a branded launch screen. Built on Capacitor 8 for Android 16
+                (API 36), signed release builds from GitHub Actions, being prepared for Google Play.
+              </p>
+              <p className="font-mono text-[11.5px] text-subtle leading-relaxed">
+                Capacitor 8 · Java · Firebase push · GitHub Actions CI · Play App Signing
+              </p>
+            </div>
+            <div className="lg:col-span-7 grid grid-cols-3 gap-3 sm:gap-5 items-end">
+              {[
+                P("tm-launch", "TellMore AI Android app: launch screen"),
+                P("tm-phone-overview", "TellMore AI Android app: today's numbers"),
+                P("tm-phone-inbox", "TellMore AI Android app: the inbox"),
+              ].map((s, n) => (
+                <PhoneFrame key={s.src} className={n === 1 ? "sm:-translate-y-6" : ""}>
+                  <Zoomable shot={s} onOpen={setZoom} ratio="1 / 2" sizes="(min-width: 1024px) 220px, 33vw" />
+                </PhoneFrame>
+              ))}
+            </div>
+          </div>
+        </motion.article>
+
+        {/* ---------- Videos made in code ---------- */}
+        <motion.article
+          initial={{ opacity: 0, y: 26 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6 }}
+          className="relative rounded-3xl border border-white/10 bg-surface/40 overflow-hidden mb-6"
+        >
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 p-7 sm:p-10 items-center">
+            <div className="lg:col-span-6 lg:order-2">
+              <div className="flex items-center gap-3 mb-5">
+                <span className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-bright">
+                  <Film className="w-6 h-6" />
+                </span>
+                <span className="label text-subtle">Video, made in code</span>
+              </div>
+              <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mb-4">Marketing videos, written as React</h3>
+              <p className="text-fg font-normal leading-relaxed mb-5">
+                TellMore AI's product film and its whiteboard explainer series are not edited by hand. Every
+                scene is a React component, timed to an AI voice-over, and rendered by a script, so a new
+                episode or a new language is a data change, not an editing session. Both are in Bangla, made
+                for Facebook and Instagram Reels.
+              </p>
+              <p className="font-mono text-[11.5px] text-subtle leading-relaxed">
+                React · Remotion · AI text-to-speech · FFmpeg · Node scripts
+              </p>
+            </div>
+            <div className="lg:col-span-6 lg:order-1 grid grid-cols-2 gap-4 sm:gap-6 max-w-md mx-auto w-full">
+              <PhoneVideo src="/work/tm-film.mp4" poster="/work/tm-film-poster.webp" title="Product film, 2½ min" />
+              <PhoneVideo src="/work/tm-whiteboard.mp4" poster="/work/tm-whiteboard-poster.webp" title="Whiteboard explainer, 1 min" />
             </div>
           </div>
         </motion.article>
@@ -351,8 +472,17 @@ export default function Showcase() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: idx * 0.08 }}
               onClick={() => setSelected(app)}
-              className="group rounded-2xl border border-white/8 bg-surface/40 p-7 flex flex-col cursor-pointer hover:border-white/20 hover:bg-surface/70 transition-colors"
+              className="group rounded-2xl border border-white/8 bg-surface/40 p-5 sm:p-6 flex flex-col cursor-pointer hover:border-white/20 hover:bg-surface/70 transition-colors"
             >
+              <div className="mb-6 -mx-1 sm:mx-0">
+                {app.cover ? (
+                  <BrowserFrame url={app.liveUrl?.replace(/^https?:\/\//, "") || ""} className="pointer-events-none">
+                    <img src={app.cover.src} srcSet={`${app.cover.src} 800w, ${app.cover.src2x} 1600w`} sizes="(min-width: 768px) 360px, 100vw" alt={app.cover.alt} loading="lazy" decoding="async" className="block w-full object-cover object-top" style={{ aspectRatio: "16 / 10" }} />
+                  </BrowserFrame>
+                ) : (
+                  <PrivateCover icon={app.icon} line="Client system · demo on a call" />
+                )}
+              </div>
               <div className="flex items-center justify-between mb-5">
                 <span className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-fg">
                   {app.icon}
@@ -415,9 +545,12 @@ export default function Showcase() {
                 </div>
               </div>
 
-              <p className="sm:col-span-6 text-sm text-body font-normal leading-relaxed">
-                {flow.description}
-              </p>
+              <span className="sm:col-span-6 block">
+                <span className="block text-sm text-body font-normal leading-relaxed">
+                  {flow.description}
+                </span>
+                {flow.flow && <span className="block mt-3.5"><FlowChips steps={flow.flow} /></span>}
+              </span>
 
               <span className="sm:col-span-2 inline-flex items-center gap-1.5 text-xs font-semibold text-subtle group-hover:text-brand-bright transition-colors sm:justify-end">
                 Case study <ArrowUpRight className="w-3.5 h-3.5" />
@@ -426,6 +559,8 @@ export default function Showcase() {
           ))}
         </div>
       </div>
+
+      <Lightbox shot={zoom} onClose={closeZoom} />
 
       <Suspense fallback={null}>
         {selected && (

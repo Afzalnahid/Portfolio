@@ -128,6 +128,16 @@ Dev preview from the autologic session: launch config "portfolio" in
 autologic-chatbot/.claude/launch.json (vite with the absolute client root).
 Deploy: vite build, tar client/dist, untar into /srv/portfolio on the VPS (the
 build before this pass is kept as /srv/portfolio.bak-20261108-1210).
+From Git Bash, give tar a RELATIVE path (`tar -czf ../../Portfolio-private/x.tgz`):
+an absolute `C:/...` path is read as a remote host and tar hangs.
+
+**2026-11-11: work samples live** (updates.md): real TellMore screens in tabs,
+Android app block, two videos, ezpzbd screenshot, private covers, n8n step
+chips. Live check: 8/8 images, 5 tabs, 2 videos, mp4/webp served 200. The
+build before it: /srv/portfolio.bak-20261111. Screens are re-made with
+headless Chrome from autologic's local `/shots?tab=shell…&theme=dark`
+(phone shots need --window-size 500 wide: Chrome on Windows will not go
+narrower, a 390 window lays out at 500 and crops the right side).
 
 **Back to Vercel (owner, 2026-11-08: "it needs to run on Vercel, not the VPS").** The Vercel team
 nahidafzal97-8778s-projects (Hobby) is PAUSED since 2026-10-19 for Fluid Active CPU (the TellMore app, not
